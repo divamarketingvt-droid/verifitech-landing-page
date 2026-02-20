@@ -496,6 +496,176 @@
     padding: 0.5rem;
   }
 }
+      
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .cookie-banner {
+        width: calc(100% - 16px);
+        bottom: 8px;
+        border-radius: 10px;
+    }
+    
+    .cookie-header {
+        padding: 14px 16px 10px;
+    }
+    
+    .cookie-brand {
+        gap: 10px;
+    }
+    
+    .cookie-logo {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+    
+    .cookie-brand-text h4 {
+        font-size: 14px;
+    }
+    
+    .cookie-brand-text p {
+        font-size: 10px;
+    }
+    
+    .cookie-close {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .cookie-tabs {
+        padding: 0 12px;
+    }
+    
+    .cookie-tab {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+    
+    .cookie-content {
+        padding: 16px;
+    }
+    
+    /* Cookie categories - single column on mobile */
+    .cookie-categories {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 16px;
+    }
+    
+    .cookie-category {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 14px 16px;
+        text-align: left;
+    }
+    
+    .cookie-category-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        margin-bottom: 0;
+        margin-right: 12px;
+    }
+    
+    .cookie-category h6 {
+        flex: 1;
+        margin: 0;
+        font-size: 13px;
+    }
+    
+    /* Toggle with enhanced drop shadow for mobile */
+    .cookie-toggle {
+        width: 44px;
+        height: 24px;
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+    }
+    
+    .cookie-actions {
+        padding: 14px 16px;
+    }
+    
+    .cookie-btn {
+        padding: 11px 18px;
+        font-size: 12px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+    .cookie-category {
+        padding: 12px 14px;
+    }
+    
+    .cookie-category-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+    
+    .cookie-category h6 {
+        font-size: 12px;
+    }
+    
+    .cookie-toggle {
+        width: 40px;
+        height: 22px;
+    }
+}
+
+/* ================= TOGGLE DROP SHADOW (ALL SIZES) ================= */
+
+/* Add drop shadow to toggle slider */
+.cookie-toggle-slider {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced toggle knob with drop shadow */
+.cookie-toggle-slider:before {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* Active state with enhanced shadow */
+.cookie-toggle input:checked + .cookie-toggle-slider {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 10px rgba(26, 194, 193, 0.3);
+}
+
+/* Hover effects */
+.cookie-toggle:hover .cookie-toggle-slider {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.cookie-toggle:hover .cookie-toggle-slider:before {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Disabled state */
+.cookie-toggle input:disabled + .cookie-toggle-slider {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    opacity: 0.5;
+}
+
+/* ================= FLOATING TRIGGER RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+    .cookie-trigger {
+        width: 48px;
+        height: 48px;
+        bottom: 16px;
+        right: 16px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cookie-trigger {
+        width: 44px;
+        height: 44px;
+        bottom: 12px;
+        right: 12px;
+        font-size: 18px;
+    }
+}
         /* ================= FLOATING TRIGGER ================= */
         .cookie-trigger {
             position: fixed;
