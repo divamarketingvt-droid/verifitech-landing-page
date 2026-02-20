@@ -2943,14 +2943,18 @@
             new bootstrap.Modal(document.getElementById('demoModal')).show();
         });
         // Go back to previous page
-function goBack() {
-    // Check if there's a previous page in history
-    if (document.referrer && document.referrer !== window.location.href) {
-        window.history.back();
-    } else {
-        // Fallback to home page if no referrer
-        window.location.href = './index.html';
-    }
+// Redirect to home page (or go back if possible)
+function redirectToHome() {
+    // Option 1: Always go to home page
+   // window.location.href = '../index.html';
+    
+    // Option 2: Try to go back, if not possible go to home
+     if (window.history.length > 1) {
+         window.history.back();
+     } else {
+         window.location.href = '../index.html';
+     }
+}
 }
     </script>
 </body>
