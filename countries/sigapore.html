@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
             --primary: #1ac2c1;
@@ -96,6 +95,30 @@
             color: var(--primary);
         }
         
+        /* Mega Menu Fix */
+        .mega-menu {
+            width: 600px;
+            padding: 1.5rem;
+        }
+        
+        .mega-menu .row {
+            margin: 0;
+        }
+        
+        .mega-menu .col-md-6 {
+            padding: 0 1rem;
+        }
+        
+        .dropdown-header {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
         .dropdown-menu {
             border: none;
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
@@ -150,6 +173,7 @@
             box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
         }
         
+        /* Country Selector - Arrow Removed */
         .country-selector {
             display: flex;
             align-items: center;
@@ -1130,6 +1154,10 @@
             .process-step:not(:last-child)::after {
                 display: none;
             }
+            
+            .mega-menu {
+                width: 100%;
+            }
         }
         
         @media (max-width: 767px) {
@@ -1171,7 +1199,7 @@
       <div class="container">
         <a class="navbar-brand" href="#">
           <img
-            src="https://www.verifitech.com/wp-content/uploads/2022/05/verifitech-logo.svg "
+            src="https://www.verifitech.com/wp-content/uploads/2022/05/verifitech-logo.svg"
             alt="Verifitech"
             width="200 px"
             height="60%"
@@ -1504,6 +1532,7 @@
               >Talk to Sales</a
             >
 
+            <!-- Country Selector - Arrow Removed -->
             <div class="dropdown">
               <div
                 class="country-selector dropdown-toggle"
@@ -1512,10 +1541,7 @@
               >
                 <span class="country-flag" id="current-flag">🇮🇳</span>
                 <span id="current-country">India</span>
-                <i
-                  class="bi bi-chevron-down ms-1"
-                  style="font-size: 0.7rem"
-                ></i>
+                <!-- Removed: <i class="bi bi-chevron-down ms-1" style="font-size: 0.7rem"></i> -->
               </div>
               <ul
                 class="dropdown-menu dropdown-menu-end"
@@ -2622,6 +2648,3 @@
     </script>
 </body>
 </html>
-
-
-	
