@@ -1592,41 +1592,6 @@
         .error-message.show {
             display: block;
         }
-        /* Close Button for Form Section */
-.btn-close-form {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background: rgba(15, 23, 42, 0.05);
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    z-index: 10;
-    color: var(--gray);
-    font-size: 18px;
-}
-
-.btn-close-form:hover {
-    background: rgba(15, 23, 42, 0.1);
-    color: var(--dark);
-    transform: rotate(90deg);
-}
-
-@media (max-width: 768px) {
-    .btn-close-form {
-        top: 16px;
-        right: 16px;
-        width: 36px;
-        height: 36px;
-        font-size: 16px;
-    }
-}
         
         /* Warning Message for Low Links */
         .warning-message {
@@ -1692,15 +1657,14 @@
     </style>
 </head>
 <body>
-    
     <!-- Demo Modal - Auto Opens Immediately -->
     <div class="modal fade demo-modal" id="demoModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                   <!-- <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close" id="closeModalBtn">
+                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close" id="closeModalBtn">
                         <i class="bi bi-x-lg"></i>
-                    </button>-->
+                    </button>
                     
                     <div class="demo-container">
                         <!-- Left Side: Gradient Info Panel -->
@@ -1734,10 +1698,7 @@
                         
                         <!-- Right Side: Form Area -->
                         <div class="demo-form-section">
-                            <!-- Close Icon - Add this right after <div class="demo-form-section"> -->
-<button type="button" class="btn-close-form" onclick="goBack()" aria-label="Close">
-    <i class="bi bi-x-lg"></i>
-</button>
+                            
                             <!-- Progress Steps -->
                             <div class="progress-steps" id="progressSteps">
                                 <div class="step active" data-step="1">
@@ -2943,12 +2904,6 @@
         window.addEventListener('load', function() {
             new bootstrap.Modal(document.getElementById('demoModal')).show();
         });
-        // Go back to previous page
-
-        // Redirect to home page
-function redirectToHome() {
-    window.location.href = '../index.html';
-}
     </script>
 </body>
 </html>
