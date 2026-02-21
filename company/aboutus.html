@@ -24,13 +24,18 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-  <link
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
     <style>
       :root {
         --primary: #1ac2c1;
@@ -59,51 +64,48 @@
       html {
         scroll-behavior: smooth;
       }
-        /* Ensure navbar has proper z-index */
-  .navbar {
-    z-index: 1050; /* Higher than most content */
-  }
-  
-  /* Fix dropdown z-index to appear above hero content */
-  .dropdown-menu {
-    z-index: 1060; /* Higher than navbar */
-    position: absolute; /* Ensure proper positioning */
-  }
-  
-  /* Ensure dropdown items are clickable and visible */
-  .dropdown-item {
-    position: relative;
-    z-index: 1061;
-  }
-  
-  /* Fix for hero section overlapping */
-  .industry-hero {
-    position: relative;
-    z-index: 1; /* Lower than navbar */
-  }
-  
-  /* Ensure navbar collapse has proper background when expanded on mobile */
-  .navbar-collapse {
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(12px);
-    border-radius: 12px;
-    padding: 1rem;
-    margin-top: 0.5rem;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-  }
-  
-  @media (min-width: 992px) {
-    .navbar-collapse {
-      background: transparent;
-      backdrop-filter: none;
-      padding: 0;
-      margin-top: 0;
-      box-shadow: none;
-    }
-  }
+      
+      /* Ensure navbar has proper z-index */
+      .navbar {
+        z-index: 1050;
+      }
+      
+      .dropdown-menu {
+        z-index: 1060;
+        position: absolute;
+      }
+      
+      .dropdown-item {
+        position: relative;
+        z-index: 1061;
+      }
+      
+      .industry-hero {
+        position: relative;
+        z-index: 1;
+      }
+      
+      .navbar-collapse {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(12px);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-top: 0.5rem;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      }
+      
+      @media (min-width: 992px) {
+        .navbar-collapse {
+          background: transparent;
+          backdrop-filter: none;
+          padding: 0;
+          margin-top: 0;
+          box-shadow: none;
+        }
+      }
 
-      /* Navigation - Identical to previous pages */
-    .navbar {
+      /* Navigation */
+      .navbar {
         padding: 0;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         background: rgba(255, 255, 255, 0.98);
@@ -163,7 +165,6 @@
         color: var(--primary);
       }
 
-      /* Dropdown Styling with Teal Accents */
       .dropdown-menu {
         border: none;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
@@ -219,7 +220,6 @@
         opacity: 0.1;
       }
 
-      /* CTA Button Style - Talk to Sales */
       .btn-sales {
         background: var(--primary);
         color: white !important;
@@ -239,11 +239,12 @@
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
       }
+      
       .btn-login {
         background-color: #ffffff !important;
-        color: #00bfa5 !important; /* Teal color - adjust to your exact teal shade */
+        color: #00bfa5 !important;
         border: 1px solid #00bfa5 !important;
-        box-shadow: 0 2px 8px rgba(0, 191, 165, 0.3) !important; /* Teal box shadow */
+        box-shadow: 0 2px 8px rgba(0, 191, 165, 0.3) !important;
         padding: 8px 24px;
         border-radius: 6px;
         font-weight: 500;
@@ -259,8 +260,6 @@
         transform: translateY(-1px);
       }
 
-
-      /* Country Selector */
       .country-selector {
         display: flex;
         align-items: center;
@@ -406,7 +405,7 @@
         font-weight: 600;
       }
 
-      /* Section Headers - Same as previous pages */
+      /* Section Headers */
       .section-header {
         margin-bottom: 3rem;
       }
@@ -667,30 +666,36 @@
         transform: translateY(-3px);
       }
 
-      /* Timeline Section */
+      /* 3D Timeline Section - GSAP Enhanced */
       .timeline-section {
         padding: 100px 0;
         background: white;
+        perspective: 1000px;
+        overflow: hidden;
       }
 
-      .timeline {
+      .timeline-container {
         position: relative;
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
+        transform-style: preserve-3d;
       }
 
-      .timeline::before {
-        content: "";
+      .timeline-track {
         position: absolute;
         left: 50%;
-        transform: translateX(-50%);
-        width: 2px;
-        height: 100%;
+        top: 0;
+        bottom: 0;
+        width: 4px;
         background: linear-gradient(
           to bottom,
           var(--primary),
-          var(--primary-light)
+          var(--primary-light),
+          var(--primary)
         );
+        transform: translateX(-50%);
+        border-radius: 2px;
+        box-shadow: 0 0 20px rgba(26, 194, 193, 0.3);
       }
 
       .timeline-item {
@@ -698,7 +703,9 @@
         justify-content: flex-end;
         padding-right: 50%;
         position: relative;
-        margin-bottom: 3rem;
+        margin-bottom: 4rem;
+        transform-style: preserve-3d;
+        opacity: 0;
       }
 
       .timeline-item:nth-child(even) {
@@ -713,33 +720,45 @@
         border-radius: 20px;
         border: 1px solid #e2e8f0;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        max-width: 350px;
+        max-width: 380px;
         position: relative;
         transition: all 0.3s ease;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
       }
 
       .timeline-content:hover {
-        transform: translateY(-5px);
+        transform: translateY(-5px) scale(1.02);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         border-color: var(--primary);
       }
 
       .timeline-dot {
         position: absolute;
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         background: var(--primary);
         border-radius: 50%;
         top: 2rem;
-        right: -60px;
+        right: -62px;
         border: 4px solid white;
-        box-shadow: 0 0 0 3px var(--primary-light);
-        z-index: 2;
+        box-shadow: 0 0 0 4px var(--primary-light), 0 0 20px rgba(26, 194, 193, 0.5);
+        z-index: 10;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          box-shadow: 0 0 0 4px var(--primary-light), 0 0 20px rgba(26, 194, 193, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 0 8px var(--primary-light), 0 0 30px rgba(26, 194, 193, 0.8);
+        }
       }
 
       .timeline-item:nth-child(even) .timeline-dot {
         right: auto;
-        left: -60px;
+        left: -62px;
       }
 
       .timeline-year {
@@ -751,6 +770,7 @@
         font-weight: 700;
         font-size: 0.9rem;
         margin-bottom: 0.75rem;
+        transform: translateZ(20px);
       }
 
       .timeline-content h3 {
@@ -758,6 +778,7 @@
         font-weight: 700;
         margin-bottom: 0.5rem;
         color: var(--dark);
+        transform: translateZ(15px);
       }
 
       .timeline-content p {
@@ -765,6 +786,27 @@
         font-size: 0.95rem;
         margin: 0;
         line-height: 1.6;
+        transform: translateZ(10px);
+      }
+
+      /* 3D Card flip effect classes */
+      .timeline-content-3d {
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .timeline-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--primary-light);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        transform: translateZ(30px);
       }
 
       /* Global Presence */
@@ -866,7 +908,7 @@
         margin: 0;
       }
 
-      /* CTA Section - Same as previous pages */
+      /* CTA Section */
       .cta-section {
         padding: 100px 0;
         background: var(--light-gray);
@@ -905,7 +947,7 @@
         box-shadow: 0 8px 25px rgba(26, 194, 193, 0.45);
       }
 
-      /* Animations - Same as previous pages */
+      /* Animations */
       .reveal {
         opacity: 0;
         transform: translateY(30px);
@@ -931,7 +973,7 @@
           margin-top: 3rem;
         }
 
-        .timeline::before {
+        .timeline-track {
           left: 30px;
         }
 
@@ -979,12 +1021,12 @@
     </style>
   </head>
   <body>
-    <!-- Navigation - Identical to previous pages -->
-     <nav class="navbar navbar-expand-lg fixed-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">
           <img
-            src="https://www.verifitech.com/wp-content/uploads/2022/05/verifitech-logo.svg "
+            src="https://www.verifitech.com/wp-content/uploads/2022/05/verifitech-logo.svg"
             alt="Verifitech"
             width="200 px"
             height="60%"
@@ -1002,8 +1044,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
-            <!-- 1. SOLUTIONS Dropdown -->
-             <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -1091,7 +1132,6 @@
               </div>
             </li>
 
-            <!-- Products Dropdown -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -1118,7 +1158,6 @@
               </ul>
             </li>
 
-            <!-- 2. INDUSTRY Dropdown -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -1183,11 +1222,6 @@
                     ><i class="bi bi-broadcast"></i> Telecom</a
                   >
                 </li>
-                <!--<li>
-                  <a class="dropdown-item" href="#"
-                    ><i class="bi bi-cart"></i> E-commerce and Retail</a
-                  >
-                </li>-->
                 <li>
                   <a class="dropdown-item" href="../industries/LP-FMCG.html"
                     ><i class="bi bi-box-seam"></i> FMCG/FMCD</a
@@ -1196,7 +1230,6 @@
               </ul>
             </li>
 
-            <!-- 3. RESOURCES Dropdown -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -1227,18 +1260,14 @@
                     ><i class="bi bi-camera-video"></i> Webinar</a
                   >
                 </li>
-                
                 <li>
-                
                   <a class="dropdown-item" href="../resources/webinar.html">
-  <i class="bi bi-plug"></i> API
-</a>
-
+                    <i class="bi bi-plug"></i> API
+                  </a>
                 </li>
               </ul>
             </li>
 
-            <!-- 4. COMPANY Dropdown -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -1267,7 +1296,6 @@
               </ul>
             </li>
 
-            <!-- 5. HELP CENTER Dropdown -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -1292,15 +1320,11 @@
                   <a class="dropdown-item" href="../helpcenter/partner.html"
                     ><i class="bi bi-people"></i> For Partners</a
                   >
-                  
+                </li>
                 <li>
                   <a class="dropdown-item" href="../resources/webinar.html"
                     ><i class="bi bi-link-45deg"></i> Affiliate Marketing
-
-                  </a
-                  >
-                  
-                </li>
+                  </a>
                 </li>
               </ul>
             </li>
@@ -1382,16 +1406,6 @@
                     <span class="country-flag">🇸🇬</span> Singapore
                   </a>
                 </li>
-                <!--<li>
-                  <a
-                    class="dropdown-item country-option"
-                    href="./countries/india.html"
-                    data-country="India"
-                    data-flag="🇮🇳"
-                  >
-                    <span class="country-flag">🇮🇳</span> India
-                  </a>-->
-                </li>
               </ul>
             </div>
           </div>
@@ -1434,7 +1448,6 @@
             </div>
           </div>
 
-          <!-- Stats Visual -->
           <div class="col-lg-6 reveal">
             <div class="stats-visual">
               <div class="stats-grid">
@@ -1622,7 +1635,6 @@
         </div>
 
         <div class="row g-4">
-          <!-- CEO -->
           <div class="col-md-6 col-lg-3 reveal">
             <div class="leader-card">
               <div class="leader-image">
@@ -1644,7 +1656,6 @@
             </div>
           </div>
 
-          <!-- CTO -->
           <div class="col-md-6 col-lg-3 reveal">
             <div class="leader-card">
               <div
@@ -1670,7 +1681,6 @@
             </div>
           </div>
 
-          <!-- COO -->
           <div class="col-md-6 col-lg-3 reveal">
             <div class="leader-card">
               <div
@@ -1696,7 +1706,6 @@
             </div>
           </div>
 
-          <!-- CISO -->
           <div class="col-md-6 col-lg-3 reveal">
             <div class="leader-card">
               <div
@@ -1725,10 +1734,10 @@
       </div>
     </section>
 
-    <!-- Timeline Section -->
+    <!-- 3D Timeline Section with GSAP ScrollTrigger -->
     <section class="timeline-section" id="history">
       <div class="container">
-        <div class="section-header text-center reveal">
+        <div class="section-header text-center">
           <div class="section-subtitle justify-content-center">
             <i class="bi bi-clock-history"></i> Our Journey
           </div>
@@ -1738,9 +1747,14 @@
           </p>
         </div>
 
-        <div class="timeline reveal">
-          <div class="timeline-item">
-            <div class="timeline-content">
+        <div class="timeline-container">
+          <div class="timeline-track"></div>
+          
+          <div class="timeline-item" data-year="2010">
+            <div class="timeline-content timeline-content-3d">
+              <div class="timeline-icon">
+                <i class="bi bi-rocket-takeoff"></i>
+              </div>
               <span class="timeline-year">2010</span>
               <h3>The Beginning</h3>
               <p>
@@ -1751,8 +1765,11 @@
             <div class="timeline-dot"></div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-content">
+          <div class="timeline-item" data-year="2013">
+            <div class="timeline-content timeline-content-3d">
+              <div class="timeline-icon">
+                <i class="bi bi-cpu"></i>
+              </div>
               <span class="timeline-year">2013</span>
               <h3>Tech Breakthrough</h3>
               <p>
@@ -1763,8 +1780,11 @@
             <div class="timeline-dot"></div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-content">
+          <div class="timeline-item" data-year="2016">
+            <div class="timeline-content timeline-content-3d">
+              <div class="timeline-icon">
+                <i class="bi bi-globe"></i>
+              </div>
               <span class="timeline-year">2016</span>
               <h3>Global Expansion</h3>
               <p>
@@ -1775,8 +1795,11 @@
             <div class="timeline-dot"></div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-content">
+          <div class="timeline-item" data-year="2019">
+            <div class="timeline-content timeline-content-3d">
+              <div class="timeline-icon">
+                <i class="bi bi-building"></i>
+              </div>
               <span class="timeline-year">2019</span>
               <h3>Enterprise Dominance</h3>
               <p>
@@ -1787,8 +1810,11 @@
             <div class="timeline-dot"></div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-content">
+          <div class="timeline-item" data-year="2023">
+            <div class="timeline-content timeline-content-3d">
+              <div class="timeline-icon">
+                <i class="bi bi-robot"></i>
+              </div>
               <span class="timeline-year">2023</span>
               <h3>AI Revolution</h3>
               <p>
@@ -1800,8 +1826,11 @@
             <div class="timeline-dot"></div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-content">
+          <div class="timeline-item" data-year="2026">
+            <div class="timeline-content timeline-content-3d">
+              <div class="timeline-icon">
+                <i class="bi bi-trophy"></i>
+              </div>
               <span class="timeline-year">2026</span>
               <h3>Industry Leader</h3>
               <p>
@@ -1963,7 +1992,7 @@
       </div>
     </section>
 
-    <!-- CTA Section - Same as previous pages -->
+    <!-- CTA Section -->
     <section class="cta-section">
       <div class="container">
         <div class="cta-box reveal">
@@ -2007,274 +2036,265 @@
       </div>
     </section>
 
-    <!-- Footer - Identical to previous pages -->
-   
     <!-- Footer -->
-   <footer class="footer" style="background: #f0fdfa; color: var(--dark); padding: 80px 0 40px;">
-  <div class="container">
-    <!-- Newsletter Section -->
-    <div class="newsletter-footer-section" style="background: linear-gradient(135deg, rgba(26, 194, 193, 0.1) 0%, rgba(26, 194, 193, 0.05) 100%); border-radius: 20px; padding: 40px; margin-bottom: 50px; border: 1px solid rgba(26, 194, 193, 0.2); position: relative; overflow: hidden;">
-      <div class="row align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-          <div class="d-flex align-items-center gap-3">
-            <div class="newsletter-icon-footer" style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; flex-shrink: 0; box-shadow: 0 8px 20px rgba(26, 194, 193, 0.3);">
-              <i class="bi bi-envelope-open"></i>
-            </div>
-            <div>
-              <h4 class="newsletter-title" style="font-size: 1.5rem; font-weight: 700; color: var(--dark); margin-bottom: 0.25rem;">Stay Updated</h4>
-              <p class="newsletter-subtitle" style="color: var(--gray); font-size: 0.95rem; margin: 0; line-height: 1.5;">Get the latest insights on background verification, compliance updates, and industry trends.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <form class="newsletter-form-footer">
-            <div class="input-group-wrapper" style="display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start;">
-              <div style="flex: 1;">
-                <input type="email" placeholder="Enter your work email" class="newsletter-input" style="width: 100%; padding: 14px 20px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; color: var(--dark); background: white; transition: all 0.3s ease;">
+    <footer class="footer" style="background: #f0fdfa; color: var(--dark); padding: 80px 0 40px;">
+      <div class="container">
+        <div class="newsletter-footer-section" style="background: linear-gradient(135deg, rgba(26, 194, 193, 0.1) 0%, rgba(26, 194, 193, 0.05) 100%); border-radius: 20px; padding: 40px; margin-bottom: 50px; border: 1px solid rgba(26, 194, 193, 0.2); position: relative; overflow: hidden;">
+          <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+              <div class="d-flex align-items-center gap-3">
+                <div class="newsletter-icon-footer" style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; flex-shrink: 0; box-shadow: 0 8px 20px rgba(26, 194, 193, 0.3);">
+                  <i class="bi bi-envelope-open"></i>
+                </div>
+                <div>
+                  <h4 class="newsletter-title" style="font-size: 1.5rem; font-weight: 700; color: var(--dark); margin-bottom: 0.25rem;">Stay Updated</h4>
+                  <p class="newsletter-subtitle" style="color: var(--gray); font-size: 0.95rem; margin: 0; line-height: 1.5;">Get the latest insights on background verification, compliance updates, and industry trends.</p>
+                </div>
               </div>
-              <button type="submit" class="newsletter-btn" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; border: none; padding: 14px 28px; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; white-space: nowrap; box-shadow: 0 4px 15px rgba(26, 194, 193, 0.3);">
-                Subscribe <i class="bi bi-arrow-right"></i>
-              </button>
             </div>
-            <p class="newsletter-disclaimer" style="color: var(--gray); font-size: 0.85rem; margin: 8px 0 0 0; display: flex; align-items: center; gap: 6px;">
-              <i class="bi bi-shield-check" style="color: var(--primary);"></i> We respect your privacy. No spam, ever.
+            <div class="col-lg-6">
+              <form class="newsletter-form-footer">
+                <div class="input-group-wrapper" style="display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start;">
+                  <div style="flex: 1;">
+                    <input type="email" placeholder="Enter your work email" class="newsletter-input" style="width: 100%; padding: 14px 20px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; color: var(--dark); background: white; transition: all 0.3s ease;">
+                  </div>
+                  <button type="submit" class="newsletter-btn" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; border: none; padding: 14px 28px; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; white-space: nowrap; box-shadow: 0 4px 15px rgba(26, 194, 193, 0.3);">
+                    Subscribe <i class="bi bi-arrow-right"></i>
+                  </button>
+                </div>
+                <p class="newsletter-disclaimer" style="color: var(--gray); font-size: 0.85rem; margin: 8px 0 0 0; display: flex; align-items: center; gap: 6px;">
+                  <i class="bi bi-shield-check" style="color: var(--primary);"></i> We respect your privacy. No spam, ever.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row footer-main-content" style="margin-top: 20px;">
+          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <div class="footer-brand">
+              <img src="https://www.verifitech.com/wp-content/uploads/2022/05/verifitech-logo.svg" alt="Verifitech" class="footer-logo" style="width: 180px; height: auto; margin-bottom: 20px;">
+            </div>
+            <p class="footer-description" style="font-size: 14px; line-height: 1.6; max-width: 280px; color: var(--gray);">
+              India's most trusted employment verification platform with direct HR database integration and EPFO validation across 19,000+ companies.
             </p>
-          </form>
+          </div>
+
+          <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+            <h5 class="footer-heading" style="color: #1a1a1a; font-size: 16px; font-weight: 600; margin-bottom: 20px;">Solutions</h5>
+            <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Employment Check</a></li>
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Education Verification</a></li>
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Reference Checks</a></li>
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Gap Analysis</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+            <h5 class="footer-heading" style="color: #1a1a1a; font-size: 16px; font-weight: 600; margin-bottom: 20px;">Company</h5>
+            <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">About Us</a></li>
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Partnership</a></li>
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Careers</a></li>
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+            <h5 class="footer-heading" style="color: #1a1a1a; font-size: 16px; font-weight: 600; margin-bottom: 20px;">Resources</h5>
+            <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Affiliate</a></li>
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Blog</a></li>
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Case Studies</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+            <h5 class="footer-heading" style="color: #1a1a1a; font-size: 16px; font-weight: 600; margin-bottom: 20px;">Products</h5>
+            <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Exit interview</a></li>
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">psychometric</a></li>
+              <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">API</a></li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Footer Main Content -->
-    <div class="row footer-main-content" style="margin-top: 20px;">
-      <!-- Logo & Description -->
-      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-        <div class="footer-brand">
-          <img src="https://www.verifitech.com/wp-content/uploads/2022/05/verifitech-logo.svg" alt="Verifitech" class="footer-logo" style="width: 180px; height: auto; margin-bottom: 20px;">
-        </div>
-        <p class="footer-description" style="font-size: 14px; line-height: 1.6; max-width: 280px; color: var(--gray);">
-          India's most trusted employment verification platform with direct HR database integration and EPFO validation across 19,000+ companies.
-        </p>
-      </div>
-
-      <!-- Solutions Column -->
-      <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
-        <h5 class="footer-heading" style="color: #1a1a1a; font-size: 16px; font-weight: 600; margin-bottom: 20px;">Solutions</h5>
-        <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Employment Check</a></li>
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Education Verification</a></li>
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Reference Checks</a></li>
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Gap Analysis</a></li>
-        </ul>
-      </div>
-
-      <!-- Company Column -->
-      <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
-        <h5 class="footer-heading" style="color: #1a1a1a; font-size: 16px; font-weight: 600; margin-bottom: 20px;">Company</h5>
-        <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">About Us</a></li>
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Partnership</a></li>
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Careers</a></li>
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Contact</a></li>
-        </ul>
-      </div>
-
-      <!-- Resources Column -->
-      <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
-        <h5 class="footer-heading" style="color: #1a1a1a; font-size: 16px; font-weight: 600; margin-bottom: 20px;">Resources</h5>
-        <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Affiliate</a></li>
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Blog</a></li>
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Case Studies</a></li>
-        </ul>
-      </div>
-
-      <!-- Products Column -->
-      <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
-        <h5 class="footer-heading" style="color: #1a1a1a; font-size: 16px; font-weight: 600; margin-bottom: 20px;">Products</h5>
-        <ul class="footer-links" style="list-style: none; padding: 0; margin: 0;">
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">Exit interview</a></li>
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">psychometric</a></li>
-          <li style="margin-bottom: 1rem;"><a href="#" style="color: var(--gray); text-decoration: none; transition: all 0.3s; display: inline-block;">API</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Bottom Footer -->
-    <div class="footer-bottom" style="margin-top: 60px; padding-top: 30px; border-top: 1px solid #cbd5e1;">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <p class="copyright" style="font-size: 14px; margin: 0; color: var(--gray);">
-            © 2026 Verifitech Solutions Private Limited. All rights reserved.
-          </p>
-        </div>
-        <div class="col-md-6">
-          <div class="social-links" style="display: flex; justify-content: flex-end; gap: 15px;">
-            <a href="#" class="social-icon" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 23, 42, 0.1); display: flex; align-items: center; justify-content: center; color: var(--dark); font-size: 1.1rem; transition: all 0.3s; text-decoration: none;"><i class="bi bi-linkedin"></i></a>
-            <a href="#" class="social-icon" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 23, 42, 0.1); display: flex; align-items: center; justify-content: center; color: var(--dark); font-size: 1.1rem; transition: all 0.3s; text-decoration: none;"><i class="bi bi-twitter-x"></i></a>
-            <a href="#" class="social-icon" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 23, 42, 0.1); display: flex; align-items: center; justify-content: center; color: var(--dark); font-size: 1.1rem; transition: all 0.3s; text-decoration: none;"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="social-icon" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 23, 42, 0.1); display: flex; align-items: center; justify-content: center; color: var(--dark); font-size: 1.1rem; transition: all 0.3s; text-decoration: none;"><i class="bi bi-youtube"></i></a>
-            <a href="#" class="social-icon" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 23, 42, 0.1); display: flex; align-items: center; justify-content: center; color: var(--dark); font-size: 1.1rem; transition: all 0.3s; text-decoration: none;"><i class="bi bi-instagram"></i></a>
+        <div class="footer-bottom" style="margin-top: 60px; padding-top: 30px; border-top: 1px solid #cbd5e1;">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <p class="copyright" style="font-size: 14px; margin: 0; color: var(--gray);">
+                © 2026 Verifitech Solutions Private Limited. All rights reserved.
+              </p>
+            </div>
+            <div class="col-md-6">
+              <div class="social-links" style="display: flex; justify-content: flex-end; gap: 15px;">
+                <a href="#" class="social-icon" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 23, 42, 0.1); display: flex; align-items: center; justify-content: center; color: var(--dark); font-size: 1.1rem; transition: all 0.3s; text-decoration: none;"><i class="bi bi-linkedin"></i></a>
+                <a href="#" class="social-icon" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 23, 42, 0.1); display: flex; align-items: center; justify-content: center; color: var(--dark); font-size: 1.1rem; transition: all 0.3s; text-decoration: none;"><i class="bi bi-twitter-x"></i></a>
+                <a href="#" class="social-icon" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 23, 42, 0.1); display: flex; align-items: center; justify-content: center; color: var(--dark); font-size: 1.1rem; transition: all 0.3s; text-decoration: none;"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="social-icon" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 23, 42, 0.1); display: flex; align-items: center; justify-content: center; color: var(--dark); font-size: 1.1rem; transition: all 0.3s; text-decoration: none;"><i class="bi bi-youtube"></i></a>
+                <a href="#" class="social-icon" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 23, 42, 0.1); display: flex; align-items: center; justify-content: center; color: var(--dark); font-size: 1.1rem; transition: all 0.3s; text-decoration: none;"><i class="bi bi-instagram"></i></a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="privacy-row" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0; text-align: center; color: var(--gray); font-size: 0.9rem;">
+            <a href="#" class="privacy-link" style="color: var(--primary); text-decoration: none; transition: color 0.3s;">Privacy Policy</a>
+            <span class="privacy-separator" style="margin: 0 10px; color: #cbd5e1;">|</span>
+            <a href="#" class="privacy-link" style="color: var(--primary); text-decoration: none; transition: color 0.3s;">Disclaimer</a>
+            <span class="privacy-separator" style="margin: 0 10px; color: #cbd5e1;">|</span>  
+            <a href="#" class="privacy-link" style="color: var(--primary); text-decoration: none; transition: color 0.3s;">Terms of Service</a>
+            <span class="privacy-separator" style="margin: 0 10px; color: #cbd5e1;">|</span>        
+            <a href="#" class="privacy-link" style="color: var(--primary); text-decoration: none; transition: color 0.3s;">Cookies Policy</a>
           </div>
         </div>
       </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a 
+      href="#" 
+      id="whatsappFloat"
+      class="whatsapp-float" 
+      title="Chat with us on WhatsApp"
+      onclick="openWhatsApp(event)"
+      style="position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); z-index: 9999; transition: all 0.3s ease; border: 3px solid rgba(255, 255, 255, 0.3); cursor: pointer;"
+    >
+      <i class="bi bi-whatsapp" style="font-size: 1.8rem;"></i>
+      <span class="float-tooltip" style="position: absolute; right: 70px; background: #333; color: white; padding: 8px 16px; border-radius: 8px; font-size: 14px; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.3s ease; pointer-events: none;">How can we help?</span>
+    </a>
+
+    <style>
+      .whatsapp-float:hover {
+        transform: scale(1.1) rotate(10deg);
+        color: white;
+        box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
+      }
       
-      <!-- Privacy Policy Row -->
-      <div class="privacy-row" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0; text-align: center; color: var(--gray); font-size: 0.9rem;">
-        <a href="#" class="privacy-link" style="color: var(--primary); text-decoration: none; transition: color 0.3s;">Privacy Policy</a>
-        <span class="privacy-separator" style="margin: 0 10px; color: #cbd5e1;">|</span>
-        <a href="#" class="privacy-link" style="color: var(--primary); text-decoration: none; transition: color 0.3s;">Disclaimer</a>
-        <span class="privacy-separator" style="margin: 0 10px; color: #cbd5e1;">|</span>  
-        <a href="#" class="privacy-link" style="color: var(--primary); text-decoration: none; transition: color 0.3s;">Terms of Service</a>
-        <span class="privacy-separator" style="margin: 0 10px; color: #cbd5e1;">|</span>        
-        <a href="#" class="privacy-link" style="color: var(--primary); text-decoration: none; transition: color 0.3s;">Cookies Policy</a>
-      </div>
-    </div>
-  </div>
-</footer>
+      .whatsapp-float:hover .float-tooltip {
+        opacity: 1;
+        visibility: visible;
+        right: 75px;
+      }
+      
+      .float-tooltip::after {
+        content: '';
+        position: absolute;
+        right: -5px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid #333;
+      }
+      
+      .social-icon:hover {
+        background: var(--primary) !important;
+        color: white !important;
+        transform: translateY(-3px);
+      }
+      
+      .footer-links a:hover {
+        color: var(--primary) !important;
+        transform: translateX(5px);
+      }
+      
+      .privacy-link:hover {
+        color: var(--primary-dark) !important;
+        text-decoration: underline;
+      }
+      
+      .newsletter-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
+      }
+      
+      .newsletter-btn:hover i {
+        transform: translateX(4px);
+      }
+      
+      @media (max-width: 991px) {
+        .whatsapp-float {
+          width: 55px;
+          height: 55px;
+          bottom: 20px;
+          right: 20px;
+        }
+        
+        .whatsapp-float i {
+          font-size: 1.5rem;
+        }
+        
+        .float-tooltip {
+          display: none;
+        }
+        
+        .newsletter-footer-section {
+          padding: 30px;
+          text-align: center;
+        }
+        
+        .newsletter-footer-section .d-flex {
+          flex-direction: column;
+          text-align: center;
+        }
+        
+        .newsletter-icon-footer {
+          margin: 0 auto;
+        }
+        
+        .input-group-wrapper {
+          flex-direction: column;
+        }
+        
+        .newsletter-btn {
+          width: 100%;
+          justify-content: center;
+        }
+        
+        .social-links {
+          justify-content: center;
+          margin-top: 20px;
+        }
+        
+        .copyright {
+          text-align: center;
+        }
+      }
+    </style>
 
-<!-- Floating WhatsApp Button -->
-<!-- Floating WhatsApp Button -->
-<a 
-  href="#" 
-  id="whatsappFloat"
-  class="whatsapp-float" 
-  title="Chat with us on WhatsApp"
-  onclick="openWhatsApp(event)"
-  style="position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); z-index: 9999; transition: all 0.3s ease; border: 3px solid rgba(255, 255, 255, 0.3); cursor: pointer;"
->
-  <i class="bi bi-whatsapp" style="font-size: 1.8rem;"></i>
-  <span class="float-tooltip" style="position: absolute; right: 70px; background: #333; color: white; padding: 8px 16px; border-radius: 8px; font-size: 14px; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.3s ease; pointer-events: none;">How can we help?</span>
-</a>
-
-
-<style>
-  .whatsapp-float:hover {
-    transform: scale(1.1) rotate(10deg);
-    color: white;
-    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
-  }
-  
-  .whatsapp-float:hover .float-tooltip {
-    opacity: 1;
-    visibility: visible;
-    right: 75px;
-  }
-  
-  .float-tooltip::after {
-    content: '';
-    position: absolute;
-    right: -5px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 5px solid #333;
-  }
-  
-  .social-icon:hover {
-    background: var(--primary) !important;
-    color: white !important;
-    transform: translateY(-3px);
-  }
-  
-  .footer-links a:hover {
-    color: var(--primary) !important;
-    transform: translateX(5px);
-  }
-  
-  .privacy-link:hover {
-    color: var(--primary-dark) !important;
-    text-decoration: underline;
-  }
-  
-  .newsletter-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
-  }
-  
-  .newsletter-btn:hover i {
-    transform: translateX(4px);
-  }
-  
-  @media (max-width: 991px) {
-    .whatsapp-float {
-      width: 55px;
-      height: 55px;
-      bottom: 20px;
-      right: 20px;
-    }
-    
-    .whatsapp-float i {
-      font-size: 1.5rem;
-    }
-    
-    .float-tooltip {
-      display: none;
-    }
-    
-    .newsletter-footer-section {
-      padding: 30px;
-      text-align: center;
-    }
-    
-    .newsletter-footer-section .d-flex {
-      flex-direction: column;
-      text-align: center;
-    }
-    
-    .newsletter-icon-footer {
-      margin: 0 auto;
-    }
-    
-    .input-group-wrapper {
-      flex-direction: column;
-    }
-    
-    .newsletter-btn {
-      width: 100%;
-      justify-content: center;
-    }
-    
-    .social-links {
-      justify-content: center;
-      margin-top: 20px;
-    }
-    
-    .copyright {
-      text-align: center;
-    }
-  }
-</style>
-   
-
-
-    <!-- Scripts - Identical to previous pages -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- GSAP 3D Timeline Animation Script -->
     <script>
-       // WhatsApp Functionality
-  const whatsappConfig = {
-    phoneNumber: '+919176663777',
-    defaultMessage: 'Hi Verifitech Team,\n\nI am interested in your background verification services. Please share more details.',
-    pageContext: true
-  };
+      // Register ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
 
-  function openWhatsApp(event) {
-    event.preventDefault();
-    
-    const pageTitle = document.title;
-    const currentUrl = window.location.href;
-    
-    let message = whatsappConfig.defaultMessage;
-    
-    if (whatsappConfig.pageContext && pageTitle) {
-      message += `\n\nI am currently viewing: ${pageTitle}\nURL: ${currentUrl}`;
-    }
-    
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${whatsappConfig.phoneNumber}?text=${encodedMessage}`;
-    
-    window.open(whatsappUrl, '_blank');
-  }
+      // WhatsApp Functionality
+      const whatsappConfig = {
+        phoneNumber: '+919176663777',
+        defaultMessage: 'Hi Verifitech Team,\n\nI am interested in your background verification services. Please share more details.',
+        pageContext: true
+      };
+
+      function openWhatsApp(event) {
+        event.preventDefault();
+        
+        const pageTitle = document.title;
+        const currentUrl = window.location.href;
+        
+        let message = whatsappConfig.defaultMessage;
+        
+        if (whatsappConfig.pageContext && pageTitle) {
+          message += `\n\nI am currently viewing: ${pageTitle}\nURL: ${currentUrl}`;
+        }
+        
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${whatsappConfig.phoneNumber}?text=${encodedMessage}`;
+        
+        window.open(whatsappUrl, '_blank');
+      }
+
       // Navbar scroll effect
       window.addEventListener("scroll", () => {
         const navbar = document.querySelector(".navbar");
@@ -2284,8 +2304,6 @@
           navbar.classList.remove("scrolled");
         }
       });
-
-     
 
       // Smooth scroll for anchor links
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -2301,17 +2319,8 @@
           }
         });
       });
-      // Navbar scroll effect
-      window.addEventListener("scroll", () => {
-        const navbar = document.querySelector(".navbar");
-        if (window.scrollY > 50) {
-          navbar.classList.add("scrolled");
-        } else {
-          navbar.classList.remove("scrolled");
-        }
-      });
 
-      // Intersection Observer for animations
+      // Intersection Observer for reveal animations
       const observerOptions = {
         threshold: 0.1,
         rootMargin: "0px 0px -50px 0px",
@@ -2326,21 +2335,138 @@
         });
       }, observerOptions);
 
-      document
-        .querySelectorAll(".reveal")
-        .forEach((el) => observer.observe(el));
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
-      // Smooth scroll
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute("href"));
-          if (target) {
-            const offsetTop = target.offsetTop - 100;
-            window.scrollTo({
-              top: offsetTop,
-              behavior: "smooth",
+      // ==========================================
+      // GSAP 3D TIMELINE SCROLL TRIGGER ANIMATION
+      // ==========================================
+      
+      document.addEventListener("DOMContentLoaded", function() {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const timelineTrack = document.querySelector('.timeline-track');
+        
+        // Set initial states
+        gsap.set(timelineItems, { 
+          opacity: 0,
+          rotateX: 45,
+          z: -200,
+          transformPerspective: 1000
+        });
+
+        // Animate timeline track
+        gsap.fromTo(timelineTrack, 
+          { scaleY: 0, transformOrigin: "top center" },
+          {
+            scaleY: 1,
+            duration: 1.5,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".timeline-section",
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+
+        // Animate each timeline item with 3D effect
+        timelineItems.forEach((item, index) => {
+          const isEven = index % 2 === 0;
+          const content = item.querySelector('.timeline-content');
+          const dot = item.querySelector('.timeline-dot');
+          
+          // Initial 3D position based on left/right
+          const startX = isEven ? -100 : 100;
+          const startRotateY = isEven ? 45 : -45;
+          
+          gsap.set(item, {
+            x: startX,
+            rotateY: startRotateY
+          });
+
+          // Create scroll-triggered animation
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+              end: "top 50%",
+              toggleActions: "play none none reverse",
+              scrub: 1
+            }
+          });
+
+          // 3D entrance animation
+          tl.to(item, {
+            opacity: 1,
+            x: 0,
+            rotateX: 0,
+            rotateY: 0,
+            z: 0,
+            duration: 1,
+            ease: "power3.out"
+          });
+
+          // Content card 3D flip effect
+          tl.fromTo(content, 
+            { rotateY: isEven ? -90 : 90, opacity: 0 },
+            { rotateY: 0, opacity: 1, duration: 0.8, ease: "back.out(1.7)" },
+            "-=0.5"
+          );
+
+          // Dot pulse animation
+          tl.fromTo(dot,
+            { scale: 0, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.4, ease: "elastic.out(1, 0.5)" },
+            "-=0.6"
+          );
+
+          // Hover 3D tilt effect
+          item.addEventListener('mouseenter', () => {
+            gsap.to(content, {
+              rotateX: -5,
+              rotateY: isEven ? 5 : -5,
+              scale: 1.05,
+              boxShadow: "0 25px 50px rgba(26, 194, 193, 0.2)",
+              duration: 0.3,
+              ease: "power2.out"
             });
+          });
+
+          item.addEventListener('mouseleave', () => {
+            gsap.to(content, {
+              rotateX: 0,
+              rotateY: 0,
+              scale: 1,
+              boxShadow: "0 10px 30px rgba(0, 0, 0, 0.05)",
+              duration: 0.3,
+              ease: "power2.out"
+            });
+          });
+        });
+
+        // Parallax effect on scroll for timeline container
+        gsap.to(".timeline-container", {
+          yPercent: -10,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".timeline-section",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+
+        // Stagger animation for timeline icons
+        gsap.from(".timeline-icon", {
+          scale: 0,
+          rotation: 360,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: ".timeline-section",
+            start: "top 70%",
+            toggleActions: "play none none reverse"
           }
         });
       });
