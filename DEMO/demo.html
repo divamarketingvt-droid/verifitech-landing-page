@@ -2199,7 +2199,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
     <script>
-      // ================= BLOCKED EMAIL DOMAINS =================
+ // ================= BLOCKED EMAIL DOMAINS =================
 const BLOCKED_DOMAINS = [
     'gmail.com',
     'yahoo.com',
@@ -2307,6 +2307,7 @@ let formData = {
 
 let bookingCompleted = false;
 let isEmailValid = false;
+let calendarInstance = null;
 
 // ================= EMAIL VALIDATION =================
 function validateCompanyEmail(email) {
@@ -2362,10 +2363,6 @@ function checkEmailValidation() {
     validateStep1();
 }
 
-// Add email validation listener
-document.getElementById('email').addEventListener('input', checkEmailValidation);
-document.getElementById('email').addEventListener('blur', checkEmailValidation);
-
 // Service Selection
 function selectService(serviceId) {
     document.querySelectorAll('input[name="service"]').forEach(radio => {
@@ -2407,32 +2404,6 @@ function validateStep1() {
     document.getElementById('continueToStep2').disabled = !isValid;
     return isValid;
 }
-
-// Add input listeners for text fields
-document.querySelectorAll('#step1 input[type="text"], #step1 input[type="tel"]').forEach(input => {
-    input.addEventListener('input', validateStep1);
-});
-
-// Continue to Step 2
-document.getElementById('continueToStep2').addEventListener('click', function() {
-    if (!validateStep1()) return;
-    
-    formData = {
-        ...formData,
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        company: document.getElementById('company').value,
-        service: document.querySelector('input[name="service"]:checked').value,
-        candidates: document.getElementById('candidates').value
-    };
-    
-    document.getElementById('step1').classList.remove('active');
-    document.getElementById('step2').classList.add('active');
-    updateProgress(2);
-    initCalendar();
-    updateAllPlatformAvailability();
-});
 
 // Get platform pool based on selection
 function getPlatformPool(platformName) {
@@ -2518,17 +2489,25 @@ function updatePlatformAvailability(platformName) {
     }
 }
 
-// Initialize Calendar - FIXED FOR TODAY BOOKING
+// Initialize Calendar - ONLY ALLOW TOMORROW ONWARDS (NOT TODAY)
 function initCalendar() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset to start of day
+    // Destroy existing instance if any
+    if (calendarInstance) {
+        calendarInstance.destroy();
+    }
     
-    const maxDate = new Date();
-    maxDate.setDate(today.getDate() + 30);
+    // Calculate tomorrow's date
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
     
-    flatpickr("#calendar", {
+    // Calculate max date (30 days from tomorrow)
+    const maxDate = new Date(tomorrow);
+    maxDate.setDate(maxDate.getDate() + 30);
+    
+    calendarInstance = flatpickr("#calendar", {
         inline: true,
-        minDate: "today", // Use string "today" for reliable today selection
+        minDate: tomorrow, // Start from tomorrow, not today
         maxDate: maxDate,
         disable: [
             function(date) {
@@ -2537,24 +2516,26 @@ function initCalendar() {
             }
         ],
         onChange: function(selectedDates, dateStr) {
-            formData.date = dateStr;
-            generateTimeSlots(dateStr);
-            
-            // Scroll to time slots after date selection
-            setTimeout(() => {
-                const timeSlotsSection = document.getElementById('timeSlotsSection');
-                if (timeSlotsSection && timeSlotsSection.style.display !== 'none') {
-                    timeSlotsSection.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
-                    });
-                }
-            }, 100);
+            if (selectedDates.length > 0) {
+                formData.date = dateStr;
+                generateTimeSlots(dateStr);
+                
+                // Scroll to time slots after date selection
+                setTimeout(() => {
+                    const timeSlotsSection = document.getElementById('timeSlotsSection');
+                    if (timeSlotsSection && timeSlotsSection.style.display !== 'none') {
+                        timeSlotsSection.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                    }
+                }, 100);
+            }
         }
     });
 }
 
-// Generate Time Slots - FIXED TO HANDLE TODAY'S BOOKINGS
+// Generate Time Slots - All slots available since date is always tomorrow or later
 function generateTimeSlots(dateStr) {
     const slotsGrid = document.getElementById('slotsGrid');
     const timeSlotsSection = document.getElementById('timeSlotsSection');
@@ -2567,7 +2548,7 @@ function generateTimeSlots(dateStr) {
     document.getElementById('selectedInfo').style.display = 'flex';
     document.getElementById('selectedDateTimeText').textContent = dateStr;
     
-    // Time slots starting from 10:00 AM
+    // Time slots from 10:00 AM to 5:30 PM
     const slots = [
         '10:00 AM - 10:30 AM',
         '10:30 AM - 11:00 AM',
@@ -2586,42 +2567,20 @@ function generateTimeSlots(dateStr) {
         '5:00 PM - 5:30 PM'
     ];
     
-    // Check if selected date is today
-    const selectedDate = new Date(dateStr);
-    const now = new Date();
-    const isToday = selectedDate.toDateString() === now.toDateString();
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes();
-    
-    let hasAvailableSlots = false;
-    
-    slots.forEach((slot, index) => {
+    // Since calendar only allows tomorrow onwards, all slots are available
+    // No need to check for past times
+    slots.forEach((slot) => {
         const slotEl = document.createElement('div');
         slotEl.className = 'time-slot';
         slotEl.textContent = slot;
         
-        // Parse slot start time
-        const startTime = slot.split(' - ')[0];
-        const [timePart, period] = startTime.split(' ');
-        const [slotHour, slotMinute] = timePart.split(':').map(Number);
-        let slot24Hour = slotHour;
-        if (period === 'PM' && slotHour !== 12) slot24Hour += 12;
-        if (period === 'AM' && slotHour === 12) slot24Hour = 0;
+        // Random booking simulation (15% chance of being booked)
+        const isRandomlyBooked = Math.random() < 0.15;
         
-        // Disable if it's today and slot time has passed
-        const isPast = isToday && (
-            slot24Hour < currentHour || 
-            (slot24Hour === currentHour && slotMinute <= currentMinute)
-        );
-        
-        // Random booking simulation (85% available)
-        const isRandomlyBooked = Math.random() > 0.85;
-        
-        if (isPast || isRandomlyBooked) {
+        if (isRandomlyBooked) {
             slotEl.classList.add('disabled');
-            slotEl.title = isPast ? 'Time has passed' : 'Booked';
+            slotEl.title = 'Already booked';
         } else {
-            hasAvailableSlots = true;
             slotEl.addEventListener('click', function() {
                 if (this.classList.contains('disabled')) return;
                 
@@ -2639,20 +2598,10 @@ function generateTimeSlots(dateStr) {
         
         slotsGrid.appendChild(slotEl);
     });
-    
-    // If no slots available for today, show message
-    if (isToday && !hasAvailableSlots) {
-        const noSlotsMsg = document.createElement('div');
-        noSlotsMsg.style.cssText = 'grid-column: 1/-1; text-align: center; padding: 20px; color: #dc2626; font-weight: 600; background: #fee2e2; border-radius: 8px; margin-top: 10px;';
-        noSlotsMsg.innerHTML = '<i class="bi bi-exclamation-circle"></i> No available slots for today. All time slots have passed. Please select tomorrow or a future date.';
-        slotsGrid.appendChild(noSlotsMsg);
-        scrollIndicator.classList.remove('show');
-    }
 }
 
 function showPlatforms() {
     const platformsSection = document.getElementById('meetingPlatforms');
-    const step2Content = document.getElementById('step2Content');
     
     platformsSection.style.display = 'block';
     setTimeout(() => {
@@ -2723,15 +2672,6 @@ function clearPreviousPlatformAssignment() {
     });
     formData.meetLink = '';
 }
-
-// Back to Step 1
-document.getElementById('backToStep1').addEventListener('click', function() {
-    clearPreviousPlatformAssignment();
-    
-    document.getElementById('step2').classList.remove('active');
-    document.getElementById('step1').classList.add('active');
-    updateProgress(1);
-});
 
 // ================= EMAILJS SEND FUNCTION =================
 async function sendEmails() {
@@ -2824,7 +2764,6 @@ async function sendEmails() {
                 subject: alertSubject,
                 message: alertBody,
                 user_name: 'System Alert',
-             //   user_email: EMAILJS_CONFIG.HOST_EMAIL,//
                 platform: formData.platform,
                 remaining_links: remainingLinks,
                 alert_type: remainingLinks === 0 ? 'CRITICAL' : 'WARNING'
@@ -2868,7 +2807,7 @@ function redirectToHome() {
         redirectMessage.classList.add('show');
     }
     
-    let seconds = 60;
+    let seconds = 5;
     
     const countdownInterval = setInterval(function() {
         seconds--;
@@ -2888,48 +2827,8 @@ function goToHome() {
     window.location.href = '../index.html';
 }
 
-// Confirm Booking
-document.getElementById('confirmBooking').addEventListener('click', async function() {
-    const btn = this;
-    btn.classList.add('btn-loading');
-    btn.disabled = true;
-
-    const emailSent = await sendEmails();
-
-    if (emailSent) {
-        bookingCompleted = true;
-        
-        const pool = getPlatformPool(formData.platform);
-        if (pool && pool.currentAssignment) {
-            pool.used.push(pool.currentAssignment);
-            pool.currentAssignment = null;
-        }
-        
-        document.getElementById('step2').classList.remove('active');
-        document.getElementById('step3').classList.add('active');
-        document.querySelector('.progress-steps').style.display = 'none';
-        document.getElementById('formFooter').style.display = 'none';
-        
-        document.getElementById('closeModalBtn').style.display = 'none';
-        
-        updateSuccessContent();
-        
-        redirectToHome();
-    } else {
-        const pool = getPlatformPool(formData.platform);
-        if (pool && pool.currentAssignment && !pool.used.includes(pool.currentAssignment)) {
-            pool.available.unshift(pool.currentAssignment);
-            pool.currentAssignment = null;
-            updatePlatformAvailability(formData.platform);
-        }
-    }
-
-    btn.classList.remove('btn-loading');
-    btn.disabled = false;
-});
-
 function updateSuccessContent() {
-    const dateObj = new Date(formData.date);
+    const dateObj = new Date(formData.date + 'T00:00:00');
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     
     document.getElementById('summaryDate').textContent = dateObj.toLocaleDateString('en-US', options);
@@ -2942,7 +2841,7 @@ function updateSuccessContent() {
         'Microsoft Teams': 'bi-microsoft-teams',
         'Google Meet': 'bi-google'
     };
-    document.getElementById('platformSummaryIcon').innerHTML = '<i class="bi ' + platformIcons[formData.platform] + '"></i>';
+    document.getElementById('platformSummaryIcon').innerHTML = '<i class="bi ' + (platformIcons[formData.platform] || 'bi-camera-video') + '"></i>';
     
     const meetLinkBox = document.getElementById('meetLinkBox');
     const meetLink = document.getElementById('meetLink');
@@ -3043,8 +2942,8 @@ function updateProgress(step) {
     document.getElementById('line2').classList.toggle('completed', step > 2);
 }
 
-// Reset on close
-document.getElementById('demoModal').addEventListener('hidden.bs.modal', function() {
+// Reset form function
+function resetForm() {
     if (bookingCompleted) {
         console.log('✅ Booking completed');
         return;
@@ -3094,13 +2993,125 @@ document.getElementById('demoModal').addEventListener('hidden.bs.modal', functio
     });
     
     updateProgress(1);
+    
+    // Destroy calendar instance
+    if (calendarInstance) {
+        calendarInstance.destroy();
+        calendarInstance = null;
+    }
     document.getElementById('calendar').innerHTML = '';
-});
+}
 
-// Auto-open modal immediately
-window.addEventListener('load', function() {
-    new bootstrap.Modal(document.getElementById('demoModal')).show();
+// ================= DOM EVENT LISTENERS =================
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Email validation listeners
+    const emailInput = document.getElementById('email');
+    if (emailInput) {
+        emailInput.addEventListener('input', checkEmailValidation);
+        emailInput.addEventListener('blur', checkEmailValidation);
+    }
+    
+    // Step 1 text input listeners
+    document.querySelectorAll('#step1 input[type="text"], #step1 input[type="tel"]').forEach(input => {
+        input.addEventListener('input', validateStep1);
+    });
+    
+    // Continue to Step 2
+    const continueBtn = document.getElementById('continueToStep2');
+    if (continueBtn) {
+        continueBtn.addEventListener('click', function() {
+            if (!validateStep1()) return;
+            
+            formData = {
+                ...formData,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                company: document.getElementById('company').value,
+                service: document.querySelector('input[name="service"]:checked').value,
+                candidates: document.getElementById('candidates').value
+            };
+            
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            updateProgress(2);
+            initCalendar();
+            updateAllPlatformAvailability();
+        });
+    }
+    
+    // Back to Step 1
+    const backBtn = document.getElementById('backToStep1');
+    if (backBtn) {
+        backBtn.addEventListener('click', function() {
+            clearPreviousPlatformAssignment();
+            
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+            updateProgress(1);
+        });
+    }
+    
+    // Confirm Booking
+    const confirmBtn = document.getElementById('confirmBooking');
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', async function() {
+            const btn = this;
+            btn.classList.add('btn-loading');
+            btn.disabled = true;
+
+            const emailSent = await sendEmails();
+
+            if (emailSent) {
+                bookingCompleted = true;
+                
+                const pool = getPlatformPool(formData.platform);
+                if (pool && pool.currentAssignment) {
+                    pool.used.push(pool.currentAssignment);
+                    pool.currentAssignment = null;
+                }
+                
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('step3').classList.add('active');
+                document.querySelector('.progress-steps').style.display = 'none';
+                document.getElementById('formFooter').style.display = 'none';
+                
+                document.getElementById('closeModalBtn').style.display = 'none';
+                
+                updateSuccessContent();
+                
+                redirectToHome();
+            } else {
+                // Return link to pool if email failed
+                const pool = getPlatformPool(formData.platform);
+                if (pool && pool.currentAssignment && !pool.used.includes(pool.currentAssignment)) {
+                    pool.available.unshift(pool.currentAssignment);
+                    pool.currentAssignment = null;
+                    updatePlatformAvailability(formData.platform);
+                }
+            }
+
+            btn.classList.remove('btn-loading');
+            btn.disabled = false;
+        });
+    }
+    
+    // Modal close/reset
+    const modal = document.getElementById('demoModal');
+    if (modal) {
+        modal.addEventListener('hidden.bs.modal', resetForm);
+    }
+    
+    // Auto-open modal on load (optional)
+    setTimeout(function() {
+        const modalElement = document.getElementById('demoModal');
+        if (modalElement && typeof bootstrap !== 'undefined') {
+            new bootstrap.Modal(modalElement).show();
+        }
+    }, 500);
+    
 });
-    </script>
+  </script>
 </body>
 </html>
