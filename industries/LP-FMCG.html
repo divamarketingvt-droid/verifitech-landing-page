@@ -78,11 +78,6 @@
 /* ============================================
    NAVBAR & NAVIGATION STYLES
    ============================================ */
-/* Hide arrows from all nav-link dropdowns */
-.nav-link.dropdown-toggle::after,
-.nav-link .dropdown-arrow {
-  display: none !important;
-}
 .navbar {
   padding: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1379,7 +1374,7 @@
             <!-- RESOURCES Dropdown -->
             <li class="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
+                class="nav-link "
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -1428,6 +1423,7 @@
                 Company <span class="dropdown-arrow">▾</span>
               </a>
               <ul class="dropdown-menu">
+                  
                 <li>
                   <a class="dropdown-item" href="../company/partnership.html"
                     ><i class="bi bi-hand-thumbs-up"></i> Partnership</a
