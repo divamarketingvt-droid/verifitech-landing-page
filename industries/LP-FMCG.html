@@ -78,7 +78,11 @@
 /* ============================================
    NAVBAR & NAVIGATION STYLES
    ============================================ */
-
+/* Hide arrows from all nav-link dropdowns */
+.nav-link.dropdown-toggle::after,
+.nav-link .dropdown-arrow {
+  display: none !important;
+}
 .navbar {
   padding: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
