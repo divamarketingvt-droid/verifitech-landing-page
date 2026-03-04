@@ -283,6 +283,98 @@
             letter-spacing: -1.5px;
         }
 
+        /* NEW: Dynamic Search Bar Styles */
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            position: relative;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(26, 194, 193, 0.15);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .search-input-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 15px 50px rgba(26, 194, 193, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 60px 18px 55px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-light);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            color: var(--primary);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .search-clear:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .search-clear.show {
+            display: flex;
+        }
+
+        .search-results-info {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .search-results-info.show {
+            opacity: 1;
+        }
+
+        .search-results-info strong {
+            color: var(--primary);
+        }
+
         /* Categories Filter */
         .categories-filter {
             padding: 40px 0;
@@ -322,6 +414,7 @@
         /* Blog Grid */
         .blog-section {
             padding: 60px 0;
+            scroll-margin-top: 100px;
         }
 
         .blog-card {
@@ -852,6 +945,11 @@
             .action-btn {
                 justify-content: center;
             }
+
+            .search-container {
+                max-width: 90%;
+                margin: 1.5rem auto 0;
+            }
         }
     </style>
 </head>
@@ -1298,6 +1396,26 @@
                             Expert perspectives on background verification, compliance, risk management, 
                             and the future of digital trust. Stay informed with industry best practices.
                         </p>
+                        
+                        <!-- NEW: Dynamic Search Bar -->
+                        <div class="search-container">
+                            <div class="search-input-wrapper">
+                                <i class="bi bi-search search-icon"></i>
+                                <input 
+                                    type="text" 
+                                    class="search-input" 
+                                    id="blogSearchInput"
+                                    placeholder="Search articles by title, category, or keywords..."
+                                    autocomplete="off"
+                                >
+                                <button class="search-clear" id="searchClearBtn" onclick="clearSearch()">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                            <div class="search-results-info" id="searchResultsInfo">
+                                Found <strong id="resultsCount">0</strong> articles matching "<span id="searchTerm"></span>"
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1338,7 +1456,7 @@
         </section>
 
         <!-- Blog Grid Section -->
-        <section class="blog-section">
+        <section class="blog-section" id="blogSection">
             <div class="container">
                 <div id="blogGrid" class="row g-4">
                     <!-- Posts will be loaded here dynamically -->
@@ -1523,6 +1641,8 @@
         let isLoading = false;
         let totalPosts = 0;
         let currentPostId = null;
+        let allPosts = []; // Store all posts for client-side search
+        let searchQuery = '';
 
         // Category mapping
         const categoryMap = {
@@ -1545,7 +1665,174 @@
                 fetchPosts();
             }
             setupCategoryFilters();
+            setupSearch();
         });
+
+        // Setup Search Functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('blogSearchInput');
+            const clearBtn = document.getElementById('searchClearBtn');
+            
+            // Real-time search as user types
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.trim().toLowerCase();
+                
+                // Show/hide clear button
+                if (searchQuery.length > 0) {
+                    clearBtn.classList.add('show');
+                } else {
+                    clearBtn.classList.remove('show');
+                    hideSearchResultsInfo();
+                }
+                
+                // Filter posts
+                filterPosts();
+            });
+
+            // Enter key scrolls to blog section
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    scrollToBlogSection();
+                }
+            });
+
+            // Also scroll when user stops typing (debounced)
+            let debounceTimer;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    if (searchQuery.length > 0) {
+                        scrollToBlogSection();
+                    }
+                }, 800);
+            });
+        }
+
+        // Clear search
+        function clearSearch() {
+            const searchInput = document.getElementById('blogSearchInput');
+            searchInput.value = '';
+            searchQuery = '';
+            document.getElementById('searchClearBtn').classList.remove('show');
+            hideSearchResultsInfo();
+            filterPosts();
+            searchInput.focus();
+        }
+
+        // Scroll to blog section smoothly
+        function scrollToBlogSection() {
+            const blogSection = document.getElementById('blogSection');
+            const navbarHeight = 100; // Account for sticky navbar
+            
+            const targetPosition = blogSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+
+        // Filter posts based on search query
+        function filterPosts() {
+            const blogGrid = document.getElementById('blogGrid');
+            
+            if (!searchQuery) {
+                // Show all posts if no search query
+                renderPosts(allPosts);
+                hideSearchResultsInfo();
+                return;
+            }
+
+            // Filter posts based on title, excerpt, or category
+            const filteredPosts = allPosts.filter(post => {
+                const title = post.title.rendered.toLowerCase();
+                const excerpt = stripHtml(post.excerpt.rendered).toLowerCase();
+                const content = stripHtml(post.content.rendered).toLowerCase();
+                
+                // Get category name
+                let categoryName = '';
+                if (post._embedded && post._embedded['wp:term']) {
+                    const categories = post._embedded['wp:term'].find(terms => terms[0]?.taxonomy === 'category');
+                    if (categories && categories[0]) {
+                        categoryName = categories[0].name.toLowerCase();
+                    }
+                }
+
+                return title.includes(searchQuery) || 
+                       excerpt.includes(searchQuery) || 
+                       content.includes(searchQuery) ||
+                       categoryName.includes(searchQuery);
+            });
+
+            // Update results info
+            updateSearchResultsInfo(filteredPosts.length);
+            
+            // Render filtered posts
+            if (filteredPosts.length === 0) {
+                blogGrid.innerHTML = `
+                    <div class="col-12 no-posts">
+                        <i class="bi bi-search"></i>
+                        <h3>No articles found</h3>
+                        <p>No articles match your search for "<strong>${escapeHtml(searchQuery)}</strong>".</p>
+                        <button class="category-btn" onclick="clearSearch()" style="margin-top: 1rem;">
+                            <i class="bi bi-x-circle"></i> Clear Search
+                        </button>
+                    </div>
+                `;
+                document.getElementById('loadMoreContainer').style.display = 'none';
+            } else {
+                renderPosts(filteredPosts);
+            }
+        }
+
+        // Update search results info
+        function updateSearchResultsInfo(count) {
+            const infoEl = document.getElementById('searchResultsInfo');
+            const countEl = document.getElementById('resultsCount');
+            const termEl = document.getElementById('searchTerm');
+            
+            countEl.textContent = count;
+            termEl.textContent = searchQuery;
+            infoEl.classList.add('show');
+        }
+
+        // Hide search results info
+        function hideSearchResultsInfo() {
+            const infoEl = document.getElementById('searchResultsInfo');
+            infoEl.classList.remove('show');
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Render posts array to grid
+        function renderPosts(posts) {
+            const blogGrid = document.getElementById('blogGrid');
+            blogGrid.innerHTML = '';
+            
+            posts.forEach(post => {
+                const card = createBlogCard(post);
+                blogGrid.appendChild(card);
+            });
+
+            // Hide load more button when searching
+            const loadMoreContainer = document.getElementById('loadMoreContainer');
+            if (searchQuery) {
+                loadMoreContainer.style.display = 'none';
+            } else {
+                // Show load more if there are more posts to fetch
+                if (allPosts.length < totalPosts) {
+                    loadMoreContainer.style.display = 'block';
+                } else {
+                    loadMoreContainer.style.display = 'none';
+                }
+            }
+        }
 
         // Show/Hide Views
         function showBlogListing() {
@@ -1746,6 +2033,8 @@
                     e.currentTarget.classList.add('active');
                     currentCategory = e.currentTarget.dataset.category;
                     currentPage = 1;
+                    // Clear search when changing category
+                    clearSearch();
                     fetchPosts(true);
                 });
             });
@@ -1760,6 +2049,7 @@
             
             if (reset) {
                 blogGrid.innerHTML = generateSkeletons(6);
+                allPosts = []; // Reset stored posts
             }
 
             try {
@@ -1790,13 +2080,19 @@
                     return;
                 }
 
-                posts.forEach(post => {
-                    const card = createBlogCard(post);
-                    blogGrid.appendChild(card);
-                });
+                // Store posts for client-side search
+                allPosts = [...allPosts, ...posts];
+
+                // If not searching, render normally
+                if (!searchQuery) {
+                    posts.forEach(post => {
+                        const card = createBlogCard(post);
+                        blogGrid.appendChild(card);
+                    });
+                }
 
                 const loadMoreContainer = document.getElementById('loadMoreContainer');
-                if (posts.length === 9 && blogGrid.children.length < totalPosts) {
+                if (posts.length === 9 && allPosts.length < totalPosts) {
                     loadMoreContainer.style.display = 'block';
                 } else {
                     loadMoreContainer.style.display = 'none';
@@ -1896,6 +2192,10 @@
             fetchPosts().then(() => {
                 btn.innerHTML = 'Load More Articles <i class="bi bi-arrow-down"></i>';
                 btn.disabled = false;
+                // Re-apply search filter if active
+                if (searchQuery) {
+                    filterPosts();
+                }
             });
         }
 
@@ -1912,7 +2212,7 @@
             if (window.scrollY > 50) {
                 navbar.classList.add("scrolled");
             } else {
-                navbar.remove("scrolled");
+                navbar.classList.remove("scrolled");
             }
         });
     </script>
