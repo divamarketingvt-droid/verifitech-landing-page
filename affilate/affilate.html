@@ -4187,20 +4187,7 @@
         }
       });
     });
-// Handle window resize
-    window.addEventListener('resize', function() {
-      if (window.innerWidth >= 992) {
-        // Reset mobile-specific states when returning to desktop
-        dropdownToggles.forEach(toggle => {
-          toggle.setAttribute('aria-expanded', 'false');
-          const menu = toggle.nextElementSibling;
-          if (menu) {
-            menu.classList.remove('show');
-          }
-        });
-      }
-    });
-  });
+
        let currentStep = 'privacy';
         let selectedDept = '';
         let selectedService = '';
