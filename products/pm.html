@@ -65,6 +65,75 @@
         line-height: 1.6;
       }
 
+/* ============================================
+   HERO BUTTONS STYLE
+   ============================================ */
+
+/* Primary Button - Start Free Trial */
+.btn-primary-custom {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+  color: white !important;
+  border: none !important;
+  padding: 1.1rem 3rem !important; /* Extra large padding */
+  border-radius: 50px !important;
+  font-weight: 700 !important;
+  font-size: 1.15rem !important;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 10px 30px rgba(26, 194, 193, 0.4) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary-custom:hover {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #0e8a89 100%) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 15px 40px rgba(26, 194, 193, 0.5) !important;
+  color: white !important;
+}
+
+/* Outline Button - Watch Demo */
+.btn-outline-custom {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: var(--dark) !important;
+  border: 2px solid var(--primary) !important;
+  padding: 1.1rem 3rem !important; /* Match primary button padding */
+  border-radius: 50px !important;
+  font-weight: 700 !important;
+  font-size: 1.15rem !important;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  text-decoration: none !important;
+  backdrop-filter: blur(5px);
+}
+
+.btn-outline-custom:hover {
+  background: var(--primary) !important;
+  color: white !important;
+  border-color: var(--primary) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 10px 25px rgba(26, 194, 193, 0.3) !important;
+}
+
+/* Icon Animation for Watch Demo */
+.btn-outline-custom i {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-outline-custom:hover i {
+  transform: scale(1.2);
+}
+      
         /* Ensure navbar has proper z-index */
   .navbar {
     z-index: 1050; /* Higher than most content */
