@@ -4127,6 +4127,531 @@
           window.open(whatsappUrl, '_blank');
         }
       }
+      // Handle window resize
+    window.addEventListener('resize', function() {
+      if (window.innerWidth >= 992) {
+        // Reset mobile-specific states when returning to desktop
+        dropdownToggles.forEach(toggle => {
+          toggle.setAttribute('aria-expanded', 'false');
+          const menu = toggle.nextElementSibling;
+          if (menu) {
+            menu.classList.remove('show');
+          }
+        });
+      }
+    });
+  });
+       let currentStep = 'privacy';
+        let selectedDept = '';
+        let selectedService = '';
+        let userData = { name: '', email: '', number: '', company: '' };
+
+        function toggleChat() {
+            const container = document.getElementById('chatContainer');
+            container.classList.toggle('active');
+        }
+
+        function acceptPrivacy() {
+            document.getElementById('privacyNotice').classList.add('hidden');
+            document.getElementById('welcomeMessage').classList.remove('hidden');
+            
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    removeTyping();
+                    askForName();
+                }, 800);
+            }, 500);
+        }
+
+        function declinePrivacy() {
+            alert('You must accept the privacy policy to continue.');
+        }
+
+        function showTyping() {
+            const chatBody = document.getElementById('chatBody');
+            const typing = document.createElement('div');
+            typing.className = 'message typing-indicator';
+            typing.id = 'typing';
+            typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+            chatBody.appendChild(typing);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function removeTyping() {
+            const typing = document.getElementById('typing');
+            if (typing) typing.remove();
+        }
+
+        function addMessage(text, isUser = false) {
+            const chatBody = document.getElementById('chatBody');
+            const msg = document.createElement('div');
+            msg.className = isUser ? 'message user-message' : 'message';
+            
+            if (isUser) {
+                msg.innerHTML = `<div class="message-content"><div class="message-text">${text}</div></div>`;
+            } else {
+                msg.innerHTML = `<div class="message-avatar">V</div><div class="message-content"><div class="message-text">${text}</div></div>`;
+            }
+            
+            chatBody.appendChild(msg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function askForName() {
+            currentStep = 'name';
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    removeTyping();
+                    addMessage('To get started, could you please provide your <strong>full name</strong>?');
+                    enableInput('Type your full name...');
+                }, 800);
+            }, 300);
+        }
+
+        function askForEmail() {
+            currentStep = 'email';
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    removeTyping();
+                    addMessage('Thanks! Now, please provide your <strong>email address</strong>.');
+                    enableInput('Type your email address...');
+                }, 800);
+            }, 300);
+        }
+
+        function askForNumber() {
+            currentStep = 'number';
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    removeTyping();
+                    addMessage('Great! Please provide your <strong>contact number</strong>.');
+                    enableInput('Type your contact number...');
+                }, 800);
+            }, 300);
+        }
+
+        function askForCompany() {
+            currentStep = 'company';
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    removeTyping();
+                    addMessage('Finally, please provide your <strong>company name</strong>.');
+                    enableInput('Type your company name...');
+                }, 800);
+            }, 300);
+        }
+
+        function showConfirmation() {
+            currentStep = 'confirm';
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    removeTyping();
+                    const chatBody = document.getElementById('chatBody');
+                    const msg = document.createElement('div');
+                    msg.className = 'message';
+                    msg.innerHTML = `
+                        <div class="message-avatar">V</div>
+                        <div class="message-content">
+                            <div class="message-text">
+                                Please confirm your details:
+                                <div class="confirmation-box">
+                                    <div class="detail-row"><span class="detail-label">Name:</span><span class="detail-value">${userData.name}</span></div>
+                                    <div class="detail-row"><span class="detail-label">Email:</span><span class="detail-value">${userData.email}</span></div>
+                                    <div class="detail-row"><span class="detail-label">Number:</span><span class="detail-value">${userData.number}</span></div>
+                                    <div class="detail-row"><span class="detail-label">Company:</span><span class="detail-value">${userData.company}</span></div>
+                                </div>
+                                Are these details correct? Please type <strong>YES</strong> to confirm or <strong>NO</strong> to edit name.
+                            </div>
+                        </div>
+                    `;
+                    chatBody.appendChild(msg);
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                    enableInput('Type YES to confirm or NO to edit name...');
+                }, 800);
+            }, 300);
+        }
+
+        function showDepartments() {
+            currentStep = 'departments';
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    removeTyping();
+                    const chatBody = document.getElementById('chatBody');
+                    const msg = document.createElement('div');
+                    msg.className = 'message';
+                    msg.innerHTML = `
+                        <div class="message-avatar">V</div>
+                        <div class="message-content">
+                            <div class="message-text">
+                                Perfect! How can we help you today? Please select a department:
+                                <div class="department-grid">
+                                    <button class="dept-card" onclick="selectDepartment('service')">
+                                        <div class="dept-icon">🛠️</div>
+                                        <div class="dept-name">Service</div>
+                                        <div class="dept-desc">BGV & verification services</div>
+                                    </button>
+                                    <button class="dept-card" onclick="selectDepartment('career')">
+                                        <div class="dept-icon">💼</div>
+                                        <div class="dept-name">Career</div>
+                                        <div class="dept-desc">Job opportunities</div>
+                                    </button>
+                                    <button class="dept-card" onclick="selectDepartment('support')">
+                                        <div class="dept-icon">🎧</div>
+                                        <div class="dept-name">Support</div>
+                                        <div class="dept-desc">Customer support</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    chatBody.appendChild(msg);
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                    disableInput();
+                }, 800);
+            }, 300);
+        }
+
+        function selectDepartment(dept) {
+            selectedDept = dept;
+            addMessage(dept.charAt(0).toUpperCase() + dept.slice(1), true);
+            
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    removeTyping();
+                    
+                    if (dept === 'service') {
+                        showBGVOptions(); // Directly show BGV options, no Reach Out button
+                    } else {
+                        showReachOut(dept);
+                    }
+                }, 800);
+            }, 300);
+        }
+
+        function showBGVOptions() {
+            const chatBody = document.getElementById('chatBody');
+            const msg = document.createElement('div');
+            msg.className = 'message';
+            msg.innerHTML = `
+                <div class="message-avatar">V</div>
+                <div class="message-content">
+                    <div class="message-text">
+                        Select a BGV service you need:
+                        <div class="bgv-options">
+                            <button class="bgv-btn" onclick="prepareServiceRequest('Employee Background Check')">👤 Employee Background Check</button>
+                            <button class="bgv-btn" onclick="prepareServiceRequest('Tenant Verification')">🏠 Tenant Verification</button>
+                            <button class="bgv-btn" onclick="prepareServiceRequest('Criminal Record Check')">🔍 Criminal Record Check</button>
+                            <button class="bgv-btn" onclick="prepareServiceRequest('Education Verification')">🎓 Education Verification</button>
+                            <button class="bgv-btn" onclick="prepareServiceRequest('Employment History')">💼 Employment History Check</button>
+                            <button class="bgv-btn" onclick="prepareServiceRequest('Other')">📝 Other (Specify below)</button>
+                        </div>
+                        <button class="back-btn" onclick="showDepartments()">← Back</button>
+                    </div>
+                </div>
+            `;
+            chatBody.appendChild(msg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function prepareServiceRequest(serviceType) {
+            selectedService = serviceType;
+            addMessage(serviceType, true);
+            
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    removeTyping();
+                    
+                    if (serviceType === 'Other') {
+                        // Show input for custom service
+                        const chatBody = document.getElementById('chatBody');
+                        const msg = document.createElement('div');
+                        msg.className = 'message';
+                        msg.innerHTML = `
+                            <div class="message-avatar">V</div>
+                            <div class="message-content">
+                                <div class="message-text">
+                                    Please specify the service you need:
+                                    <textarea class="issue-input" id="customService" rows="2" placeholder="Describe the service you need..."></textarea>
+                                    <button class="action-btn" onclick="confirmCustomService()">Continue</button>
+                                    <button class="back-btn" onclick="showBGVOptions()">← Back</button>
+                                </div>
+                            </div>
+                        `;
+                        chatBody.appendChild(msg);
+                        chatBody.scrollTop = chatBody.scrollHeight;
+                    } else {
+                        showFinalConfirmation('service');
+                    }
+                }, 800);
+            }, 300);
+        }
+
+        function confirmCustomService() {
+            const customText = document.getElementById('customService').value.trim();
+            if (!customText) {
+                alert('Please describe the service you need.');
+                return;
+            }
+            selectedService = 'Other: ' + customText;
+            showFinalConfirmation('service');
+        }
+
+        function showReachOut(dept) {
+            const chatBody = document.getElementById('chatBody');
+            const msg = document.createElement('div');
+            msg.className = 'message';
+            msg.innerHTML = `
+                <div class="message-avatar">V</div>
+                <div class="message-content">
+                    <div class="message-text">
+                        You've selected <strong>${dept.charAt(0).toUpperCase() + dept.slice(1)}</strong> department.
+                        <button class="action-btn" onclick="showDeptAction('${dept}')">📞 Reach Out</button>
+                        <button class="back-btn" onclick="showDepartments()">← Back</button>
+                    </div>
+                </div>
+            `;
+            chatBody.appendChild(msg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function showDeptAction(dept) {
+            addMessage('Reach Out', true);
+            
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    removeTyping();
+                    
+                    if (dept === 'career') {
+                        const chatBody = document.getElementById('chatBody');
+                        const msg = document.createElement('div');
+                        msg.className = 'message';
+                        msg.innerHTML = `
+                            <div class="message-avatar">V</div>
+                            <div class="message-content">
+                                <div class="message-text">
+                                    Interested in joining our team?
+                                    <button class="action-btn" onclick="openCareerPage()">🚀 Apply Now</button>
+                                    <p style="margin-top: 10px; font-size: 12px; color: #666;">Click to visit careers page</p>
+                                    <button class="back-btn" onclick="showDepartments()">← Back</button>
+                                </div>
+                            </div>
+                        `;
+                        chatBody.appendChild(msg);
+                        chatBody.scrollTop = chatBody.scrollHeight;
+                    } else if (dept === 'support') {
+                        const chatBody = document.getElementById('chatBody');
+                        const msg = document.createElement('div');
+                        msg.className = 'message';
+                        msg.innerHTML = `
+                            <div class="message-avatar">V</div>
+                            <div class="message-content">
+                                <div class="message-text">
+                                    Please describe your issue:
+                                    <textarea class="issue-input" id="issueText" rows="3" placeholder="Type your issue here..."></textarea>
+                                    <button class="action-btn" onclick="prepareSupportTicket()">Continue</button>
+                                    <button class="back-btn" onclick="showDepartments()">← Back</button>
+                                </div>
+                            </div>
+                        `;
+                        chatBody.appendChild(msg);
+                        chatBody.scrollTop = chatBody.scrollHeight;
+                    }
+                }, 800);
+            }, 300);
+        }
+
+        function prepareSupportTicket() {
+            const issueText = document.getElementById('issueText').value.trim();
+            if (!issueText) {
+                alert('Please describe your issue first.');
+                return;
+            }
+            selectedService = 'Support Issue: ' + issueText;
+            showFinalConfirmation('support');
+        }
+
+        function showFinalConfirmation(type) {
+            const chatBody = document.getElementById('chatBody');
+            const msg = document.createElement('div');
+            msg.className = 'message';
+            
+            let detailsHtml = `
+                <div class="detail-row"><span class="detail-label">Name:</span><span class="detail-value">${userData.name}</span></div>
+                <div class="detail-row"><span class="detail-label">Email:</span><span class="detail-value">${userData.email}</span></div>
+                <div class="detail-row"><span class="detail-label">Number:</span><span class="detail-value">${userData.number}</span></div>
+                <div class="detail-row"><span class="detail-label">Company:</span><span class="detail-value">${userData.company}</span></div>
+                <div class="detail-row"><span class="detail-label">Request:</span><span class="detail-value">${selectedService}</span></div>
+            `;
+            
+            msg.innerHTML = `
+                <div class="message-avatar">V</div>
+                <div class="message-content">
+                    <div class="message-text">
+                        <div class="final-confirm-box">
+                            <h4>📋 Review Your Request</h4>
+                            ${detailsHtml}
+                            <button class="send-final-btn" onclick="sendFinalRequest()">✅ Send Request</button>
+                        </div>
+                        <button class="back-btn" onclick="${type === 'service' ? 'showBGVOptions()' : 'showDeptAction(\'' + type + '\')'}">← Edit</button>
+                    </div>
+                </div>
+            `;
+            chatBody.appendChild(msg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function sendFinalRequest() {
+            const chatBody = document.getElementById('chatBody');
+            
+            let successContent = '';
+            if (selectedDept === 'service') {
+                successContent = `
+                    <div class="success-msg">
+                        ✅ <strong>Service Request Submitted!</strong><br>
+                        Service: ${selectedService}<br>
+                        Name: ${userData.name}<br>
+                        Email: ${userData.email}<br>
+                        Contact: ${userData.number}<br>
+                        Company: ${userData.company}
+                    </div>
+                    <p style="margin-top: 10px; font-size: 13px;">Our team will contact you within 24 hours.</p>
+                `;
+            } else if (selectedDept === 'support') {
+                successContent = `
+                    <div class="success-msg">
+                        ✅ <strong>Support Ticket Created!</strong><br>
+                        Ticket ID: #SUP-${Date.now().toString().slice(-6)}<br>
+                        ${selectedService}<br>
+                        Name: ${userData.name}<br>
+                        Email: ${userData.email}
+                    </div>
+                    <p style="margin-top: 10px; font-size: 13px;">Our support team will reach out shortly.</p>
+                `;
+            }
+            
+            const msg = document.createElement('div');
+            msg.className = 'message';
+            msg.innerHTML = `
+                <div class="message-avatar">V</div>
+                <div class="message-content">
+                    <div class="message-text">
+                        ${successContent}
+                        <button class="back-btn" onclick="showDepartments()">← New Request</button>
+                    </div>
+                </div>
+            `;
+            chatBody.appendChild(msg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function openCareerPage() {
+            addMessage('Apply Now', true);
+            setTimeout(() => {
+                window.open('https://careers.verifitech.com', '_blank');
+                
+                const chatBody = document.getElementById('chatBody');
+                const msg = document.createElement('div');
+                msg.className = 'message';
+                msg.innerHTML = `
+                    <div class="message-avatar">V</div>
+                    <div class="message-content">
+                        <div class="message-text">
+                            <div class="success-msg">
+                                🚀 Career page opened in new tab!
+                            </div>
+                            <button class="back-btn" onclick="showDepartments()">← Back</button>
+                        </div>
+                    </div>
+                `;
+                chatBody.appendChild(msg);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 500);
+        }
+
+        function enableInput(placeholder) {
+            const input = document.getElementById('messageInput');
+            const btn = document.getElementById('sendBtn');
+            input.disabled = false;
+            btn.disabled = false;
+            input.placeholder = placeholder;
+            input.focus();
+        }
+
+        function disableInput() {
+            const input = document.getElementById('messageInput');
+            const btn = document.getElementById('sendBtn');
+            input.disabled = true;
+            btn.disabled = true;
+            input.placeholder = 'Select an option above...';
+        }
+
+        function handleSend() {
+            const input = document.getElementById('messageInput');
+            const value = input.value.trim();
+            if (!value) return;
+
+            addMessage(value, true);
+            input.value = '';
+
+            setTimeout(() => {
+                processUserInput(value);
+            }, 300);
+        }
+
+        // Enter key support
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleSend();
+        });
+
+        function processUserInput(value) {
+            const upperValue = value.toUpperCase();
+
+            switch(currentStep) {
+                case 'name':
+                    userData.name = value;
+                    askForEmail();
+                    break;
+                case 'email':
+                    userData.email = value;
+                    askForNumber();
+                    break;
+                case 'number':
+                    userData.number = value;
+                    askForCompany();
+                    break;
+                case 'company':
+                    userData.company = value;
+                    showConfirmation();
+                    break;
+                case 'confirm':
+                    if (upperValue === 'YES') {
+                        showDepartments();
+                    } else if (upperValue === 'NO') {
+                        currentStep = 'name';
+                        setTimeout(() => {
+                            showTyping();
+                            setTimeout(() => {
+                                removeTyping();
+                                addMessage('No problem! Please provide your <strong>correct name</strong> again.');
+                                enableInput('Type your correct full name...');
+                            }, 800);
+                        }, 300);
+                    } else {
+                        addMessage('Please type <strong>YES</strong> to confirm or <strong>NO</strong> to edit name.');
+                    }
+                    break;
+            }
+        }
     </script>
   </body>
 </html>
