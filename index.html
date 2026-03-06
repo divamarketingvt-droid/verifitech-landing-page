@@ -60,21 +60,28 @@
         overflow-x: hidden;
       }
  
-.btn-primary-custom {
-  display: inline-block;
-  padding: 14px 32px;
-  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-  color: #ffffff;
-  font-family: 'Segoe UI', Roboto, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.4);
-  transition: all 0.3s ease;
-}
+  .btn-primary-custom {
+        background: var(--primary) !important;
+        color: white !important;
+        border: none;
+        padding: 0.75rem 1.8rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(26, 194, 193, 0.35);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+      }
+
+      .btn-primary-custom:hover {
+        background: var(--primary-dark) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(26, 194, 193, 0.45);
+        color: white !important;
+      }
+
 
 
        /* Chat Icon Button */
@@ -3062,7 +3069,7 @@
               <div
                 class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start"
               >
-                <a href="./DEMO/demo.html" class="btn btn-primary-custom btn-lg"
+                <a href="./DEMO/demo.html" class="btn btn-primary-custom btn-lg" 
                   >Start Free Trial</a
                 >
               </div>
