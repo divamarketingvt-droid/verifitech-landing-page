@@ -31,7 +31,19 @@
            padding: 0;
            box-sizing: border-box;
        }
+    
+  
+       body {
+           font-family: 'Inter', sans-serif;
+           color: var(--dark);
+           line-height: 1.6;
+           overflow-x: hidden;
+       }
        
+       html {
+           scroll-behavior: smooth;
+       }
+   
        /* Chat Icon Button */
         .chat-icon-btn {
             position: fixed;
@@ -546,18 +558,6 @@
             font-size: 12px;
             text-decoration: underline;
         }
-  
-       body {
-           font-family: 'Inter', sans-serif;
-           color: var(--dark);
-           line-height: 1.6;
-           overflow-x: hidden;
-       }
-       
-       html {
-           scroll-behavior: smooth;
-       }
-
        /* Z-INDEX FIXES */
        .navbar {
            z-index: 1050;
