@@ -59,21 +59,23 @@
         background-color: var(--light-gray);
         overflow-x: hidden;
       }
- 
-  .btn-primary-custom {
-        background: var(--primary) !important;
-        color: white !important;
-        border: none;
-        padding: 0.75rem 1.8rem;
-        border-radius: 50px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(26, 194, 193, 0.35);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-      }
+ .btn-primary-custom {
+  background: var(--primary) !important;
+  color: white !important;
+  border: none;
+  /* Increase horizontal padding (left/right) to make it wider */
+  padding: 1rem 2.5rem; 
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem; /* Slightly larger text */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(26, 194, 193, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
 
       .btn-primary-custom:hover {
         background: var(--primary-dark) !important;
