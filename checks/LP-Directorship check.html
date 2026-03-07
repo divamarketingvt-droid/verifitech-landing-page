@@ -424,887 +424,889 @@
 
        .shake-animation {
            animation: shake 0.5s ease-in-out;
-        /* Chat Icon Button */
-        .chat-icon-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #1dd1a1 0%, #10ac84 100%);
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 20px rgba(29, 209, 161, 0.4);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .chat-icon-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(29, 209, 161, 0.6);
-        }
-
-        .chat-icon-btn svg {
-            width: 28px;
-            height: 28px;
-            color: white;
-        }
-
-        /* Chat Container */
-        .chat-container {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;C
-            width: 100%;
-            max-width: 380px;
-            height: 550px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 999;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .chat-container.active {
-            display: flex;
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, #1dd1a1 0%, #10ac84 100%);
-            color: white;
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .header-info h3 {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .header-info span {
-            font-size: 12px;
-            opacity: 0.9;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .online-dot {
-            width: 6px;
-            height: 6px;
-            background: #2ecc71;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 20px;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-
-        .close-btn:hover {
-            opacity: 1;
-        }
-
-        .chat-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            background: #f8f9fa;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .privacy-notice {
-            background: #e8f4f8;
-            border: 1px solid #bee5eb;
-            border-radius: 12px;
-            padding: 16px;
-        }
-
-        .privacy-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            color: #0c5460;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .privacy-text {
-            font-size: 13px;
-            color: #0c5460;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .privacy-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border-radius: 6px;
-            border: none;
-            font-size: 13px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background: #3498db;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #2980b9;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #6c757d;
-            border: 1px solid #dee2e6;
-        }
-
-        .btn-secondary:hover {
-            background: #f8f9fa;
-        }
-
-        .message {
-            display: flex;
-            gap: 12px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .message-avatar {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #1dd1a1 0%, #10ac84 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 12px;
-            flex-shrink: 0;
-        }
-
-        .message-content {
-            background: white;
-            padding: 16px;
-            border-radius: 12px;
-            border-top-left-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            max-width: 85%;
-        }
-
-        .message-text {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #2c3e50;
-        }
-
-        .message-text strong {
-            color: #10ac84;
-        }
-
-        .user-message {
-            align-self: flex-end;
-            flex-direction: row-reverse;
-        }
-
-        .user-message .message-content {
-            background: #1dd1a1;
-            color: white;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 4px;
-        }
-
-        .user-message .message-text {
-            color: white;
-        }
-
-        .input-form {
-            background: white;
-            padding: 16px 20px;
-            border-top: 1px solid #e9ecef;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .input-field {
-            flex: 1;
-            padding: 12px 16px;
-            border: 1px solid #dee2e6;
-            border-radius: 24px;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .input-field:focus {
-            border-color: #1dd1a1;
-        }
-
-        .input-field:disabled {
-            background: #f8f9fa;
-            cursor: not-allowed;
-        }
-
-        .send-btn {
-            width: 40px;
-            height: 40px;
-            background: #1dd1a1;
-            border: none;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .send-btn:hover:not(:disabled) {
-            background: #10ac84;
-            transform: scale(1.05);
-        }
-
-        .send-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .typing-indicator {
-            display: flex;
-            gap: 4px;
-            padding: 12px 16px;
-            background: white;
-            border-radius: 12px;
-            border-top-left-radius: 4px;
-            width: fit-content;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .typing-dot {
-            width: 8px;
-            height: 8px;
-            background: #1dd1a1;
-            border-radius: 50%;
-            animation: typing 1.4s infinite;
-        }
-
-        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typing {
-            0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-10px); }
-        }
-
-        .confirmation-box {
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
-            margin: 12px 0;
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            font-size: 13px;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .detail-row:last-child {
-            border-bottom: none;
-        }
-
-        .detail-label {
-            color: #666;
-        }
-
-        .detail-value {
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        .department-grid {
-            display: grid;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .dept-card {
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: left;
-            width: 100%;
-        }
-
-        .dept-card:hover {
-            border-color: #1dd1a1;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .dept-icon {
-            font-size: 20px;
-            margin-bottom: 6px;
-        }
-
-        .dept-name {
-            font-weight: 600;
-            color: #2c3e50;
-            font-size: 14px;
-            margin-bottom: 2px;
-        }
-
-        .dept-desc {
-            font-size: 12px;
-            color: #666;
-        }
-
-        .action-btn {
-            background: linear-gradient(135deg, #1dd1a1 0%, #10ac84 100%);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 12px;
-            width: 100%;
-            transition: all 0.2s;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(29, 209, 161, 0.3);
-        }
-
-        .bgv-options {
-            display: grid;
-            gap: 8px;
-            margin-top: 12px;
-        }
-
-        .bgv-btn {
-            background: white;
-            border: 2px solid #e9ecef;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s;
-            font-size: 13px;
-        }
-
-        .bgv-btn:hover {
-            border-color: #1dd1a1;
-            background: #f0fff9;
-        }
-
-        .issue-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-top: 12px;
-            resize: none;
-            font-family: inherit;
-        }
-
-        .issue-input:focus {
-            outline: none;
-            border-color: #1dd1a1;
-        }
-
-        .success-msg {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 8px;
-            font-size: 13px;
-            border-left: 4px solid #28a745;
-        }
-
-        .back-btn {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            color: #666;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            margin-top: 10px;
-            transition: all 0.2s;
-        }
-
-        .back-btn:hover {
-            background: #e9ecef;
-        }
-
-        .final-confirm-box {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 16px;
-            margin: 12px 0;
-        }
-
-        .final-confirm-box h4 {
-            margin-bottom: 10px;
-            color: #856404;
-        }
-
-        .send-final-btn {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-            width: 100%;
-        }
-
-        .send-final-btn:hover {
-            background: #218838;
-        }
-
-        .edit-link {
-            color: #3498db;
-            cursor: pointer;
-            font-size: 12px;
-            text-decoration: underline;
-        }
-
-  .whatsapp-float:hover {
-    transform: scale(1.1) rotate(10deg);
-    color: white;
-    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
-  }
-  
-  .whatsapp-float:hover .float-tooltip {
-    opacity: 1;
-    visibility: visible;
-    right: 75px;
-  }
-  
-  .float-tooltip::after {
-    content: '';
-    position: absolute;
-    right: -5px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 5px solid #333;
-  }
-  
-  .social-icon:hover {
-    background: var(--primary) !important;
-    color: white !important;
-    transform: translateY(-3px);
-  }
-  
-  .footer-links a:hover {
-    color: var(--primary) !important;
-    transform: translateX(5px);
-  }
-  
-  .privacy-link:hover {
-    color: var(--primary-dark) !important;
-    text-decoration: underline;
-  }
-  
-  .newsletter-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
-  }
-  
-  .newsletter-btn:hover i {
-    transform: translateX(4px);
-  }
-  
-  @media (max-width: 991px) {
-    .whatsapp-float {
-      width: 55px;
-      height: 55px;
-      bottom: 20px;
-      right: 20px;
-    }
-    
-    .whatsapp-float i {
-      font-size: 1.5rem;
-    }
-    
-    .float-tooltip {
-      display: none;
-    }
-    
-    .newsletter-footer-section {
-      padding: 30px;
-      text-align: center;
-    }
-    
-    .newsletter-footer-section .d-flex {
-      flex-direction: column;
-      text-align: center;
-    }
-    
-    .newsletter-icon-footer {
-      margin: 0 auto;
-    }
-    
-    .input-group-wrapper {
-      flex-direction: column;
-    }
-    
-    .newsletter-btn {
-      width: 100%;
-      justify-content: center;
-    }
-    
-    .social-links {
-      justify-content: center;
-      margin-top: 20px;
-    }
-    
-    .copyright {
-      text-align: center;
-    }
-  }
-
-
-
-/* ============================================
-   Z-INDEX FIXES - KEEP THESE AT TOP
-   ============================================ */
-
-/* Ensure navbar has proper z-index */
-.navbar {
-  z-index: 1050;
-}
-
-/* Fix dropdown z-index to appear above hero content */
-.dropdown-menu {
-  z-index: 1060;
-  position: absolute;
-}
-
-/* Ensure dropdown items are clickable and visible */
-.dropdown-item {
-  position: relative;
-  z-index: 1061;
-}
-
-/* Fix for hero section overlapping */
-.industry-hero {
-  position: relative;
-  z-index: 1;
-}
-
-/* ============================================
-   NAVBAR & NAVIGATION STYLES
-   ============================================ */
-
-.navbar {
-  padding: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  height: 80px;
-}
-
-.navbar.scrolled {
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
-}
-
-/* Mobile navbar collapse background */
-.navbar-collapse {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  padding: 1rem;
-  margin-top: 0.5rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-}
-
-@media (min-width: 992px) {
-  .navbar-collapse {
-    background: transparent;
-    backdrop-filter: none;
-    padding: 0;
-    margin-top: 0;
-    box-shadow: none;
-  }
-}
-
-.navbar-brand {
-  font-weight: 800;
-  font-size: 1.8rem;
-  color: var(--dark);
-  letter-spacing: -0.5px;
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-  transition: color 0.3s;
-}
-
-.navbar-brand img {
-  height: 80px;
-  width: 200px;
-  object-fit: contain;
-  display: block;
-}
-
-.navbar-brand span {
-  color: var(--primary);
-}
-
-.brand-tagline {
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: var(--gray);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-top: 2px;
-}
-
-.nav-link {
-  font-weight: 600;
-  color: var(--navy);
-  margin: 0 0.6rem;
-  position: relative;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  padding: 2rem 0.5rem !important;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.nav-link:hover {
-  color: var(--primary);
-}
-
-/* ============================================
-   DROPDOWN MENU STYLES
-   ============================================ */
-
-.dropdown-menu {
-  border: none;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-  border-radius: 12px;
-  padding: 1rem;
-  margin-top: 0.5rem;
-  min-width: 280px;
-  border-top: 3px solid var(--primary);
-  transition: all 0.3s ease;
-}
-
-.dropdown-menu.mega-menu {
-  min-width: 600px;
-  padding: 1.5rem;
-}
-
-.dropdown-item {
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--navy);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.dropdown-item:hover {
-  background: var(--primary-light);
-  color: var(--primary);
-  transform: translateX(5px);
-}
-
-.dropdown-item i {
-  font-size: 1.1rem;
-  color: var(--primary);
-  transition: color 0.3s;
-}
-
-.dropdown-header {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--primary);
-  margin-bottom: 0.5rem;
-  padding: 0.5rem 1rem;
-}
-
-.dropdown-divider {
-  margin: 0.8rem 0;
-  opacity: 0.1;
-}
-
-/* ============================================
-   BUTTON STYLES
-   ============================================ */
-
-/* CTA Button - Talk to Sales */
-.btn-sales {
-  background: var(--primary);
-  color: white !important;
-  border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  margin-left: 1rem;
-  box-shadow: 0 4px 15px rgba(26, 194, 193, 0.3);
-}
-
-.btn-sales:hover {
-  background: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
-}
-
-/* Login Button */
-.btn-login {
-  background-color: #ffffff !important;
-  color: #00bfa5 !important;
-  border: 1px solid #00bfa5 !important;
-  box-shadow: 0 2px 8px rgba(0, 191, 165, 0.3) !important;
-  padding: 8px 24px;
-  border-radius: 6px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  margin: 12px;
-}
-
-.btn-login:hover {
-  background-color: #00bfa5 !important;
-  color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(0, 191, 165, 0.4) !important;
-  transform: translateY(-1px);
-}
-
-/* ============================================
-   COUNTRY SELECTOR - WHITE ARROW REMOVED
-   ============================================ */
-
-.country-selector {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #e2e8f0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--navy);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-left: 1rem;
-}
-
-.country-selector:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-/* Remove Bootstrap's default white arrow from country selector */
-.country-selector.dropdown-toggle::after {
-  display: none !important;
-  content: none !important;
-  border: none !important;
-}
-
-/* Style the custom chevron icon */
-.country-selector i.bi-chevron-down {
-  font-size: 0.7rem;
-  color: var(--navy);
-  transition: transform 0.3s ease;
-}
-
-.country-selector:hover i.bi-chevron-down {
-  color: var(--primary);
-}
-
-/* Rotate chevron when dropdown is open */
-.country-selector[aria-expanded="true"] i.bi-chevron-down {
-  transform: rotate(180deg);
-}
-
-.country-flag {
-  font-size: 1.2rem;
-}
+       }
+
+       /* Chat Icon Button */
+       .chat-icon-btn {
+           position: fixed;
+           bottom: 30px;
+           right: 30px;
+           width: 60px;
+           height: 60px;
+           background: linear-gradient(135deg, #1dd1a1 0%, #10ac84 100%);
+           border-radius: 50%;
+           border: none;
+           cursor: pointer;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           box-shadow: 0 4px 20px rgba(29, 209, 161, 0.4);
+           transition: all 0.3s ease;
+           z-index: 1000;
+       }
+
+       .chat-icon-btn:hover {
+           transform: scale(1.1);
+           box-shadow: 0 6px 30px rgba(29, 209, 161, 0.6);
+       }
+
+       .chat-icon-btn svg {
+           width: 28px;
+           height: 28px;
+           color: white;
+       }
+
+       /* Chat Container */
+       .chat-container {
+           position: fixed;
+           bottom: 100px;
+           right: 30px;
+           width: 100%;
+           max-width: 380px;
+           height: 550px;
+           background: white;
+           border-radius: 20px;
+           box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+           display: none;
+           flex-direction: column;
+           overflow: hidden;
+           z-index: 999;
+           animation: slideUp 0.3s ease;
+       }
+
+       @keyframes slideUp {
+           from { opacity: 0; transform: translateY(20px); }
+           to { opacity: 1; transform: translateY(0); }
+       }
+
+       .chat-container.active {
+           display: flex;
+       }
+
+       .chat-header {
+           background: linear-gradient(135deg, #1dd1a1 0%, #10ac84 100%);
+           color: white;
+           padding: 16px 20px;
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+       }
+
+       .header-left {
+           display: flex;
+           align-items: center;
+           gap: 12px;
+       }
+
+       .avatar {
+           width: 40px;
+           height: 40px;
+           background: rgba(255,255,255,0.2);
+           border-radius: 50%;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           font-weight: bold;
+           font-size: 18px;
+       }
+
+       .header-info h3 {
+           font-size: 16px;
+           font-weight: 600;
+       }
+
+       .header-info span {
+           font-size: 12px;
+           opacity: 0.9;
+           display: flex;
+           align-items: center;
+           gap: 4px;
+       }
+
+       .online-dot {
+           width: 6px;
+           height: 6px;
+           background: #2ecc71;
+           border-radius: 50%;
+           display: inline-block;
+       }
+
+       .close-btn {
+           background: none;
+           border: none;
+           color: white;
+           cursor: pointer;
+           font-size: 20px;
+           opacity: 0.8;
+           transition: opacity 0.2s;
+       }
+
+       .close-btn:hover {
+           opacity: 1;
+       }
+
+       .chat-body {
+           flex: 1;
+           overflow-y: auto;
+           padding: 20px;
+           background: #f8f9fa;
+           display: flex;
+           flex-direction: column;
+           gap: 16px;
+       }
+
+       .privacy-notice {
+           background: #e8f4f8;
+           border: 1px solid #bee5eb;
+           border-radius: 12px;
+           padding: 16px;
+       }
+
+       .privacy-header {
+           display: flex;
+           align-items: center;
+           gap: 8px;
+           margin-bottom: 8px;
+           color: #0c5460;
+           font-weight: 600;
+           font-size: 14px;
+       }
+
+       .privacy-text {
+           font-size: 13px;
+           color: #0c5460;
+           line-height: 1.5;
+           margin-bottom: 12px;
+       }
+
+       .privacy-buttons {
+           display: flex;
+           gap: 8px;
+       }
+
+       .btn {
+           padding: 8px 16px;
+           border-radius: 6px;
+           border: none;
+           font-size: 13px;
+           cursor: pointer;
+           font-weight: 500;
+           transition: all 0.2s;
+       }
+
+       .btn-primary {
+           background: #3498db;
+           color: white;
+       }
+
+       .btn-primary:hover {
+           background: #2980b9;
+       }
+
+       .btn-secondary {
+           background: transparent;
+           color: #6c757d;
+           border: 1px solid #dee2e6;
+       }
+
+       .btn-secondary:hover {
+           background: #f8f9fa;
+       }
+
+       .message {
+           display: flex;
+           gap: 12px;
+           animation: fadeIn 0.3s ease;
+       }
+
+       @keyframes fadeIn {
+           from { opacity: 0; transform: translateY(10px); }
+           to { opacity: 1; transform: translateY(0); }
+       }
+
+       .message-avatar {
+           width: 32px;
+           height: 32px;
+           background: linear-gradient(135deg, #1dd1a1 0%, #10ac84 100%);
+           border-radius: 50%;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           color: white;
+           font-size: 12px;
+           flex-shrink: 0;
+       }
+
+       .message-content {
+           background: white;
+           padding: 16px;
+           border-radius: 12px;
+           border-top-left-radius: 4px;
+           box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+           max-width: 85%;
+       }
+
+       .message-text {
+           font-size: 14px;
+           line-height: 1.6;
+           color: #2c3e50;
+       }
+
+       .message-text strong {
+           color: #10ac84;
+       }
+
+       .user-message {
+           align-self: flex-end;
+           flex-direction: row-reverse;
+       }
+
+       .user-message .message-content {
+           background: #1dd1a1;
+           color: white;
+           border-top-left-radius: 12px;
+           border-top-right-radius: 4px;
+       }
+
+       .user-message .message-text {
+           color: white;
+       }
+
+       .input-form {
+           background: white;
+           padding: 16px 20px;
+           border-top: 1px solid #e9ecef;
+           display: flex;
+           gap: 12px;
+           align-items: center;
+       }
+
+       .input-field {
+           flex: 1;
+           padding: 12px 16px;
+           border: 1px solid #dee2e6;
+           border-radius: 24px;
+           font-size: 14px;
+           outline: none;
+           transition: border-color 0.2s;
+       }
+
+       .input-field:focus {
+           border-color: #1dd1a1;
+       }
+
+       .input-field:disabled {
+           background: #f8f9fa;
+           cursor: not-allowed;
+       }
+
+       .send-btn {
+           width: 40px;
+           height: 40px;
+           background: #1dd1a1;
+           border: none;
+           border-radius: 50%;
+           color: white;
+           cursor: pointer;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           transition: all 0.2s;
+       }
+
+       .send-btn:hover:not(:disabled) {
+           background: #10ac84;
+           transform: scale(1.05);
+       }
+
+       .send-btn:disabled {
+           background: #ccc;
+           cursor: not-allowed;
+       }
+
+       .hidden {
+           display: none !important;
+       }
+
+       .typing-indicator {
+           display: flex;
+           gap: 4px;
+           padding: 12px 16px;
+           background: white;
+           border-radius: 12px;
+           border-top-left-radius: 4px;
+           width: fit-content;
+           box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+       }
+
+       .typing-dot {
+           width: 8px;
+           height: 8px;
+           background: #1dd1a1;
+           border-radius: 50%;
+           animation: typing 1.4s infinite;
+       }
+
+       .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+       .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+       @keyframes typing {
+           0%, 60%, 100% { transform: translateY(0); }
+           30% { transform: translateY(-10px); }
+       }
+
+       .confirmation-box {
+           background: #f8f9fa;
+           padding: 12px;
+           border-radius: 8px;
+           margin: 12px 0;
+       }
+
+       .detail-row {
+           display: flex;
+           justify-content: space-between;
+           padding: 6px 0;
+           font-size: 13px;
+           border-bottom: 1px solid #e9ecef;
+       }
+
+       .detail-row:last-child {
+           border-bottom: none;
+       }
+
+       .detail-label {
+           color: #666;
+       }
+
+       .detail-value {
+           font-weight: 600;
+           color: #2c3e50;
+       }
+
+       .department-grid {
+           display: grid;
+           gap: 10px;
+           margin-top: 12px;
+       }
+
+       .dept-card {
+           background: white;
+           border: 2px solid #e9ecef;
+           border-radius: 12px;
+           padding: 14px;
+           cursor: pointer;
+           transition: all 0.2s;
+           text-align: left;
+           width: 100%;
+       }
+
+       .dept-card:hover {
+           border-color: #1dd1a1;
+           transform: translateY(-2px);
+           box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+       }
+
+       .dept-icon {
+           font-size: 20px;
+           margin-bottom: 6px;
+       }
+
+       .dept-name {
+           font-weight: 600;
+           color: #2c3e50;
+           font-size: 14px;
+           margin-bottom: 2px;
+       }
+
+       .dept-desc {
+           font-size: 12px;
+           color: #666;
+       }
+
+       .action-btn {
+           background: linear-gradient(135deg, #1dd1a1 0%, #10ac84 100%);
+           color: white;
+           border: none;
+           padding: 12px 24px;
+           border-radius: 8px;
+           font-weight: 600;
+           cursor: pointer;
+           margin-top: 12px;
+           width: 100%;
+           transition: all 0.2s;
+       }
+
+       .action-btn:hover {
+           transform: translateY(-2px);
+           box-shadow: 0 4px 12px rgba(29, 209, 161, 0.3);
+       }
+
+       .bgv-options {
+           display: grid;
+           gap: 8px;
+           margin-top: 12px;
+       }
+
+       .bgv-btn {
+           background: white;
+           border: 2px solid #e9ecef;
+           padding: 12px;
+           border-radius: 8px;
+           cursor: pointer;
+           text-align: left;
+           transition: all 0.2s;
+           font-size: 13px;
+       }
+
+       .bgv-btn:hover {
+           border-color: #1dd1a1;
+           background: #f0fff9;
+       }
+
+       .issue-input {
+           width: 100%;
+           padding: 12px;
+           border: 1px solid #dee2e6;
+           border-radius: 8px;
+           font-size: 14px;
+           margin-top: 12px;
+           resize: none;
+           font-family: inherit;
+       }
+
+       .issue-input:focus {
+           outline: none;
+           border-color: #1dd1a1;
+       }
+
+       .success-msg {
+           background: #d4edda;
+           color: #155724;
+           padding: 12px;
+           border-radius: 8px;
+           margin-top: 8px;
+           font-size: 13px;
+           border-left: 4px solid #28a745;
+       }
+
+       .back-btn {
+           background: #f8f9fa;
+           border: 1px solid #dee2e6;
+           color: #666;
+           padding: 8px 16px;
+           border-radius: 6px;
+           cursor: pointer;
+           font-size: 13px;
+           margin-top: 10px;
+           transition: all 0.2s;
+       }
+
+       .back-btn:hover {
+           background: #e9ecef;
+       }
+
+       .final-confirm-box {
+           background: #fff3cd;
+           border: 1px solid #ffeaa7;
+           border-radius: 8px;
+           padding: 16px;
+           margin: 12px 0;
+       }
+
+       .final-confirm-box h4 {
+           margin-bottom: 10px;
+           color: #856404;
+       }
+
+       .send-final-btn {
+           background: #28a745;
+           color: white;
+           border: none;
+           padding: 10px 20px;
+           border-radius: 6px;
+           cursor: pointer;
+           font-weight: 600;
+           margin-top: 10px;
+           width: 100%;
+       }
+
+       .send-final-btn:hover {
+           background: #218838;
+       }
+
+       .edit-link {
+           color: #3498db;
+           cursor: pointer;
+           font-size: 12px;
+           text-decoration: underline;
+       }
+
+       .whatsapp-float:hover {
+           transform: scale(1.1) rotate(10deg);
+           color: white;
+           box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
+       }
+       
+       .whatsapp-float:hover .float-tooltip {
+           opacity: 1;
+           visibility: visible;
+           right: 75px;
+       }
+       
+       .float-tooltip::after {
+           content: '';
+           position: absolute;
+           right: -5px;
+           top: 50%;
+           transform: translateY(-50%);
+           border-top: 5px solid transparent;
+           border-bottom: 5px solid transparent;
+           border-left: 5px solid #333;
+       }
+       
+       .social-icon:hover {
+           background: var(--primary) !important;
+           color: white !important;
+           transform: translateY(-3px);
+       }
+       
+       .footer-links a:hover {
+           color: var(--primary) !important;
+           transform: translateX(5px);
+       }
+       
+       .privacy-link:hover {
+           color: var(--primary-dark) !important;
+           text-decoration: underline;
+       }
+       
+       .newsletter-btn:hover {
+           transform: translateY(-2px);
+           box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
+       }
+       
+       .newsletter-btn:hover i {
+           transform: translateX(4px);
+       }
+       
+       @media (max-width: 991px) {
+           .whatsapp-float {
+               width: 55px;
+               height: 55px;
+               bottom: 20px;
+               right: 20px;
+           }
+           
+           .whatsapp-float i {
+               font-size: 1.5rem;
+           }
+           
+           .float-tooltip {
+               display: none;
+           }
+           
+           .newsletter-footer-section {
+               padding: 30px;
+               text-align: center;
+           }
+           
+           .newsletter-footer-section .d-flex {
+               flex-direction: column;
+               text-align: center;
+           }
+           
+           .newsletter-icon-footer {
+               margin: 0 auto;
+           }
+           
+           .input-group-wrapper {
+               flex-direction: column;
+           }
+           
+           .newsletter-btn {
+               width: 100%;
+               justify-content: center;
+           }
+           
+           .social-links {
+               justify-content: center;
+               margin-top: 20px;
+           }
+           
+           .copyright {
+               text-align: center;
+           }
+       }
+
+
+
+       /* ============================================
+          Z-INDEX FIXES - KEEP THESE AT TOP
+          ============================================ */
+
+       /* Ensure navbar has proper z-index */
+       .navbar {
+           z-index: 1050;
+       }
+
+       /* Fix dropdown z-index to appear above hero content */
+       .dropdown-menu {
+           z-index: 1060;
+           position: absolute;
+       }
+
+       /* Ensure dropdown items are clickable and visible */
+       .dropdown-item {
+           position: relative;
+           z-index: 1061;
+       }
+
+       /* Fix for hero section overlapping */
+       .industry-hero {
+           position: relative;
+           z-index: 1;
+       }
+
+       /* ============================================
+          NAVBAR & NAVIGATION STYLES
+          ============================================ */
+
+       .navbar {
+           padding: 0;
+           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+           background: rgba(255, 255, 255, 0.98);
+           backdrop-filter: blur(12px);
+           border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+           height: 80px;
+       }
+
+       .navbar.scrolled {
+           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+       }
+
+       /* Mobile navbar collapse background */
+       .navbar-collapse {
+           background: rgba(255, 255, 255, 0.98);
+           backdrop-filter: blur(12px);
+           border-radius: 12px;
+           padding: 1rem;
+           margin-top: 0.5rem;
+           box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+       }
+
+       @media (min-width: 992px) {
+           .navbar-collapse {
+               background: transparent;
+               backdrop-filter: none;
+               padding: 0;
+               margin-top: 0;
+               box-shadow: none;
+           }
+       }
+
+       .navbar-brand {
+           font-weight: 800;
+           font-size: 1.8rem;
+           color: var(--dark);
+           letter-spacing: -0.5px;
+           display: flex;
+           flex-direction: column;
+           line-height: 1.1;
+           transition: color 0.3s;
+       }
+
+       .navbar-brand img {
+           height: 80px;
+           width: 200px;
+           object-fit: contain;
+           display: block;
+       }
+
+       .navbar-brand span {
+           color: var(--primary);
+       }
+
+       .brand-tagline {
+           font-size: 0.65rem;
+           font-weight: 500;
+           color: var(--gray);
+           letter-spacing: 1px;
+           text-transform: uppercase;
+           margin-top: 2px;
+       }
+
+       .nav-link {
+           font-weight: 600;
+           color: var(--navy);
+           margin: 0 0.6rem;
+           position: relative;
+           font-size: 0.9rem;
+           transition: all 0.3s ease;
+           padding: 2rem 0.5rem !important;
+           display: flex;
+           align-items: center;
+           gap: 4px;
+       }
+
+       .nav-link:hover {
+           color: var(--primary);
+       }
+
+       /* ============================================
+          DROPDOWN MENU STYLES
+          ============================================ */
+
+       .dropdown-menu {
+           border: none;
+           box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+           border-radius: 12px;
+           padding: 1rem;
+           margin-top: 0.5rem;
+           min-width: 280px;
+           border-top: 3px solid var(--primary);
+           transition: all 0.3s ease;
+       }
+
+       .dropdown-menu.mega-menu {
+           min-width: 600px;
+           padding: 1.5rem;
+       }
+
+       .dropdown-item {
+           padding: 0.6rem 1rem;
+           border-radius: 8px;
+           font-size: 0.9rem;
+           font-weight: 500;
+           color: var(--navy);
+           transition: all 0.3s ease;
+           display: flex;
+           align-items: center;
+           gap: 10px;
+       }
+
+       .dropdown-item:hover {
+           background: var(--primary-light);
+           color: var(--primary);
+           transform: translateX(5px);
+       }
+
+       .dropdown-item i {
+           font-size: 1.1rem;
+           color: var(--primary);
+           transition: color 0.3s;
+       }
+
+       .dropdown-header {
+           font-size: 0.75rem;
+           font-weight: 700;
+           text-transform: uppercase;
+           letter-spacing: 1px;
+           color: var(--primary);
+           margin-bottom: 0.5rem;
+           padding: 0.5rem 1rem;
+       }
+
+       .dropdown-divider {
+           margin: 0.8rem 0;
+           opacity: 0.1;
+       }
+
+       /* ============================================
+          BUTTON STYLES
+          ============================================ */
+
+       /* CTA Button - Talk to Sales */
+       .btn-sales {
+           background: var(--primary);
+           color: white !important;
+           border: none;
+           padding: 0.6rem 1.5rem;
+           border-radius: 6px;
+           font-weight: 600;
+           font-size: 0.9rem;
+           transition: all 0.3s ease;
+           white-space: nowrap;
+           margin-left: 1rem;
+           box-shadow: 0 4px 15px rgba(26, 194, 193, 0.3);
+       }
+
+       .btn-sales:hover {
+           background: var(--primary-dark);
+           transform: translateY(-2px);
+           box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
+       }
+
+       /* Login Button */
+       .btn-login {
+           background-color: #ffffff !important;
+           color: #00bfa5 !important;
+           border: 1px solid #00bfa5 !important;
+           box-shadow: 0 2px 8px rgba(0, 191, 165, 0.3) !important;
+           padding: 8px 24px;
+           border-radius: 6px;
+           font-weight: 500;
+           text-decoration: none;
+           transition: all 0.3s ease;
+           margin: 12px;
+       }
+
+       .btn-login:hover {
+           background-color: #00bfa5 !important;
+           color: #ffffff !important;
+           box-shadow: 0 4px 12px rgba(0, 191, 165, 0.4) !important;
+           transform: translateY(-1px);
+       }
+
+       /* ============================================
+          COUNTRY SELECTOR - WHITE ARROW REMOVED
+          ============================================ */
+
+       .country-selector {
+           display: flex;
+           align-items: center;
+           gap: 6px;
+           padding: 0.5rem;
+           border-radius: 6px;
+           border: 1px solid #e2e8f0;
+           font-size: 0.85rem;
+           font-weight: 600;
+           color: var(--navy);
+           cursor: pointer;
+           transition: all 0.3s ease;
+           margin-left: 1rem;
+       }
+
+       .country-selector:hover {
+           border-color: var(--primary);
+           color: var(--primary);
+       }
+
+       /* Remove Bootstrap's default white arrow from country selector */
+       .country-selector.dropdown-toggle::after {
+           display: none !important;
+           content: none !important;
+           border: none !important;
+       }
+
+       /* Style the custom chevron icon */
+       .country-selector i.bi-chevron-down {
+           font-size: 0.7rem;
+           color: var(--navy);
+           transition: transform 0.3s ease;
+       }
+
+       .country-selector:hover i.bi-chevron-down {
+           color: var(--primary);
+       }
+
+       /* Rotate chevron when dropdown is open */
+       .country-selector[aria-expanded="true"] i.bi-chevron-down {
+           transform: rotate(180deg);
+       }
+
+       .country-flag {
+           font-size: 1.2rem;
+       }
 
        /* Navigation */
      
@@ -2447,17 +2449,14 @@
         ><i class="bi bi-link-45deg"></i> Affiliate Marketing
       </a>
     </li>
-  </ul>
+  </ul  </ul>
 </li>
           <div class="d-flex align-items-center">
             <a href="https://web.verifitech.com/" target="blank" class="btn-login">Login</a>
           </div>
 
           <div class="d-flex align-items-center">
-            <a href="./contact/contact.html" class="btn btn-sales"
-              >Talk to Sales</a
-            >
-
+            <a href="./contact/contact.html" class="btn btn-sales">Talk to Sales</a>
 
             <div class="dropdown">
               <div
@@ -2467,74 +2466,33 @@
               >
                 <span class="country-flag" id="current-flag">🇮🇳</span>
                 <span id="current-country">India</span>
-                <i
-                  class="bi bi-chevron-down ms-1"
-                  style="font-size: 0.7rem"
-                ></i>
+                <i class="bi bi-chevron-down ms-1" style="font-size: 0.7rem"></i>
               </div>
-              <ul
-                class="dropdown-menu dropdown-menu-end"
-                style="min-width: 180px"
-              >
+              <ul class="dropdown-menu dropdown-menu-end" style="min-width: 180px">
                 <li>
-                  <a
-                    href="../countries/usa.html"
-                    class="dropdown-item country-option"
-                    data-country="USA"
-                    data-flag="🇺🇸"
-                  >
+                  <a href="../countries/usa.html" class="dropdown-item country-option" data-country="USA" data-flag="🇺🇸">
                     <span class="country-flag">🇺🇸</span> USA
                   </a>
                 </li>
                 <li>
-                  <a
-                    class="dropdown-item country-option"
-                    href="../countries/UAE.html"
-                    data-country="UAE"
-                    data-flag="🇦🇪"
-                  >
+                  <a class="dropdown-item country-option" href="../countries/UAE.html" data-country="UAE" data-flag="🇦🇪">
                     <span class="country-flag">🇦🇪</span> UAE
                   </a>
                 </li>
                 <li>
-                  <a
-                    class="dropdown-item country-option"
-                    href="../countries/aus.html"
-                    data-country="Australia"
-                    data-flag="🇦🇺"
-                  >
+                  <a class="dropdown-item country-option" href="../countries/aus.html" data-country="Australia" data-flag="🇦🇺">
                     <span class="country-flag">🇦🇺</span> Australia
                   </a>
                 </li>
                 <li>
-                  <a
-                    class="dropdown-item country-option"
-                    href="../countries/uk.html"
-                    data-country="UK"
-                    data-flag="🇬🇧"
-                  >
+                  <a class="dropdown-item country-option" href="../countries/uk.html" data-country="UK" data-flag="🇬🇧">
                     <span class="country-flag">🇬🇧</span> UK
                   </a>
                 </li>
                 <li>
-                  <a
-                    class="dropdown-item country-option"
-                    href="../countries/sigapore.html"
-                    data-country="Singapore"
-                    data-flag="🇸🇬"
-                  >
+                  <a class="dropdown-item country-option" href="../countries/sigapore.html" data-country="Singapore" data-flag="🇸🇬">
                     <span class="country-flag">🇸🇬</span> Singapore
                   </a>
-                </li>
-                <!--<li>
-                  <a
-                    class="dropdown-item country-option"
-                    href="./countries/india.html"
-                    data-country="India"
-                    data-flag="🇮🇳"
-                  >
-                    <span class="country-flag">🇮🇳</span> India
-                  </a>-->
                 </li>
               </ul>
             </div>
@@ -2542,6 +2500,7 @@
         </div>
       </div>
     </nav>
+
    <!-- Hero Section -->
    <section class="solution-hero">
        <div class="container">
@@ -2621,6 +2580,7 @@
            </div>
        </div>
    </section>
+
    <!-- Verification Types -->
    <section class="verification-types">
        <div class="container">
@@ -2708,6 +2668,7 @@
            </div>
        </div>
    </section>
+
    <!-- How it Works -->
    <section class="how-it-works" id="how-it-works">
        <div class="container">
@@ -2764,6 +2725,7 @@
            </div>
        </div>
    </section>
+
    <!-- Key Highlights -->
    <section class="key-highlights">
        <div class="container">
@@ -2818,6 +2780,7 @@
            </div>
        </div>
    </section>
+
    <!-- Benefits -->
    <section class="benefits-section" id="benefits">
        <div class="container">
@@ -2890,6 +2853,7 @@
            </div>
        </div>
    </section>
+
    <!-- FAQs -->
    <section class="faq-section">
        <div class="container">
@@ -2987,100 +2951,8 @@
            </div>
        </div>
    </section>
-   <!-- Contact Section -->
-   <!--<section class="contact-section" id="contact">
-       <div class="container position-relative">
-           <div class="row">
-               <div class="col-lg-6 mb-5 mb-lg-0 reveal">
-                   <h2>Ready to Explore Verifitech for your business?</h2>
-                   <p class="lead">Get in touch with our solutions team to discuss your directorship verification needs and corporate governance compliance.</p>
-                   
-                   <div class="mt-5">
-                       <div class="contact-feature">
-                           <div class="contact-feature-icon">
-                               <i class="bi bi-check-lg"></i>
-                           </div>
-                           <span>Assess board verification requirements</span>
-                       </div>
-                       <div class="contact-feature">
-                           <div class="contact-feature-icon">
-                               <i class="bi bi-check-lg"></i>
-                           </div>
-                           <span>Learn about network analysis & monitoring</span>
-                       </div>
-                       <div class="contact-feature">
-                           <div class="contact-feature-icon">
-                               <i class="bi bi-check-lg"></i>
-                           </div>
-                           <span>Discuss enterprise pricing & SLAs</span>
-                       </div>
-                   </div>
-                   
-                   <div class="mt-5 pt-4" style="border-top: 1px solid rgba(255,255,255,0.1);">
-                       <p class="text-white-50 mb-3">Or reach us directly:</p>
-                       <p class="mb-2"><i class="bi bi-envelope me-2 text-primary"></i> sales@verifitech.com</p>
-                       <p><i class="bi bi-telephone me-2 text-primary"></i> +91 1800-123-4567</p>
-                   </div>
-               </div>
-               
-               <div class="col-lg-6 reveal">
-                   <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you for your interest! Our team will contact you within 24 hours.');">
-                       <div class="row">
-                           <div class="col-md-6">
-                               <input type="text" class="form-control" placeholder="First Name *" required>
-                           </div>
-                           <div class="col-md-6">
-                               <input type="text" class="form-control" placeholder="Last Name *" required>
-                           </div>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-6">
-                               <input type="email" class="form-control" placeholder="Work Email *" required>
-                           </div>
-                           <div class="col-md-6">
-                               <input type="tel" class="form-control" placeholder="Phone Number *" required>
-                           </div>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-6">
-                               <input type="text" class="form-control" placeholder="Company Name *" required>
-                           </div>
-                           <div class="col-md-6">
-                               <select class="form-select" required>
-                                   <option value="" disabled selected>Company Size *</option>
-                                   <option>1-50 employees</option>
-                                   <option>51-200 employees</option>
-                                   <option>201-1000 employees</option>
-                                   <option>1000+ employees</option>
-                               </select>
-                           </div>
-                       </div>
-                       <select class="form-select" required>
-                           <option value="" disabled selected>Interested Solution *</option>
-                           <option selected>Directorship Check</option>
-                           <option>Board Compliance Monitoring</option>
-                           <option>Related Party Analysis</option>
-                           <option>Complete Corporate Suite</option>
-                       </select>
-                       <textarea class="form-control" rows="3" placeholder="Tell us about your requirements (Optional)"></textarea>
-                       
-                       <div class="form-check mt-3 mb-4">
-                           <input class="form-check-input" type="checkbox" required>
-                           <label class="form-check-label">
-                               I agree to the <a href="#">Privacy Policy</a> and consent to being contacted regarding Verifitech services.
-                           </label>
-                       </div>
-                       
-                       <button type="submit" class="btn btn-submit">
-                           Submit Request <i class="bi bi-arrow-right ms-2"></i>
-                       </button>
-                   </form>
-               </div>
-           </div>
-       </div>
-   </section>-->
-   <!-- Footer --> 
-  <!-- Chat Icon -->
+
+   <!-- Chat Icon -->
     <button class="chat-icon-btn" onclick="toggleChat()" id="chatIcon">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
@@ -3137,6 +3009,7 @@
             </button>
         </div>
     </div>
+
     <!-- Footer Section with Zoho Newsletter -->
     <footer class="footer">
       <div class="container">
@@ -3156,33 +3029,14 @@
             </div>
             <div class="col-lg-6">
               <!-- Zoho Form Integration -->
-              <form 
-                action='https://forms.zohopublic.in/verifitech/form/EmailForm/formperma/SKIJ3QipRaWUwFKnGbpchcOlGRfoBCpr-GTyQfdQAUQ/htmlRecords/submit' 
-                name='form'
-                method='POST'
-                onSubmit='javascript:document.charset="UTF-8"; return zf_ValidateAndSubmit();'
-                accept-charset='UTF-8' 
-                enctype='multipart/form-data' 
-                id='form'
-                class="newsletter-form-footer"
-              >
+              <form action='https://forms.zohopublic.in/verifitech/form/EmailForm/formperma/SKIJ3QipRaWUwFKnGbpchcOlGRfoBCpr-GTyQfdQAUQ/htmlRecords/submit' name='form' method='POST' onSubmit='javascript:document.charset="UTF-8"; return zf_ValidateAndSubmit();' accept-charset='UTF-8' enctype='multipart/form-data' id='form' class="newsletter-form-footer">
                 <input type="hidden" name="zf_referrer_name" value="">
                 <input type="hidden" name="zf_redirect_url" value="">
                 <input type="hidden" name="zc_gad" value="">
                 
                 <div class="input-group-wrapper">
                   <div class="zf-tempContDiv">
-                    <input 
-                      type="text" 
-                      name="Email" 
-                      checktype="c5" 
-                      value="" 
-                      maxlength="255" 
-                      fieldType="9" 
-                      placeholder="Enter your work email"
-                      class="newsletter-input"
-                      id="Email"
-                    />
+                    <input type="text" name="Email" checktype="c5" value="" maxlength="255" fieldType="9" placeholder="Enter your work email" class="newsletter-input" id="Email"/>
                     <p id="Email_error" class="zf-errorMessage">Invalid value</p>
                   </div>
                   <button type="submit" class="newsletter-btn zf-submitColor">
@@ -3201,16 +3055,10 @@
           <!-- Logo & Description Column -->
           <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
             <div class="footer-brand">
-              <img
-                src="https://www.verifitech.com/wp-content/uploads/2022/05/verifitech-logo.svg"
-                alt="Verifitech"
-                class="footer-logo"
-              />
+              <img src="https://www.verifitech.com/wp-content/uploads/2022/05/verifitech-logo.svg" alt="Verifitech" class="footer-logo"/>
             </div>
             <p class="footer-description">
-              India's most trusted employment verification platform with direct
-              HR database integration and EPFO validation across 19,000+
-              companies.
+              India's most trusted employment verification platform with direct HR database integration and EPFO validation across 19,000+ companies.
             </p>
           </div>
 
@@ -3219,16 +3067,10 @@
             <div class="footer-column">
               <h5 class="footer-heading">Solutions</h5>
               <ul class="footer-links">
-                <li>
-                  <a href="./checks/lp-employment.html">Employment Check</a>
-                </li>
-                <li>
-                  <a href="../checks/lp-education check.html">Education Verification</a>
-                </li>
+                <li><a href="./checks/lp-employment.html">Employment Check</a></li>
+                <li><a href="../checks/lp-education check.html">Education Verification</a></li>
                 <li><a href="../checks/lp-refernce.html">Reference Checks</a></li>
-                <li>
-                  <a href="../checks/lp-gap verification.html">Gap Analysis</a>
-                </li>
+                <li><a href="../checks/lp-gap verification.html">Gap Analysis</a></li>
               </ul>
             </div>
           </div>
@@ -3258,9 +3100,7 @@
           <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
             <h5 class="footer-heading">Products</h5>
             <ul class="footer-links">
-              <li>
-                <a href="../products/exitinterview.html">Exit interview</a>
-              </li>
+              <li><a href="../products/exitinterview.html">Exit interview</a></li>
               <li><a href="../products/pm.html">psychometric</a></li>
               <li><a href="../products/api.html">API</a></li>
             </ul>
@@ -3272,8 +3112,7 @@
           <div class="row align-items-center">
             <div class="col-md-6">
               <p class="copyright">
-                © 2026 Verifitech Solutions Private Limited. All rights
-                reserved.
+                © 2026 Verifitech Solutions Private Limited. All rights reserved.
               </p>
             </div>
             <div class="col-md-6">
@@ -3285,7 +3124,6 @@
                 <a href="https://www.instagram.com/verifitech/reels/" class="social-icon" target="blank"><i class="bi bi-instagram"></i></a>
                 <a href="https://wa.me/919176663777?text=Hi%20Verifitech%20Team%2C%0A%0AI%20am%20interested%20in%20your%20background%20verification%20services." class="social-icon" onclick="openWhatsApp(event)"><i class="bi bi-whatsapp"></i></a>
               </div>
-              </div>
             </div>
           </div>
           
@@ -3296,106 +3134,104 @@
             <a href="../privacy policy pages/disclaimer.html" class="privacy-link">Disclaimer</a>
             <span class="privacy-separator">|</span>  
             <a href="../privacy policy pages/terms and conditions.html" class="privacy-link">Terms of Service</a>
-            <span class="privacy-sepa.rator">|</span>        
+            <span class="privacy-separator">|</span>        
             <a href="./privacy policy pages/cookiepolicy.html" class="privacy-link">Cookies Policy</a>
           </div>
         </div>
       </div>
     </footer>
 
-<!-- Floating WhatsApp Button -->
-<!--
-<a 
-  href="#" 
-  id="whatsappFloat"
-  class="whatsapp-float" 
-  title="Chat with us on WhatsApp"
-  onclick="openWhatsApp(event)"
-  style="position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); z-index: 9999; transition: all 0.3s ease; border: 3px solid rgba(255, 255, 255, 0.3); cursor: pointer;"
->
-  <i class="bi bi-whatsapp" style="font-size: 1.8rem;"></i>
-  <span class="float-tooltip" style="position: absolute; right: 70px; background: #333; color: white; padding: 8px 16px; border-radius: 8px; font-size: 14px; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.3s ease; pointer-events: none;">How can we help?</span>
-</a>-->
    <!-- Scripts -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
    <script>
       const whatsappConfig = {
-    phoneNumber: '+919176663777',
-    defaultMessage: 'Hi Verifitech Team,\n\nI am interested in your background verification services. Please share more details.',
-    pageContext: true
-  };
+        phoneNumber: '+919176663777',
+        defaultMessage: 'Hi Verifitech Team,\n\nI am interested in your background verification services. Please share more details.',
+        pageContext: true
+      };
 
-  function openWhatsApp(event) {
-    event.preventDefault();
-    
-    const pageTitle = document.title;
-    const currentUrl = window.location.href;
-    
-    let message = whatsappConfig.defaultMessage;
-    
-    if (whatsappConfig.pageContext && pageTitle) {
-      message += `\n\nI am currently viewing: ${pageTitle}\nURL: ${currentUrl}`;
-    }
-    
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${whatsappConfig.phoneNumber}?text=${encodedMessage}`;
-    
-    window.open(whatsappUrl, '_blank');
-  }
+      function openWhatsApp(event) {
+        event.preventDefault();
+        const pageTitle = document.title;
+        const currentUrl = window.location.href;
+        let message = whatsappConfig.defaultMessage;
+        
+        if (whatsappConfig.pageContext && pageTitle) {
+          message += `\n\nI am currently viewing: ${pageTitle}\nURL: ${currentUrl}`;
+        }
+        
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${whatsappConfig.phoneNumber}?text=${encodedMessage}`;
+        window.open(whatsappUrl, '_blank');
+      }
   
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offsetTop = target.offsetTop - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
       // Navbar scroll effect
-      window.addEventListener("scroll", () => {
-        const navbar = document.querySelector(".navbar");
+      window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.navbar');
         if (window.scrollY > 50) {
-          navbar.classList.add("scrolled");
+          navbar.classList.add('scrolled');
         } else {
-          navbar.classList.remove("scrolled");
+          navbar.classList.remove('scrolled');
         }
       });
 
-    
+      // Intersection Observer for animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            const offsetTop = target.offsetTop - 80;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // Chat functions
+      function toggleChat() {
+        const chatContainer = document.getElementById('chatContainer');
+        chatContainer.classList.toggle('active');
+      }
+
+      function acceptPrivacy() {
+        document.getElementById('privacyNotice').classList.add('hidden');
+        document.getElementById('welcomeMessage').classList.remove('hidden');
+        document.getElementById('messageInput').disabled = false;
+        document.getElementById('sendBtn').disabled = false;
+      }
+
+      function declinePrivacy() {
+        toggleChat();
+      }
+
+      function handleSend() {
+        const input = document.getElementById('messageInput');
+        const message = input.value.trim();
+        if (message) {
+          // Add user message logic here
+          input.value = '';
+        }
+      }
    </script>
 </body>
 </html>
-
