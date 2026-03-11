@@ -47,8 +47,47 @@
             scroll-behavior: smooth;
         }
         
-        /* Navigation */
-      .navbar {
+      /* ============================================
+   Z-INDEX FIXES - CRITICAL FOR DROPDOWNS
+   ============================================ */
+
+/* Navbar base z-index */
+.navbar {
+  z-index: 1030;
+  position: relative;
+}
+
+/* Nav items need positioning context for dropdowns */
+.nav-item.dropdown {
+  position: relative;
+  z-index: 1031;
+}
+
+/* Dropdown menu must be above all other content */
+.dropdown-menu {
+  z-index: 1060 !important;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+/* Ensure dropdown items are visible and clickable */
+.dropdown-item {
+  position: relative;
+  z-index: 1061;
+}
+
+/* Hero section z-index (below dropdowns) */
+.industry-hero {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   NAVBAR STYLES
+   ============================================ */
+
+.navbar {
   padding: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: rgba(255, 255, 255, 0.98);
@@ -61,7 +100,7 @@
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* Mobile navbar collapse background */
+/* Mobile navbar collapse */
 .navbar-collapse {
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(12px);
@@ -69,6 +108,7 @@
   padding: 1rem;
   margin-top: 0.5rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  overflow: visible !important; /* CRITICAL: Allows dropdowns to overflow */
 }
 
 @media (min-width: 992px) {
@@ -78,9 +118,11 @@
     padding: 0;
     margin-top: 0;
     box-shadow: none;
+    overflow: visible !important;
   }
 }
 
+/* Navbar Brand */
 .navbar-brand {
   font-weight: 800;
   font-size: 1.8rem;
@@ -112,6 +154,7 @@
   margin-top: 2px;
 }
 
+/* Nav Links */
 .nav-link {
   font-weight: 600;
   color: var(--navy);
@@ -129,6 +172,11 @@
   color: var(--primary);
 }
 
+/* Dropdown Toggle Icon Animation */
+.nav-link[aria-expanded="true"] .bi-chevron-down {
+  transform: rotate(180deg);
+}
+
 /* ============================================
    DROPDOWN MENU STYLES
    ============================================ */
@@ -142,6 +190,7 @@
   min-width: 280px;
   border-top: 3px solid var(--primary);
   transition: all 0.3s ease;
+  background: white;
 }
 
 .dropdown-menu.mega-menu {
@@ -205,12 +254,15 @@
   white-space: nowrap;
   margin-left: 1rem;
   box-shadow: 0 4px 15px rgba(26, 194, 193, 0.3);
+  text-decoration: none;
+  display: inline-block;
 }
 
 .btn-sales:hover {
   background: var(--primary-dark);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
+  color: white !important;
 }
 
 /* Login Button */
@@ -225,6 +277,7 @@
   text-decoration: none;
   transition: all 0.3s ease;
   margin: 12px;
+  display: inline-block;
 }
 
 .btn-login:hover {
@@ -235,7 +288,7 @@
 }
 
 /* ============================================
-   COUNTRY SELECTOR - WHITE ARROW REMOVED
+   COUNTRY SELECTOR
    ============================================ */
 
 .country-selector {
@@ -251,6 +304,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-left: 1rem;
+  background: transparent;
 }
 
 .country-selector:hover {
@@ -258,7 +312,7 @@
   color: var(--primary);
 }
 
-/* Remove Bootstrap's default white arrow from country selector */
+/* Remove Bootstrap's default white arrow */
 .country-selector.dropdown-toggle::after {
   display: none !important;
   content: none !important;
@@ -285,7 +339,51 @@
   font-size: 1.2rem;
 }
 
-        
+/* ============================================
+   MOBILE RESPONSIVE
+   ============================================ */
+
+@media (max-width: 991px) {
+  .navbar {
+    height: auto;
+    padding: 0.5rem 0;
+  }
+
+  .navbar-brand img {
+    height: 60px;
+    width: 150px;
+  }
+
+  .nav-link {
+    padding: 0.75rem 0.5rem !important;
+  }
+
+  .dropdown-menu {
+    position: static !important;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+
+  .dropdown-menu.mega-menu {
+    min-width: 100%;
+  }
+
+  .btn-sales,
+  .btn-login {
+    margin: 0.5rem 0;
+    display: block;
+    text-align: center;
+  }
+
+  .country-selector {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+  }
+}
+
         /* Enhanced Hero Illustration - Construction Theme */
         .hero-illustration {
             position: relative;
