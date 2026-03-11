@@ -126,7 +126,66 @@
 /* ============================================
    NAVBAR & NAVIGATION STYLES
    ============================================ */
+/* ============================================
+   DROPDOWN ARROW STYLES - Matching Screenshot
+   ============================================ */
 
+/* Remove default Bootstrap caret */
+.nav-link.dropdown-toggle::after {
+  display: none !important;
+}
+
+/* Add custom chevron-down icon */
+.nav-link.dropdown-toggle {
+  position: relative;
+  padding-right: 1.2rem !important;
+}
+
+.nav-link.dropdown-toggle::before {
+  content: '\F282'; /* Bootstrap Icons chevron-down */
+  font-family: 'bootstrap-icons';
+  font-size: 0.65rem;
+  margin-left: 4px;
+  color: var(--navy);
+  transition: transform 0.3s ease, color 0.3s ease;
+  display: inline-block;
+}
+
+/* Rotate arrow when dropdown is open */
+.nav-link.dropdown-toggle[aria-expanded="true"]::before {
+  transform: rotate(180deg);
+  color: var(--primary);
+}
+
+/* Hover state for arrow */
+.nav-link.dropdown-toggle:hover::before {
+  color: var(--primary);
+}
+
+/* Mobile: Adjust arrow position */
+@media (max-width: 991px) {
+  .nav-link.dropdown-toggle::before {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .nav-link.dropdown-toggle[aria-expanded="true"]::before {
+    transform: translateY(-50%) rotate(180deg);
+  }
+}
+
+/* Ensure proper spacing between text and arrow */
+.nav-link {
+  gap: 6px !important;
+}
+
+/* Country selector specific - keep using bi-chevron-down icon */
+.country-selector .bi-chevron-down {
+  font-size: 0.75rem;
+  margin-left: 2px;
+}
 .navbar {
   padding: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
