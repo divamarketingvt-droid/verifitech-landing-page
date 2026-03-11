@@ -325,7 +325,52 @@
   margin: 0.8rem 0;
   opacity: 0.1;
 }
+/* ============================================
+   DROPDOWN ARROW STYLES - Font Awesome Version
+   ============================================ */
 
+/* Remove default Bootstrap caret */
+.nav-link.dropdown-toggle::after {
+  display: none !important;
+}
+
+/* Add Font Awesome chevron-down */
+.nav-link.dropdown-toggle {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Using Font Awesome 7 */
+.nav-link.dropdown-toggle .fa-chevron-down,
+.nav-link.dropdown-toggle::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  content: '\f078'; /* fa-chevron-down */
+  font-size: 0.7rem;
+  color: var(--navy);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* If you want to use inline icon instead of pseudo-element */
+.nav-link.dropdown-toggle i.fa-chevron-down,
+.nav-link.dropdown-toggle i.bi-chevron-down {
+  font-size: 0.7rem;
+  margin-left: 2px;
+  transition: transform 0.3s ease;
+}
+
+/* Rotate when open */
+.nav-link.dropdown-toggle[aria-expanded="true"] i.fa-chevron-down,
+.nav-link.dropdown-toggle[aria-expanded="true"] i.bi-chevron-down {
+  transform: rotate(180deg);
+}
+
+/* Hover color */
+.nav-link.dropdown-toggle:hover i.fa-chevron-down,
+.nav-link.dropdown-toggle:hover i.bi-chevron-down {
+  color: var(--primary);
+}
 /* ============================================
    BUTTON STYLES
    ============================================ */
