@@ -59,313 +59,256 @@ body {
   background-color: var(--light-gray);
   overflow-x: hidden;
 }
+      /* Hero Button - Fixed Visibility */
+      .btn-primary-custom {
+        background: var(--primary) !important;
+        color: white !important;
+        border: none;
+        padding: 0.75rem 1.8rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(26, 194, 193, 0.35);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+      }
 
+      .btn-primary-custom:hover {
+        background: var(--primary-dark) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(26, 194, 193, 0.45);
+        color: white !important;
+      }
 /* ============================================
    NAVBAR & NAVIGATION STYLES
-   ============================================ */
-
-.navbar {
-  padding: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  height: 80px;
-  z-index: 1050;
-}
-
-.navbar.scrolled {
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
-}
-
-/* Mobile navbar collapse background */
-.navbar-collapse {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  padding: 1rem;
-  margin-top: 0.5rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-}
-
-@media (min-width: 992px) {
-  .navbar-collapse {
-    background: transparent;
-    backdrop-filter: none;
-    padding: 0;
-    margin-top: 0;
-    box-shadow: none;
+    /* Ensure navbar has proper z-index */
+  .navbar {
+    z-index: 1050; /* Higher than most content */
   }
-}
+  
+  /* Fix dropdown z-index to appear above hero content */
+  .dropdown-menu {
+    z-index: 1060; /* Higher than navbar */
+    position: absolute; /* Ensure proper positioning */
+  }
+  
+  /* Ensure dropdown items are clickable and visible */
+  .dropdown-item {
+    position: relative;
+    z-index: 1061;
+  }
+  
+  /* Fix for hero section overlapping */
+  .industry-hero {
+    position: relative;
+    z-index: 1; /* Lower than navbar */
+  }
+  
+  /* Ensure navbar collapse has proper background when expanded on mobile */
+  .navbar-collapse {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  }
+  
+  @media (min-width: 992px) {
+    .navbar-collapse {
+      background: transparent;
+      backdrop-filter: none;
+      padding: 0;
+      margin-top: 0;
+      box-shadow: none;
+    }
+  }
 
-.navbar-brand {
-  font-weight: 800;
-  font-size: 1.8rem;
-  color: var(--dark);
-  letter-spacing: -0.5px;
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-  transition: color 0.3s;
-  padding: 0;
-  align-items: center;
-}
+      /* Navigation */
+     .navbar {
+        padding: 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        height: 100px;
+      }
 
-.navbar-brand img {
-  height: auto;
-  width: 160px;
-  max-width: 100%;
-  object-fit: contain;
-  display: block;
-}
+      .navbar.scrolled {
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+      }
 
-.navbar-brand span {
-  color: var(--primary);
-}
+      .navbar-brand {
+        font-weight: 800;
+        font-size: 1.8rem;
+        color: var(--dark);
+        letter-spacing: -0.5px;
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
+        transition: color 0.3s;
+      }
+      .navbar-brand img {
+        height: 90px;
+        width: 200px;
+        object-fit: contain;
+        display: block;
+      }
 
-.brand-tagline {
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: var(--gray);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-top: 2px;
-}
+      .navbar-brand span {
+        color: var(--primary);
+      }
 
-/* ============================================
-   DROPDOWN ARROW STYLES - Matching Screenshot
-   ============================================ */
+      .brand-tagline {
+        font-size: 0.65rem;
+        font-weight: 500;
+        color: var(--gray);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
 
-/* Remove default Bootstrap caret completely */
-.navbar .dropdown-toggle::after,
-.nav-link.dropdown-toggle::after,
-.country-selector.dropdown-toggle::after {
-  display: none !important;
-  content: none !important;
-  border: none !important;
-}
+      .nav-link {
+        font-weight: 600;
+        color: var(--navy);
+        margin: 0 0.6rem;
+        position: relative;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        padding: 2rem 0.5rem !important;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
 
-/* Custom dropdown arrow using inline span */
-.dropdown-arrow {
-  font-size: 0.6rem;
-  margin-left: 4px;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1;
-  transition: transform 0.2s ease;
-  color: inherit;
-  opacity: 0.8;
-}
+      .nav-link:hover {
+        color: var(--primary);
+      }
 
-/* Rotate arrow when dropdown is open */
-.nav-item.dropdown.show .dropdown-arrow,
-.nav-link[aria-expanded="true"] .dropdown-arrow,
-.country-selector[aria-expanded="true"] .dropdown-arrow {
-  transform: rotate(180deg);
-}
+      /* Dropdown Styling with Teal Accents */
+      .dropdown-menu {
+        border: none;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-top: 0.5rem;
+        min-width: 280px;
+        border-top: 3px solid var(--primary);
+        transition: all 0.3s ease;
+      }
 
-/* Nav link styling */
-.nav-link {
-  font-weight: 600;
-  color: var(--navy);
-  margin: 0 0.6rem;
-  position: relative;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  padding: 2rem 0.5rem !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 4px !important;
-}
+      .dropdown-menu.mega-menu {
+        min-width: 600px;
+        padding: 1.5rem;
+      }
 
-.nav-link:hover {
-  color: var(--primary);
-}
+      .dropdown-item {
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--navy);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-/* ============================================
-   DROPDOWN MENU STYLES
-   ============================================ */
+      .dropdown-item:hover {
+        background: var(--primary-light);
+        color: var(--primary);
+        transform: translateX(5px);
+      }
 
-.dropdown-menu {
-  border: none;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-  border-radius: 12px;
-  padding: 1rem;
-  margin-top: 0.5rem;
-  min-width: 280px;
-  border-top: 3px solid var(--primary);
-  transition: all 0.3s ease;
-  z-index: 1060;
-  position: absolute;
-}
+      .dropdown-item i {
+        font-size: 1.1rem;
+        color: var(--primary);
+        transition: color 0.3s;
+      }
 
-.dropdown-menu.mega-menu {
-  min-width: 600px;
-  padding: 1.5rem;
-}
+      .dropdown-header {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        padding: 0.5rem 1rem;
+      }
 
-.dropdown-item {
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--navy);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  position: relative;
-  z-index: 1061;
-}
+      .dropdown-divider {
+        margin: 0.8rem 0;
+        opacity: 0.1;
+      }
 
-.dropdown-item:hover {
-  background: var(--primary-light);
-  color: var(--primary);
-  transform: translateX(5px);
-}
+      /* CTA Button Style - Talk to Sales */
+      .btn-sales {
+        background: var(--primary);
+        color: white !important;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        margin-left: 1rem;
+        box-shadow: 0 4px 15px rgba(26, 194, 193, 0.3);
+      }
 
-.dropdown-item i {
-  font-size: 1.1rem;
-  color: var(--primary);
-  transition: color 0.3s;
-}
+      .btn-sales:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
+      }
+      .btn-login {
+        background-color: #ffffff !important;
+        color: #00bfa5 !important; /* Teal color - adjust to your exact teal shade */
+        border: 1px solid #00bfa5 !important;
+        box-shadow: 0 2px 8px rgba(0, 191, 165, 0.3) !important; /* Teal box shadow */
+        padding: 8px 24px;
+        border-radius: 6px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin: 12px;
+      }
 
-.dropdown-header {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--primary);
-  margin-bottom: 0.5rem;
-  padding: 0.5rem 1rem;
-}
+      .btn-login:hover {
+        background-color: #00bfa5 !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 12px rgba(0, 191, 165, 0.4) !important;
+        transform: translateY(-1px);
+      }
 
-.dropdown-divider {
-  margin: 0.8rem 0;
-  opacity: 0.1;
-}
 
-/* ============================================
-   BUTTON STYLES
-   ============================================ */
+      /* Country Selector */
+      .country-selector {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0.5rem;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--navy);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-left: 1rem;
+      }
 
-/* CTA Button - Talk to Sales */
-.btn-sales {
-  background: var(--primary);
-  color: white !important;
-  border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  margin-left: 1rem;
-  box-shadow: 0 4px 15px rgba(26, 194, 193, 0.3);
-}
+      .country-selector:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+      }
 
-.btn-sales:hover {
-  background: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
-}
+      .country-selector i {
+        font-size: 1.2rem;
+      }
 
-/* Login Button */
-.btn-login {
-  background-color: #ffffff !important;
-  color: #00bfa5 !important;
-  border: 1px solid #00bfa5 !important;
-  box-shadow: 0 2px 8px rgba(0, 191, 165, 0.3) !important;
-  padding: 8px 24px;
-  border-radius: 6px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  margin: 12px;
-}
-
-.btn-login:hover {
-  background-color: #00bfa5 !important;
-  color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(0, 191, 165, 0.4) !important;
-  transform: translateY(-1px);
-}
-
-/* Primary Custom Button */
-.btn-primary-custom {
-  background: var(--primary) !important;
-  color: white !important;
-  border: none !important;
-  padding: 1rem 2.5rem !important;
-  border-radius: 50px !important;
-  font-weight: 600 !important;
-  font-size: 1.1rem !important;
-  transition: all 0.3s ease !important;
-  box-shadow: 0 4px 15px rgba(26, 194, 193, 0.35) !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-decoration: none !important;
-}
-
-.btn-primary-custom:hover {
-  background: var(--primary-dark) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(26, 194, 193, 0.45);
-  color: white !important;
-}
-
-/* Outline Custom Button */
-.btn-outline-custom {
-  border: 2px solid #e2e8f0;
-  color: var(--navy);
-  background: white;
-  padding: 0.75rem 1.8rem;
-  border-radius: 50px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.btn-outline-custom:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  transform: translateY(-2px);
-}
-
-/* ============================================
-   COUNTRY SELECTOR
-   ============================================ */
-
-.country-selector {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #e2e8f0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--navy);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-left: 1rem;
-}
-
-.country-selector:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-.country-selector .dropdown-arrow {
-  font-size: 0.55rem;
-  margin-left: 6px;
-  opacity: 0.7;
-}
-
-.country-flag {
-  font-size: 1.2rem;
-  line-height: 1;
-}
 
 /* ============================================
    HERO SECTION
@@ -1371,7 +1314,56 @@ body {
 /* ============================================
    CHAT WIDGET
    ============================================ */
+/* Additional styles for integrated version */
 
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.final-confirm-box {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 12px 0;
+}
+
+.final-confirm-box h4 {
+    margin-bottom: 15px;
+    color: #856404;
+    font-size: 16px;
+}
+
+.success-msg {
+    background: #d4edda;
+    color: #155724;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border-left: 4px solid #28a745;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.success-msg strong {
+    color: #0f5132;
+}
 .chat-icon-btn {
   position: fixed;
   bottom: 30px;
@@ -1497,64 +1489,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.privacy-notice {
-  background: #e8f4f8;
-  border: 1px solid #bee5eb;
-  border-radius: 12px;
-  padding: 16px;
-}
-
-.privacy-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  color: #0c5460;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.privacy-text {
-  font-size: 13px;
-  color: #0c5460;
-  line-height: 1.5;
-  margin-bottom: 12px;
-}
-
-.privacy-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.btn {
-  padding: 8px 16px;
-  border-radius: 6px;
-  border: none;
-  font-size: 13px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-
-.btn-primary {
-  background: #3498db;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #2980b9;
-}
-
-.btn-secondary {
-  background: transparent;
-  color: #6c757d;
-  border: 1px solid #dee2e6;
-}
-
-.btn-secondary:hover {
-  background: #f8f9fa;
 }
 
 .message {
@@ -1884,7 +1818,6 @@ body {
   font-size: 12px;
   text-decoration: underline;
 }
-
 /* ============================================
    FOOTER STYLES
    ============================================ */
@@ -2620,7 +2553,7 @@ body {
 
 @media (max-width: 375px) {
   .navbar-brand img {
-    width: 120px;
+    width: 140px;
   }
 
   .newsletter-footer-section {
@@ -2920,7 +2853,7 @@ body {
                             </li>
                             <li>
                                 <a class="dropdown-item" href="./affilate/affilate.html">
-                                    <i class="bi bi-link-45deg"></i> Affiliate Marketing
+                                    <i class="bi bi-link-45deg"></i> Affiliate Program 
                                 </a>
                             </li>
                         </ul>
@@ -2929,12 +2862,12 @@ body {
 
                 <!-- Right Side Buttons -->
                 <div class="d-flex align-items-center">
-                    <a href="https://web.verifitech.com/" target="_blank" >Login</a>
+                    <a href="https://web.verifitech.com/" target="_blank" Style="text-decoration: none; color: black;" >Login</a>
                     <a href="./contact/contact.html" class="btn btn-sales">Talk to Sales</a>
 
                     <!-- Country Selector -->
                     <div class="dropdown">
-                        <div class="country-selector dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="country-selector " data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="country-flag" id="current-flag">🇮🇳</span>
                             <span id="current-country">India</span>
                             <i class="bi bi-chevron-down ms-1" style="font-size: 0.7rem"></i>
@@ -2965,11 +2898,11 @@ body {
                                     <span class="country-flag">🇸🇬</span> Singapore
                                 </a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a class="dropdown-item country-option" href="./index.html" data-country="India" data-flag="🇮🇳">
                                     <span class="country-flag">🇮🇳</span> India
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -3681,9 +3614,9 @@ body {
     aria-expanded="false" 
     aria-controls="hiddenIndustries"
     id="viewMoreBtn"
-    style="background-color: #0d9488; color: #ffffff; border: 2px solid #0d9488; padding: 12px 32px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;"
-    onmouseover="this.style.backgroundColor='#0f766e'; this.style.borderColor='#0f766e';"
-    onmouseout="this.style.backgroundColor='#0d9488'; this.style.borderColor='#0d9488';"
+    style="background-color: transparent; color: #1ac2c1; border: 2px solid #1ac2c1; padding: 12px 32px; border-radius: 8px; font-weight: 500; text-decoration: none; transition: all 0.3s ease;"
+    onmouseover="this.style.backgroundColor='#1ac2c1'; this.style.color='#ffffff';"
+    onmouseout="this.style.backgroundColor='transparent'; this.style.color='#1ac2c1';"
   >
     <span class="view-more-text">
       <i class="bi bi-chevron-down me-2"></i>View More Industries
@@ -3945,52 +3878,48 @@ body {
         </div>
       </div>
     </section>
-<!-- Chat Icon -->
-    <button class="chat-icon-btn" onclick="toggleChat()" id="chatIcon">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-        </svg>
-    </button>
+<  <button class="chat-icon-btn" onclick="toggleChat()" id="chatIcon">
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+  </svg>
+</button>
 
-    <!-- Chat Container -->
-    <div class="chat-container" id="chatContainer">
-        <div class="chat-header">
-            <div class="header-left">
-                <div class="avatar">V</div>
-                <div class="header-info">
-                    <h3>Veri Assistant</h3>
-                    <span><span class="online-dot"></span> Online</span>
-                </div>
-            </div>
-            <button class="close-btn" onclick="toggleChat()">✕</button>
-        </div>
+<!-- Chat Container -->
+<div class="chat-container" id="chatContainer">
+  <div class="chat-header">
+      <div class="header-left">
+          <div class="avatar">V</div>
+          <div class="header-info">
+              <h3>Veri Assistant</h3>
+              <span><span class="online-dot"></span> Online</span>
+          </div>
+      </div>
+      <button class="close-btn" onclick="toggleChat()">✕</button>
+  </div>
 
-        <div class="chat-body" id="chatBody">
-            <!-- Privacy Notice -->
-            <div class="privacy-notice" id="privacyNotice">
-                <div class="privacy-header">
-                    <span>🔒</span>
-                    <span>Your Privacy Matters</span>
-                </div>
-                <div class="privacy-text">
-                    This chat is encrypted and your data is handled according to our privacy policy. Do you consent to proceed?
-                </div>
-                <div class="privacy-buttons">
-                    <button class="btn btn-primary" onclick="acceptPrivacy()">Accept</button>
-                    <button class="btn btn-secondary" onclick="declinePrivacy()">Decline</button>
-                </div>
-            </div>
+  <div class="chat-body" id="chatBody">
+      <!-- Welcome Message -->
+      <div class="message" id="welcomeMessage">
+          <div class="message-avatar">V</div>
+          <div class="message-content">
+              <div class="message-text">
+                  👋 Hi there! I'm <strong>Veri</strong>, your AI assistant from Verifitech.
+              </div>
+          </div>
+      </div>
+  </div>
 
-            <!-- Welcome Message -->
-            <div class="message hidden" id="welcomeMessage">
-                <div class="message-avatar">V</div>
-                <div class="message-content">
-                    <div class="message-text">
-                        👋 Hi there! I'm <strong>Veri</strong>, your AI assistant from Verifitech.
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="input-form" id="inputForm">
+      <input type="text" class="input-field" id="messageInput" placeholder="Type a message..." disabled>
+      <button class="send-btn" id="sendBtn" onclick="handleSend()" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+      </button>
+  </div>
+</div> 
+
 
         <div class="input-form" id="inputForm">
             <input type="text" class="input-field" id="messageInput" placeholder="Type a message..." disabled>
@@ -4003,6 +3932,792 @@ body {
         </div>
     </div>
     <!-- Footer Section with Zoho Newsletter -->
+    <!-- ============================================
+   COOKIE CONSENT & GOOGLE TAG MANAGER
+   ============================================ -->
+
+<script>
+  // Initialize dataLayer first (always needed)
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  
+  // Default consent state - ALL denied until user accepts
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'functionality_storage': 'denied',
+    'personalization_storage': 'denied',
+    'security_storage': 'granted'
+  });
+
+  // GTM Loader - Only loads if consent given
+  function loadGTM() {
+    if (window.gtmLoaded) return;
+    
+    const gtmId = 'GTM-XXXXXXX'; // ⚠️ REPLACE WITH YOUR ACTUAL GTM ID
+    
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer',gtmId);
+    
+    const noscript = document.createElement('noscript');
+    noscript.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
+    document.body.appendChild(noscript);
+    
+    window.gtmLoaded = true;
+    console.log('✅ GTM loaded');
+  }
+
+  // Check existing consent on load
+  (function(){
+    const saved = localStorage.getItem('verifitech_cookie_consent');
+    if (saved) {
+      try {
+        const consent = JSON.parse(saved);
+        if (consent.analytics || consent.marketing || consent.functionality) {
+          loadGTM();
+        }
+      } catch(e){}
+    }
+  })();
+</script>
+
+<style>
+  :root {
+    --cookie-primary: #1ac2c1;
+    --cookie-primary-dark: #16a8a7;
+    --cookie-bg: #ffffff;
+    --cookie-text: #0f172a;
+    --cookie-gray: #64748b;
+    --cookie-border: #e2e8f0;
+    --cookie-overlay: rgba(0, 0, 0, 0.5);
+  }
+
+  .cookie-float-icon {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--cookie-primary) 0%, var(--cookie-primary-dark) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(26, 194, 193, 0.4);
+    z-index: 9998;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    animation: cookie-pulse 2s infinite;
+    font-size: 24px;
+  }
+
+  .cookie-float-icon:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 6px 25px rgba(26, 194, 193, 0.6);
+  }
+
+  @keyframes cookie-pulse {
+    0%, 100% { box-shadow: 0 4px 20px rgba(26, 194, 193, 0.4); }
+    50% { box-shadow: 0 4px 30px rgba(26, 194, 193, 0.7); }
+  }
+
+  .cookie-tooltip {
+    position: absolute;
+    left: 60px;
+    background: #333;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    font-weight: 500;
+  }
+
+  .cookie-tooltip::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid #333;
+  }
+
+  .cookie-float-icon:hover .cookie-tooltip {
+    opacity: 1;
+    visibility: visible;
+    left: 65px;
+  }
+
+  .cookie-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--cookie-overlay);
+    z-index: 10000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+
+  .cookie-overlay.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .cookie-banner {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    max-width: 900px;
+    width: calc(100% - 40px);
+    background: var(--cookie-bg);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    z-index: 10001;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    border: 1px solid var(--cookie-border);
+  }
+
+  .cookie-banner.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  .cookie-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 25px 30px 15px;
+    background: linear-gradient(135deg, rgba(26, 194, 193, 0.05) 0%, transparent 100%);
+    border-bottom: 1px solid var(--cookie-border);
+  }
+
+  .cookie-icon-large {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--cookie-primary) 0%, var(--cookie-primary-dark) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+  }
+
+  .cookie-title-group h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--cookie-text);
+  }
+
+  .cookie-title-group p {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+    color: var(--cookie-gray);
+  }
+
+  .cookie-body {
+    padding: 25px 30px;
+  }
+
+  .cookie-description {
+    color: var(--cookie-gray);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+  }
+
+  .cookie-description a {
+    color: var(--cookie-primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .cookie-description a:hover {
+    text-decoration: underline;
+  }
+
+  .cookie-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+  }
+
+  .cookie-category {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .cookie-category:hover {
+    border-color: var(--cookie-primary);
+    background: rgba(26, 194, 193, 0.05);
+  }
+
+  .cookie-category.disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .cookie-cat-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cookie-cat-icon {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .cookie-cat-text h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cookie-text);
+  }
+
+  .cookie-cat-text span {
+    font-size: 0.8rem;
+    color: var(--cookie-gray);
+  }
+
+  .cookie-toggle {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background: #e2e8f0;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .cookie-toggle.active {
+    background: var(--cookie-primary);
+  }
+
+  .cookie-toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .cookie-toggle.active::after {
+    transform: translateX(24px);
+  }
+
+  .cookie-toggle input {
+    display: none;
+  }
+
+  .cookie-footer {
+    display: flex;
+    gap: 12px;
+    padding: 20px 30px;
+    background: #f8fafc;
+    border-top: 1px solid var(--cookie-border);
+    flex-wrap: wrap;
+  }
+
+  .cookie-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .cookie-btn-primary {
+    background: linear-gradient(135deg, var(--cookie-primary) 0%, var(--cookie-primary-dark) 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(26, 194, 193, 0.3);
+  }
+
+  .cookie-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(26, 194, 193, 0.4);
+  }
+
+  .cookie-btn-secondary {
+    background: white;
+    color: var(--cookie-text);
+    border: 2px solid var(--cookie-border);
+  }
+
+  .cookie-btn-secondary:hover {
+    border-color: var(--cookie-primary);
+    color: var(--cookie-primary);
+    background: rgba(26, 194, 193, 0.05);
+  }
+
+  .cookie-btn-text {
+    background: transparent;
+    color: var(--cookie-gray);
+    text-decoration: underline;
+    padding: 14px;
+  }
+
+  .cookie-btn-text:hover {
+    color: var(--cookie-primary);
+  }
+
+  .cookie-preferences {
+    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .cookie-preferences.expanded {
+    display: block;
+    max-height: 500px;
+  }
+
+  @media (max-width: 768px) {
+    .cookie-float-icon {
+      bottom: 20px;
+      left: 20px;
+      width: 45px;
+      height: 45px;
+      font-size: 20px;
+    }
+
+    .cookie-banner {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      transform: translateY(100%);
+      width: 100%;
+      max-width: 100%;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .cookie-banner.active {
+      transform: translateY(0);
+    }
+
+    .cookie-header, .cookie-body {
+      padding: 20px;
+    }
+
+    .cookie-footer {
+      padding: 15px 20px;
+      flex-direction: column;
+    }
+
+    .cookie-btn {
+      width: 100%;
+    }
+
+    .cookie-tooltip {
+      display: none;
+    }
+  }
+</style>
+
+<!-- Cookie Floating Icon -->
+<!-- Cookie Floating Icon - Custom Teal Outline -->
+<div class="cookie-float-icon" onclick="openCookieBanner()" title="Manage Cookie Preferences">
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width: 32px; height: 32px; display: block;">
+    <!-- Cookie base with teal outline -->
+    <circle cx="32" cy="32" r="26" stroke="#1ac2c1" stroke-width="3" fill="white"/>
+    
+    <!-- Bite mark -->
+    <path d="M50 18 Q56 13 53 6 Q48 3 43 8" stroke="#1ac2c1" stroke-width="3" fill="none" stroke-linecap="round"/>
+    
+    <!-- Chocolate chips -->
+    <circle cx="22" cy="24" r="4" fill="#1ac2c1"/>
+    <circle cx="42" cy="22" r="3.5" fill="#1ac2c1"/>
+    <circle cx="32" cy="38" r="4.5" fill="#1ac2c1"/>
+    <circle cx="20" cy="42" r="3" fill="#1ac2c1"/>
+    <circle cx="46" cy="44" r="3.5" fill="#1ac2c1"/>
+    <circle cx="36" cy="50" r="2.5" fill="#1ac2c1"/>
+  </svg>
+  <span class="cookie-tooltip">Cookie Settings</span>
+</div>
+<!-- Cookie Banner Overlay -->
+<div class="cookie-overlay" id="cookieOverlay" onclick="closeCookieBanner()"></div>
+
+<!-- Cookie Consent Banner -->
+<div class="cookie-banner" id="cookieBanner">
+  <div class="cookie-header">
+    <div class="cookie-icon-large">🍪</div>
+    <div class="cookie-title-group">
+      <h3>We value your privacy</h3>
+      <p>Customize your cookie preferences</p>
+    </div>
+  </div>
+
+  <div class="cookie-body">
+    <p class="cookie-description">
+      We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. 
+      By clicking "Accept All", you consent to our use of cookies. 
+      <a href="Privacy policy pages/cookiepolicy.html" target="_blank">Read our Cookie Policy</a>
+    </p>
+
+    <!-- Simple View -->
+    <div id="cookieSimpleView">
+      <div class="cookie-footer" style="padding: 0; background: transparent; border: none;">
+        <button class="cookie-btn cookie-btn-primary" onclick="acceptAllCookies()">
+          <i class="bi bi-check-lg"></i> Accept All
+        </button>
+        <button class="cookie-btn cookie-btn-secondary" onclick="showCookiePreferences()">
+          <i class="bi bi-sliders"></i> Customize
+        </button>
+      </div>
+    </div>
+
+    <!-- Detailed Preferences View -->
+    <div class="cookie-preferences" id="cookiePreferences">
+      <div class="cookie-categories">
+        
+        <!-- Necessary - Always On -->
+        <div class="cookie-category disabled">
+          <div class="cookie-cat-info">
+            <div class="cookie-cat-icon">🔒</div>
+            <div class="cookie-cat-text">
+              <h4>Necessary</h4>
+              <span>Essential for the website to function</span>
+            </div>
+          </div>
+          <div class="cookie-toggle active" style="opacity: 0.6;">
+            <input type="checkbox" checked disabled>
+          </div>
+        </div>
+
+        <!-- Analytics -->
+        <div class="cookie-category" onclick="toggleCookieCategory('analytics')">
+          <div class="cookie-cat-info">
+            <div class="cookie-cat-icon">📊</div>
+            <div class="cookie-cat-text">
+              <h4>Analytics</h4>
+              <span>Helps us improve our website</span>
+            </div>
+          </div>
+          <div class="cookie-toggle" id="toggle-analytics">
+            <input type="checkbox" id="checkbox-analytics">
+          </div>
+        </div>
+
+        <!-- Marketing -->
+        <div class="cookie-category" onclick="toggleCookieCategory('marketing')">
+          <div class="cookie-cat-info">
+            <div class="cookie-cat-icon">🎯</div>
+            <div class="cookie-cat-text">
+              <h4>Marketing</h4>
+              <span>Used to deliver personalized advertisements</span>
+            </div>
+          </div>
+          <div class="cookie-toggle" id="toggle-marketing">
+            <input type="checkbox" id="checkbox-marketing">
+          </div>
+        </div>
+
+        <!-- Functionality -->
+        <div class="cookie-category" onclick="toggleCookieCategory('functionality')">
+          <div class="cookie-cat-info">
+            <div class="cookie-cat-icon">⚙️</div>
+            <div class="cookie-cat-text">
+              <h4>Functionality</h4>
+              <span>Enables enhanced functionality</span>
+            </div>
+          </div>
+          <div class="cookie-toggle" id="toggle-functionality">
+            <input type="checkbox" id="checkbox-functionality">
+          </div>
+        </div>
+
+      </div>
+      
+
+      <div class="cookie-footer" style="padding: 0; background: transparent; border: none;">
+        <button class="cookie-btn cookie-btn-primary" onclick="saveCookiePreferences()">
+          <i class="bi bi-check-lg"></i> Save Preferences
+        </button>
+        <button class="cookie-btn cookie-btn-secondary" onclick="acceptAllCookies()">
+          Accept All
+        </button>
+        <button class="cookie-btn cookie-btn-text" onclick="hideCookiePreferences()">
+          Back to Simple View
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ==========================================
+  // COOKIE CONSENT MANAGEMENT
+  // ==========================================
+  
+  const COOKIE_CONSENT_KEY = 'verifitech_cookie_consent';
+  const COOKIE_EXPIRY_DAYS = 365;
+  
+  let cookieState = {
+    necessary: true,
+    analytics: false,
+    marketing: false,
+    functionality: false,
+    timestamp: null
+  };
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    loadCookieConsent();
+    
+    setTimeout(() => {
+      if (!hasConsent()) {
+        openCookieBanner();
+      }
+    }, 2000);
+  });
+
+  function hasConsent() {
+    return localStorage.getItem(COOKIE_CONSENT_KEY) !== null;
+  }
+
+  function loadCookieConsent() {
+    const saved = localStorage.getItem(COOKIE_CONSENT_KEY);
+    if (saved) {
+      try {
+        cookieState = JSON.parse(saved);
+        applyConsentToGTM();
+        updateToggleStates();
+        
+        // Load GTM if consent exists
+        if (cookieState.analytics || cookieState.marketing || cookieState.functionality) {
+          loadGTM();
+        }
+      } catch (e) {
+        console.error('Error parsing cookie consent:', e);
+      }
+    }
+  }
+
+  function saveConsent() {
+    cookieState.timestamp = new Date().toISOString();
+    localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(cookieState));
+    
+    // Set cookie for server-side access
+    const expires = new Date(Date.now() + COOKIE_EXPIRY_DAYS * 864e5).toUTCString();
+    document.cookie = 'verifitech_consent=' + encodeURIComponent(JSON.stringify(cookieState)) + '; expires=' + expires + '; path=/; SameSite=Lax';
+  }
+
+  function applyConsentToGTM() {
+    if (typeof gtag === 'function') {
+      gtag('consent', 'update', {
+        'ad_storage': cookieState.marketing ? 'granted' : 'denied',
+        'analytics_storage': cookieState.analytics ? 'granted' : 'denied',
+        'ad_user_data': cookieState.marketing ? 'granted' : 'denied',
+        'ad_personalization': cookieState.marketing ? 'granted' : 'denied',
+        'functionality_storage': cookieState.functionality ? 'granted' : 'denied',
+        'personalization_storage': cookieState.functionality ? 'granted' : 'denied',
+        'security_storage': 'granted'
+      });
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'cookie_consent_update',
+        'cookie_consent': cookieState
+      });
+
+      console.log('Cookie consent applied:', cookieState);
+    }
+  }
+
+  // ==========================================
+  // UI FUNCTIONS
+  // ==========================================
+
+  function openCookieBanner() {
+    document.getElementById('cookieOverlay').classList.add('active');
+    document.getElementById('cookieBanner').classList.add('active');
+    document.getElementById('cookieSimpleView').style.display = 'block';
+    document.getElementById('cookiePreferences').classList.remove('expanded');
+  }
+
+  function closeCookieBanner() {
+    document.getElementById('cookieOverlay').classList.remove('active');
+    document.getElementById('cookieBanner').classList.remove('active');
+  }
+
+  function showCookiePreferences() {
+    document.getElementById('cookieSimpleView').style.display = 'none';
+    document.getElementById('cookiePreferences').classList.add('expanded');
+    updateToggleStates();
+  }
+
+  function hideCookiePreferences() {
+    document.getElementById('cookiePreferences').classList.remove('expanded');
+    setTimeout(() => {
+      document.getElementById('cookieSimpleView').style.display = 'block';
+    }, 200);
+  }
+
+  // ==========================================
+  // CONSENT ACTIONS
+  // ==========================================
+
+  function acceptAllCookies() {
+    cookieState = {
+      necessary: true,
+      analytics: true,
+      marketing: true,
+      functionality: true,
+      timestamp: new Date().toISOString()
+    };
+    
+    saveConsent();
+    applyConsentToGTM();
+    loadGTM(); // Load GTM now that we have consent
+    closeCookieBanner();
+    showCookieNotification('All cookies accepted. Thank you!');
+  }
+
+  function saveCookiePreferences() {
+    saveConsent();
+    applyConsentToGTM();
+    
+    // Load GTM if any tracking consent given
+    if (cookieState.analytics || cookieState.marketing || cookieState.functionality) {
+      loadGTM();
+    }
+    
+    closeCookieBanner();
+    showCookieNotification('Cookie preferences saved!');
+  }
+
+  // ==========================================
+  // TOGGLE FUNCTIONS
+  // ==========================================
+
+  function toggleCookieCategory(category) {
+    const checkbox = document.getElementById('checkbox-' + category);
+    const toggle = document.getElementById('toggle-' + category);
+    
+    checkbox.checked = !checkbox.checked;
+    toggle.classList.toggle('active', checkbox.checked);
+    cookieState[category] = checkbox.checked;
+  }
+
+  function updateToggleStates() {
+    ['analytics', 'marketing', 'functionality'].forEach(cat => {
+      const checkbox = document.getElementById('checkbox-' + cat);
+      const toggle = document.getElementById('toggle-' + cat);
+      
+      if (checkbox && toggle) {
+        checkbox.checked = cookieState[cat];
+        toggle.classList.toggle('active', cookieState[cat]);
+      }
+    });
+  }
+
+  // ==========================================
+  // NOTIFICATION
+  // ==========================================
+
+  function showCookieNotification(message) {
+    const notif = document.createElement('div');
+    notif.style.cssText = `
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-weight: 500;
+      z-index: 10002;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      animation: slideUp 0.3s ease;
+    `;
+    notif.textContent = message;
+    document.body.appendChild(notif);
+    
+    setTimeout(() => {
+      notif.style.animation = 'slideDown 0.3s ease';
+      setTimeout(() => notif.remove(), 300);
+    }, 3000);
+  }
+
+  // ==========================================
+  // RESET & DEBUG
+  // ==========================================
+
+  function resetCookieConsent() {
+    localStorage.removeItem(COOKIE_CONSENT_KEY);
+    document.cookie = 'verifitech_consent=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    location.reload();
+  }
+
+  function checkCookies() {
+    console.log('%c🍪 COOKIE CHECK', 'font-size:16px;font-weight:bold;color:#1ac2c1');
+    console.log('GTM Loaded:', window.gtmLoaded || false);
+    console.log('localStorage:', localStorage.getItem('verifitech_cookie_consent'));
+    console.log('Cookie:', document.cookie.match(/verifitech_consent=([^;]+)/)?.[0] || 'Not set');
+    console.log('Consent State:', cookieState);
+    console.log('dataLayer events:', dataLayer.length);
+  }
+
+  // Expose to console
+  window.reset
+ Consent = resetCookieConsent;
+  window.checkCookies = checkCookies;
+</script>
     <footer class="footer">
       <div class="container">
         <!-- Newsletter Section with Zoho Form -->
@@ -4731,551 +5446,683 @@ body {
       }
     });
   });
-       let currentStep = 'privacy';
-        let selectedDept = '';
-        let selectedService = '';
-        let userData = { name: '', email: '', number: '', company: '' };
+  // ==========================================
+// CONFIGURATION - FIXED URLS
 
-        function toggleChat() {
-            const container = document.getElementById('chatContainer');
-            container.classList.toggle('active');
-        }
+// ==========================================
 
-        function acceptPrivacy() {
-            document.getElementById('privacyNotice').classList.add('hidden');
-            document.getElementById('welcomeMessage').classList.remove('hidden');
-            
+// ==========================================
+// CONFIGURATION
+// ==========================================
+const API_BASE_URL = window.location.origin.includes('localhost') 
+    ? 'http://localhost:3000'  
+    : (window.location.origin.includes('5000') 
+        ? 'http://localhost:3000' 
+        : 'https://m93dhs-3000.csb.app'); 
+
+// Define email addresses for each department
+const departmentEmails = {
+    'service': 'kovendan16@mail.com',
+    'career': 'hr@verifitech.com',
+    'support': 'support@verifitech.com'
+};
+
+// ==========================================
+// DATA STORAGE
+// ==========================================
+let chatData = {
+    firstName: '',
+    email: '',
+    phone: '',
+    company: '',
+    department: '',
+    serviceType: '',
+    issueDescription: '',
+    recipientEmail: '' // New field to store target email
+};
+
+let currentStep = 'welcome';
+let selectedDept = '';
+let selectedService = '';
+let isSubmitting = false;
+let isOpenedOnce = false;
+
+// ==========================================
+// CHAT TOGGLE
+// ==========================================
+function toggleChat() {
+    const container = document.getElementById('chatContainer');
+    const icon = document.getElementById('chatIcon');
+    
+    container.classList.toggle('active');
+    
+    if (container.classList.contains('active')) {
+        icon.style.display = 'none';
+        if (!isOpenedOnce) {
             setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    removeTyping();
-                    askForName();
-                }, 800);
+                showDepartments();
             }, 500);
+            isOpenedOnce = true;
         }
+    } else {
+        icon.style.display = 'flex';
+    }
+}
 
-        function declinePrivacy() {
-            alert('You must accept the privacy policy to continue.');
-        }
+// ==========================================
+// UTILITY FUNCTIONS
+// ==========================================
+function showTyping() {
+    const chatBody = document.getElementById('chatBody');
+    const typing = document.createElement('div');
+    typing.className = 'message typing-indicator';
+    typing.id = 'typing';
+    typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+    chatBody.appendChild(typing);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
 
-        function showTyping() {
-            const chatBody = document.getElementById('chatBody');
-            const typing = document.createElement('div');
-            typing.className = 'message typing-indicator';
-            typing.id = 'typing';
-            typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-            chatBody.appendChild(typing);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
+function removeTyping() {
+    const typing = document.getElementById('typing');
+    if (typing) typing.remove();
+}
 
-        function removeTyping() {
-            const typing = document.getElementById('typing');
-            if (typing) typing.remove();
-        }
+function addMessage(text, isUser = false) {
+    const chatBody = document.getElementById('chatBody');
+    const msg = document.createElement('div');
+    msg.className = isUser ? 'message user-message' : 'message';
+    
+    if (isUser) {
+        msg.innerHTML = `<div class="message-content"><div class="message-text">${text}</div></div>`;
+    } else {
+        msg.innerHTML = `<div class="message-avatar">V</div><div class="message-content"><div class="message-text">${text}</div></div>`;
+    }
+    
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
 
-        function addMessage(text, isUser = false) {
+function enableInput(placeholder) {
+    const input = document.getElementById('messageInput');
+    const btn = document.getElementById('sendBtn');
+    if (input) {
+        input.disabled = false;
+        input.placeholder = placeholder || 'Type a message...';
+        input.focus();
+    }
+    if (btn) btn.disabled = false;
+}
+
+function disableInput() {
+    const input = document.getElementById('messageInput');
+    const btn = document.getElementById('sendBtn');
+    if (input) {
+        input.disabled = true;
+        input.placeholder = 'Select an option above...';
+    }
+    if (btn) btn.disabled = true;
+}
+
+// ==========================================
+// DEPARTMENT SELECTION (START)
+// ==========================================
+function showDepartments() {
+    currentStep = 'departments';
+    selectedDept = '';
+    setTimeout(() => {
+        showTyping();
+        setTimeout(() => {
+            removeTyping();
             const chatBody = document.getElementById('chatBody');
             const msg = document.createElement('div');
-            msg.className = isUser ? 'message user-message' : 'message';
+            msg.className = 'message';
+            msg.innerHTML = `
+                <div class="message-avatar">V</div>
+                <div class="message-content">
+                    <div class="message-text">
+                        How can we help you? Select a department:
+                        <div class="department-grid">
+                            <button class="dept-card" onclick="selectDepartment('service')">
+                                <div class="dept-icon">🛠️</div>
+                                <div class="dept-name">Service</div>
+                                <div class="dept-desc">BGV & verification services</div>
+                            </button>
+                            <button class="dept-card" onclick="selectDepartment('career')">
+                                <div class="dept-icon">💼</div>
+                                <div class="dept-name">Career</div>
+                                <div class="dept-desc">Job opportunities</div>
+                            </button>
+                            <button class="dept-card" onclick="selectDepartment('support')">
+                                <div class="dept-icon">🎧</div>
+                                <div class="dept-name">Support</div>
+                                <div class="dept-desc">Customer support</div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            chatBody.appendChild(msg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            disableInput();
+        }, 800);
+    }, 300);
+}
+
+function selectDepartment(dept) {
+    selectedDept = dept;
+    chatData.department = dept;
+    
+    // Set the recipient email based on the selected department
+    chatData.recipientEmail = departmentEmails[dept] || 'info@verifitech.com';
+
+    addMessage(dept.charAt(0).toUpperCase() + dept.slice(1), true);
+    
+    setTimeout(() => {
+        showTyping();
+        setTimeout(() => {
+            removeTyping();
             
-            if (isUser) {
-                msg.innerHTML = `<div class="message-content"><div class="message-text">${text}</div></div>`;
+            if (dept === 'service') {
+                showBGVOptions();
             } else {
-                msg.innerHTML = `<div class="message-avatar">V</div><div class="message-content"><div class="message-text">${text}</div></div>`;
+                showReachOut(dept);
             }
-            
-            chatBody.appendChild(msg);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
+        }, 800);
+    }, 300);
+}
 
-        function askForName() {
-            currentStep = 'name';
-            setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    removeTyping();
-                    addMessage('To get started, could you please provide your <strong>full name</strong>?');
-                    enableInput('Type your full name...');
-                }, 800);
-            }, 300);
-        }
-
-        function askForEmail() {
-            currentStep = 'email';
-            setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    removeTyping();
-                    addMessage('Thanks! Now, please provide your <strong>email address</strong>.');
-                    enableInput('Type your email address...');
-                }, 800);
-            }, 300);
-        }
-
-        function askForNumber() {
-            currentStep = 'number';
-            setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    removeTyping();
-                    addMessage('Great! Please provide your <strong>contact number</strong>.');
-                    enableInput('Type your contact number...');
-                }, 800);
-            }, 300);
-        }
-
-        function askForCompany() {
-            currentStep = 'company';
-            setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    removeTyping();
-                    addMessage('Finally, please provide your <strong>company name</strong>.');
-                    enableInput('Type your company name...');
-                }, 800);
-            }, 300);
-        }
-
-        function showConfirmation() {
-            currentStep = 'confirm';
-            setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    removeTyping();
-                    const chatBody = document.getElementById('chatBody');
-                    const msg = document.createElement('div');
-                    msg.className = 'message';
-                    msg.innerHTML = `
-                        <div class="message-avatar">V</div>
-                        <div class="message-content">
-                            <div class="message-text">
-                                Please confirm your details:
-                                <div class="confirmation-box">
-                                    <div class="detail-row"><span class="detail-label">Name:</span><span class="detail-value">${userData.name}</span></div>
-                                    <div class="detail-row"><span class="detail-label">Email:</span><span class="detail-value">${userData.email}</span></div>
-                                    <div class="detail-row"><span class="detail-label">Number:</span><span class="detail-value">${userData.number}</span></div>
-                                    <div class="detail-row"><span class="detail-label">Company:</span><span class="detail-value">${userData.company}</span></div>
-                                </div>
-                                Are these details correct? Please type <strong>YES</strong> to confirm or <strong>NO</strong> to edit name.
-                            </div>
-                        </div>
-                    `;
-                    chatBody.appendChild(msg);
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                    enableInput('Type YES to confirm or NO to edit name...');
-                }, 800);
-            }, 300);
-        }
-
-        function showDepartments() {
-            currentStep = 'departments';
-            setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    removeTyping();
-                    const chatBody = document.getElementById('chatBody');
-                    const msg = document.createElement('div');
-                    msg.className = 'message';
-                    msg.innerHTML = `
-                        <div class="message-avatar">V</div>
-                        <div class="message-content">
-                            <div class="message-text">
-                                Perfect! How can we help you today? Please select a department:
-                                <div class="department-grid">
-                                    <button class="dept-card" onclick="selectDepartment('service')">
-                                        <div class="dept-icon">🛠️</div>
-                                        <div class="dept-name">Service</div>
-                                        <div class="dept-desc">BGV & verification services</div>
-                                    </button>
-                                    <button class="dept-card" onclick="selectDepartment('career')">
-                                        <div class="dept-icon">💼</div>
-                                        <div class="dept-name">Career</div>
-                                        <div class="dept-desc">Job opportunities</div>
-                                    </button>
-                                    <button class="dept-card" onclick="selectDepartment('support')">
-                                        <div class="dept-icon">🎧</div>
-                                        <div class="dept-name">Support</div>
-                                        <div class="dept-desc">Customer support</div>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    chatBody.appendChild(msg);
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                    disableInput();
-                }, 800);
-            }, 300);
-        }
-
-        function selectDepartment(dept) {
-            selectedDept = dept;
-            addMessage(dept.charAt(0).toUpperCase() + dept.slice(1), true);
-            
-            setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    removeTyping();
-                    
-                    if (dept === 'service') {
-                        showBGVOptions(); // Directly show BGV options, no Reach Out button
-                    } else {
-                        showReachOut(dept);
-                    }
-                }, 800);
-            }, 300);
-        }
-
-        function showBGVOptions() {
-            const chatBody = document.getElementById('chatBody');
-            const msg = document.createElement('div');
-            msg.className = 'message';
-            msg.innerHTML = `
-                <div class="message-avatar">V</div>
-                <div class="message-content">
-                    <div class="message-text">
-                        Select a BGV service you need:
-                        <div class="bgv-options">
-                            <button class="bgv-btn" onclick="prepareServiceRequest('Employee Background Check')">👤 Employee Background Check</button>
-                            <button class="bgv-btn" onclick="prepareServiceRequest('Tenant Verification')">🏠 Tenant Verification</button>
-                            <button class="bgv-btn" onclick="prepareServiceRequest('Criminal Record Check')">🔍 Criminal Record Check</button>
-                            <button class="bgv-btn" onclick="prepareServiceRequest('Education Verification')">🎓 Education Verification</button>
-                            <button class="bgv-btn" onclick="prepareServiceRequest('Employment History')">💼 Employment History Check</button>
-                            <button class="bgv-btn" onclick="prepareServiceRequest('Other')">📝 Other (Specify below)</button>
-                        </div>
-                        <button class="back-btn" onclick="showDepartments()">← Back</button>
-                    </div>
+// ==========================================
+// SERVICE FLOW
+// ==========================================
+function showBGVOptions() {
+    const chatBody = document.getElementById('chatBody');
+    const msg = document.createElement('div');
+    msg.className = 'message';
+    msg.innerHTML = `
+        <div class="message-avatar">V</div>
+        <div class="message-content">
+            <div class="message-text">
+                Select a BGV service:
+                <div class="bgv-options">
+                    <button class="bgv-btn" onclick="prepareServiceRequest('Employee Background Check')">👤 Employee Background Check</button>
+                    <button class="bgv-btn" onclick="prepareServiceRequest('Tenant Verification')">🏠 Tenant Verification</button>
+                    <button class="bgv-btn" onclick="prepareServiceRequest('Criminal Record Check')">🔍 Criminal Record Check</button>
+                    <button class="bgv-btn" onclick="prepareServiceRequest('Education Verification')">🎓 Education Verification</button>
+                    <button class="bgv-btn" onclick="prepareServiceRequest('Employment History')">💼 Employment History Check</button>
+                    <button class="bgv-btn" onclick="prepareServiceRequest('Other')">📝 Other Service</button>
                 </div>
-            `;
-            chatBody.appendChild(msg);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
+                <button class="back-btn" onclick="showDepartments()">← Back</button>
+            </div>
+        </div>
+    `;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
 
-        function prepareServiceRequest(serviceType) {
-            selectedService = serviceType;
-            addMessage(serviceType, true);
+function prepareServiceRequest(serviceType) {
+    selectedService = serviceType;
+    chatData.serviceType = serviceType;
+    addMessage(serviceType, true);
+    
+    setTimeout(() => {
+        showTyping();
+        setTimeout(() => {
+            removeTyping();
             
-            setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    removeTyping();
-                    
-                    if (serviceType === 'Other') {
-                        // Show input for custom service
-                        const chatBody = document.getElementById('chatBody');
-                        const msg = document.createElement('div');
-                        msg.className = 'message';
-                        msg.innerHTML = `
-                            <div class="message-avatar">V</div>
-                            <div class="message-content">
-                                <div class="message-text">
-                                    Please specify the service you need:
-                                    <textarea class="issue-input" id="customService" rows="2" placeholder="Describe the service you need..."></textarea>
-                                    <button class="action-btn" onclick="confirmCustomService()">Continue</button>
-                                    <button class="back-btn" onclick="showBGVOptions()">← Back</button>
-                                </div>
-                            </div>
-                        `;
-                        chatBody.appendChild(msg);
-                        chatBody.scrollTop = chatBody.scrollHeight;
-                    } else {
-                        showFinalConfirmation('service');
-                    }
-                }, 800);
-            }, 300);
-        }
-
-        function confirmCustomService() {
-            const customText = document.getElementById('customService').value.trim();
-            if (!customText) {
-                alert('Please describe the service you need.');
-                return;
+            if (serviceType === 'Other') {
+                showCustomServiceInput();
+            } else {
+                startDataCollection();
             }
-            selectedService = 'Other: ' + customText;
-            showFinalConfirmation('service');
-        }
+        }, 800);
+    }, 300);
+}
 
-        function showReachOut(dept) {
-            const chatBody = document.getElementById('chatBody');
-            const msg = document.createElement('div');
-            msg.className = 'message';
-            msg.innerHTML = `
-                <div class="message-avatar">V</div>
-                <div class="message-content">
-                    <div class="message-text">
-                        You've selected <strong>${dept.charAt(0).toUpperCase() + dept.slice(1)}</strong> department.
-                        <button class="action-btn" onclick="showDeptAction('${dept}')">📞 Reach Out</button>
-                        <button class="back-btn" onclick="showDepartments()">← Back</button>
-                    </div>
-                </div>
-            `;
-            chatBody.appendChild(msg);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
+function showCustomServiceInput() {
+    const chatBody = document.getElementById('chatBody');
+    const msg = document.createElement('div');
+    msg.className = 'message';
+    msg.innerHTML = `
+        <div class="message-avatar">V</div>
+        <div class="message-content">
+            <div class="message-text">
+                Please describe the service you need:
+                <textarea class="issue-input" id="customService" rows="3" placeholder="Describe the service you need..."></textarea>
+                <button class="action-btn" onclick="confirmCustomService()">Continue</button>
+                <button class="back-btn" onclick="showBGVOptions()">← Back</button>
+            </div>
+        </div>
+    `;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
 
-        function showDeptAction(dept) {
-            addMessage('Reach Out', true);
+function confirmCustomService() {
+    const customText = document.getElementById('customService').value.trim();
+    if (!customText) {
+        alert('Please describe the service you need.');
+        return;
+    }
+    selectedService = 'Other: ' + customText;
+    chatData.serviceType = selectedService;
+    startDataCollection();
+}
+
+// ==========================================
+// CAREER & SUPPORT FLOW
+// ==========================================
+function showReachOut(dept) {
+    const chatBody = document.getElementById('chatBody');
+    const msg = document.createElement('div');
+    msg.className = 'message';
+    msg.innerHTML = `
+        <div class="message-avatar">V</div>
+        <div class="message-content">
+            <div class="message-text">
+                You've selected <strong>${dept.charAt(0).toUpperCase() + dept.slice(1)}</strong> department.
+                <button class="action-btn" onclick="showDeptAction('${dept}')">📞 Reach Out</button>
+                <button class="back-btn" onclick="showDepartments()">← Back</button>
+            </div>
+        </div>
+    `;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function showDeptAction(dept) {
+    addMessage('Reach Out', true);
+    
+    setTimeout(() => {
+        showTyping();
+        setTimeout(() => {
+            removeTyping();
             
-            setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    removeTyping();
-                    
-                    if (dept === 'career') {
-                        const chatBody = document.getElementById('chatBody');
-                        const msg = document.createElement('div');
-                        msg.className = 'message';
-                        msg.innerHTML = `
-                            <div class="message-avatar">V</div>
-                            <div class="message-content">
-                                <div class="message-text">
-                                    Interested in joining our team?
-                                    <button class="action-btn" onclick="openCareerPage()">🚀 Apply Now</button>
-                                    <p style="margin-top: 10px; font-size: 12px; color: #666;">Click to visit careers page</p>
-                                    <button class="back-btn" onclick="showDepartments()">← Back</button>
-                                </div>
-                            </div>
-                        `;
-                        chatBody.appendChild(msg);
-                        chatBody.scrollTop = chatBody.scrollHeight;
-                    } else if (dept === 'support') {
-                        const chatBody = document.getElementById('chatBody');
-                        const msg = document.createElement('div');
-                        msg.className = 'message';
-                        msg.innerHTML = `
-                            <div class="message-avatar">V</div>
-                            <div class="message-content">
-                                <div class="message-text">
-                                    Please describe your issue:
-                                    <textarea class="issue-input" id="issueText" rows="3" placeholder="Type your issue here..."></textarea>
-                                    <button class="action-btn" onclick="prepareSupportTicket()">Continue</button>
-                                    <button class="back-btn" onclick="showDepartments()">← Back</button>
-                                </div>
-                            </div>
-                        `;
-                        chatBody.appendChild(msg);
-                        chatBody.scrollTop = chatBody.scrollHeight;
-                    }
-                }, 800);
-            }, 300);
-        }
-
-        function prepareSupportTicket() {
-            const issueText = document.getElementById('issueText').value.trim();
-            if (!issueText) {
-                alert('Please describe your issue first.');
-                return;
+            if (dept === 'career') {
+                chatData.serviceType = 'Career Opportunity';
+                startDataCollection();
+            } else if (dept === 'support') {
+                showSupportInput();
             }
-            selectedService = 'Support Issue: ' + issueText;
-            showFinalConfirmation('support');
-        }
+        }, 800);
+    }, 300);
+}
 
-        function showFinalConfirmation(type) {
-            const chatBody = document.getElementById('chatBody');
-            const msg = document.createElement('div');
-            msg.className = 'message';
-            
-            let detailsHtml = `
-                <div class="detail-row"><span class="detail-label">Name:</span><span class="detail-value">${userData.name}</span></div>
-                <div class="detail-row"><span class="detail-label">Email:</span><span class="detail-value">${userData.email}</span></div>
-                <div class="detail-row"><span class="detail-label">Number:</span><span class="detail-value">${userData.number}</span></div>
-                <div class="detail-row"><span class="detail-label">Company:</span><span class="detail-value">${userData.company}</span></div>
-                <div class="detail-row"><span class="detail-label">Request:</span><span class="detail-value">${selectedService}</span></div>
-            `;
-            
-            msg.innerHTML = `
-                <div class="message-avatar">V</div>
-                <div class="message-content">
-                    <div class="message-text">
-                        <div class="final-confirm-box">
-                            <h4>📋 Review Your Request</h4>
-                            ${detailsHtml}
-                            <button class="send-final-btn" onclick="sendFinalRequest()">✅ Send Request</button>
-                        </div>
-                        <button class="back-btn" onclick="${type === 'service' ? 'showBGVOptions()' : 'showDeptAction(\'' + type + '\')'}">← Edit</button>
+function showSupportInput() {
+    const chatBody = document.getElementById('chatBody');
+    const msg = document.createElement('div');
+    msg.className = 'message';
+    msg.innerHTML = `
+        <div class="message-avatar">V</div>
+        <div class="message-content">
+            <div class="message-text">
+                Please describe your issue:
+                <textarea class="issue-input" id="issueText" rows="3" placeholder="Type your issue here..."></textarea>
+                <button class="action-btn" onclick="prepareSupportTicket()">Continue</button>
+                <button class="back-btn" onclick="showDepartments()">← Back</button>
+            </div>
+        </div>
+    `;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function prepareSupportTicket() {
+    const issueText = document.getElementById('issueText').value.trim();
+    if (!issueText) {
+        alert('Please describe your issue first.');
+        return;
+    }
+    selectedService = 'Support Issue: ' + issueText;
+    chatData.serviceType = 'Support Request';
+    chatData.issueDescription = issueText;
+    startDataCollection();
+}
+
+// ==========================================
+// DATA COLLECTION FLOW
+// ==========================================
+function startDataCollection() {
+    setTimeout(() => {
+        showTyping();
+        setTimeout(() => {
+            removeTyping();
+            addMessage("Great! I'll need a few details to proceed.");
+            setTimeout(() => askForFirstName(), 500);
+        }, 500);
+    }, 300);
+}
+
+function askForFirstName() {
+    currentStep = 'firstName';
+    setTimeout(() => {
+        showTyping();
+        setTimeout(() => {
+            removeTyping();
+            addMessage('Please provide your <strong>Name</strong>.');
+            enableInput('Enter your name...');
+        }, 800);
+    }, 300);
+}
+
+function askForEmail() {
+    currentStep = 'email';
+    setTimeout(() => {
+        showTyping();
+        setTimeout(() => {
+            removeTyping();
+            addMessage('Thanks! Now your <strong>Email Address</strong>?');
+            enableInput('Enter your email...');
+        }, 800);
+    }, 300);
+}
+
+function askForNumber() {
+    currentStep = 'number';
+    setTimeout(() => {
+        showTyping();
+        setTimeout(() => {
+            removeTyping();
+            addMessage('Please provide your <strong>Contact Number</strong> (with country code).');
+            enableInput('e.g., +91 9876543210...');
+        }, 800);
+    }, 300);
+}
+
+function askForCompany() {
+    currentStep = 'company';
+    setTimeout(() => {
+        showTyping();
+        setTimeout(() => {
+            removeTyping();
+            addMessage('Finally, your <strong>Company Name</strong>?');
+            enableInput('Enter company name...');
+        }, 800);
+    }, 300);
+}
+
+// ==========================================
+// FINAL CONFIRMATION & SUBMIT
+// ==========================================
+function showFinalConfirmation() {
+    currentStep = 'finalConfirm';
+    
+    const chatBody = document.getElementById('chatBody');
+    const msg = document.createElement('div');
+    msg.className = 'message';
+    
+    let serviceDisplay = chatData.serviceType;
+    if (chatData.issueDescription) {
+        serviceDisplay += `<br><small style="color:#666">Details: ${chatData.issueDescription}</small>`;
+    }
+    
+    msg.innerHTML = `
+        <div class="message-avatar">V</div>
+        <div class="message-content" style="max-width: 90%;">
+            <div class="message-text">
+                <div class="final-confirm-box">
+                    <h4>📋 Review Your Request</h4>
+                    <div class="confirmation-box">
+                        <div class="detail-row"><span class="detail-label">Name:</span><span class="detail-value">${chatData.firstName}</span></div>
+                        <div class="detail-row"><span class="detail-label">Email:</span><span class="detail-value">${chatData.email}</span></div>
+                        <div class="detail-row"><span class="detail-label">Contact:</span><span class="detail-value">${chatData.phone}</span></div>
+                        <div class="detail-row"><span class="detail-label">Company:</span><span class="detail-value">${chatData.company}</span></div>
+                        <div class="detail-row"><span class="detail-label">Department:</span><span class="detail-value text-capitalize">${chatData.department}</span></div>
+                        <div class="detail-row"><span class="detail-label">Service:</span><span class="detail-value">${serviceDisplay}</span></div>
                     </div>
+                    <button class="send-final-btn" id="sendRequestBtn" onclick="submitToBackend()">
+                        ✅ Send Request
+                    </button>
                 </div>
-            `;
-            chatBody.appendChild(msg);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
+                <button class="back-btn" onclick="resetChat()">← Start Over</button>
+            </div>
+        </div>
+    `;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    disableInput();
+}
 
-        function sendFinalRequest() {
-            const chatBody = document.getElementById('chatBody');
-            
-            let successContent = '';
-            if (selectedDept === 'service') {
-                successContent = `
-                    <div class="success-msg">
-                        ✅ <strong>Service Request Submitted!</strong><br>
-                        Service: ${selectedService}<br>
-                        Name: ${userData.name}<br>
-                        Email: ${userData.email}<br>
-                        Contact: ${userData.number}<br>
-                        Company: ${userData.company}
-                    </div>
-                    <p style="margin-top: 10px; font-size: 13px;">Our team will contact you within 24 hours.</p>
-                `;
-            } else if (selectedDept === 'support') {
-                successContent = `
-                    <div class="success-msg">
-                        ✅ <strong>Support Ticket Created!</strong><br>
-                        Ticket ID: #SUP-${Date.now().toString().slice(-6)}<br>
-                        ${selectedService}<br>
-                        Name: ${userData.name}<br>
-                        Email: ${userData.email}
-                    </div>
-                    <p style="margin-top: 10px; font-size: 13px;">Our support team will reach out shortly.</p>
-                `;
-            }
-            
-            const msg = document.createElement('div');
-            msg.className = 'message';
-            msg.innerHTML = `
-                <div class="message-avatar">V</div>
-                <div class="message-content">
-                    <div class="message-text">
-                        ${successContent}
-                        <button class="back-btn" onclick="showDepartments()">← New Request</button>
-                    </div>
+// ==========================================
+// SUBMIT TO BACKEND
+// ==========================================
+async function submitToBackend() {
+    if (isSubmitting) return;
+    
+    const btn = document.getElementById('sendRequestBtn');
+    isSubmitting = true;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Sending...';
+    
+    const url = `${API_BASE_URL}/api/submit-request`;
+    console.log('Submitting to:', url);
+    console.log('Data:', chatData);
+    
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(chatData)
+        });
+        
+        console.log('Response status:', response.status);
+        
+        const contentType = response.headers.get('content-type');
+        console.log('Content-Type:', contentType);
+        
+        if (!contentType || !contentType.includes('application/json')) {
+            const text = await response.text();
+            console.error('Non-JSON response:', text.substring(0, 500));
+            throw new Error(`Server returned ${response.status} with non-JSON response`);
+        }
+        
+        const result = await response.json();
+        console.log('Response:', result);
+        
+        if (result.success) {
+            showSuccessMessage(result.data);
+        } else {
+            throw new Error(result.message || 'Failed to send');
+        }
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showErrorMessage(error.message);
+    } finally {
+        isSubmitting = false;
+    }
+}
+
+function showSuccessMessage(data) {
+    const chatBody = document.getElementById('chatBody');
+    
+    let successContent = '';
+    if (selectedDept === 'service') {
+        successContent = `
+            <div class="success-msg">
+                <div style="font-size: 40px; margin-bottom: 10px;">🎉</div>
+                <strong>Service Request Submitted!</strong><br><br>
+                <strong>Name:</strong> ${chatData.firstName}<br>
+                <strong>Email:</strong> ${chatData.email}<br>
+                <strong>Contact:</strong> ${chatData.phone}<br>
+                <strong>Company:</strong> ${chatData.company}<br>
+                <strong>Service:</strong> ${chatData.serviceType}<br>
+                <strong>Sent to:</strong> ${chatData.recipientEmail}<br><br>
+                <span style="font-size: 13px;">Our team will contact you within 24 hours.</span>
+            </div>
+        `;
+    } else if (selectedDept === 'support') {
+        successContent = `
+            <div class="success-msg">
+                <div style="font-size: 40px; margin-bottom: 10px;">🎉</div>
+                <strong>Support Ticket Created!</strong><br><br>
+                <strong>Ticket ID:</strong> #SUP-${Date.now().toString().slice(-6)}<br>
+                <strong>Sent to:</strong> ${chatData.recipientEmail}<br><br>
+                <span style="font-size: 13px;">Our support team will reach out shortly.</span>
+            </div>
+        `;
+    } else if (selectedDept === 'career') {
+        successContent = `
+            <div class="success-msg">
+                <div style="font-size: 40px; margin-bottom: 10px;">🎉</div>
+                <strong>Application Received!</strong><br><br>
+                <strong>Sent to:</strong> ${chatData.recipientEmail}<br><br>
+                <span style="font-size: 13px;">Our HR team will review your profile.</span>
+            </div>
+        `;
+    }
+    
+    const msg = document.createElement('div');
+    msg.className = 'message';
+    msg.innerHTML = `
+        <div class="message-avatar">V</div>
+        <div class="message-content">
+            <div class="message-text">
+                ${successContent}
+                <button class="action-btn" onclick="resetChat()" style="margin-top: 15px;">🔄 New Request</button>
+            </div>
+        </div>
+    `;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function showErrorMessage(errorMsg) {
+    const btn = document.getElementById('sendRequestBtn');
+    if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '✅ Send Request';
+    }
+    
+    const chatBody = document.getElementById('chatBody');
+    const msg = document.createElement('div');
+    msg.className = 'message';
+    msg.innerHTML = `
+        <div class="message-avatar">V</div>
+        <div class="message-content">
+            <div class="message-text">
+                <div style="background: #f8d7da; color: #721c24; padding: 12px; border-radius: 8px; border-left: 4px solid #dc3545;">
+                    ❌ Failed to send request.<br>
+                    Error: ${errorMsg}<br><br>
+                    Please try again or contact us directly at support@verifitech.com
                 </div>
-            `;
-            chatBody.appendChild(msg);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
+                <button class="back-btn" onclick="submitToBackend()" style="margin-top: 10px;">🔄 Retry</button>
+            </div>
+        </div>
+    `;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
 
-        function openCareerPage() {
-            addMessage('Apply Now', true);
-            setTimeout(() => {
-                window.open('https://careers.verifitech.com', '_blank');
-                
-                const chatBody = document.getElementById('chatBody');
-                const msg = document.createElement('div');
-                msg.className = 'message';
-                msg.innerHTML = `
-                    <div class="message-avatar">V</div>
-                    <div class="message-content">
-                        <div class="message-text">
-                            <div class="success-msg">
-                                🚀 Career page opened in new tab!
-                            </div>
-                            <button class="back-btn" onclick="showDepartments()">← Back</button>
-                        </div>
-                    </div>
-                `;
-                chatBody.appendChild(msg);
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }, 500);
-        }
+// ==========================================
+// RESET CHAT
+// ==========================================
+function resetChat() {
+    chatData = {
+        firstName: '',
+        email: '',
+        phone: '',
+        company: '',
+        department: '',
+        serviceType: '',
+        issueDescription: '',
+        recipientEmail: ''
+    };
+    currentStep = 'welcome';
+    selectedDept = '';
+    selectedService = '';
+    isSubmitting = false;
+    isOpenedOnce = false;
+    
+    const chatBody = document.getElementById('chatBody');
+    chatBody.innerHTML = `
+        <div class="message" id="welcomeMessage">
+            <div class="message-avatar">V</div>
+            <div class="message-content">
+                <div class="message-text">
+                    👋 Hi there! I'm <strong>Veri</strong>, your AI assistant from Verifitech.
+                </div>
+            </div>
+        </div>
+    `;
+    
+    disableInput();
+    toggleChat(); 
+}
 
-        function enableInput(placeholder) {
-            const input = document.getElementById('messageInput');
-            const btn = document.getElementById('sendBtn');
-            input.disabled = false;
-            btn.disabled = false;
-            input.placeholder = placeholder;
-            input.focus();
-        }
+// ==========================================
+// INPUT HANDLING
+// ==========================================
+function handleSend() {
+    const input = document.getElementById('messageInput');
+    const value = input.value.trim();
+    if (!value) return;
 
-        function disableInput() {
-            const input = document.getElementById('messageInput');
-            const btn = document.getElementById('sendBtn');
-            input.disabled = true;
-            btn.disabled = true;
-            input.placeholder = 'Select an option above...';
-        }
+    addMessage(value, true);
+    input.value = '';
 
-        function handleSend() {
-            const input = document.getElementById('messageInput');
-            const value = input.value.trim();
-            if (!value) return;
+    setTimeout(() => {
+        processUserInput(value);
+    }, 300);
+}
 
-            addMessage(value, true);
-            input.value = '';
-
-            setTimeout(() => {
-                processUserInput(value);
-            }, 300);
-        }
-
-        // Enter key support
-        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+// Enter key support
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('messageInput');
+    if (input) {
+        input.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') handleSend();
         });
-
-        function processUserInput(value) {
-            const upperValue = value.toUpperCase();
-
-            switch(currentStep) {
-                case 'name':
-                    userData.name = value;
-                    askForEmail();
-                    break;
-                case 'email':
-                    userData.email = value;
-                    askForNumber();
-                    break;
-                case 'number':
-                    userData.number = value;
-                    askForCompany();
-                    break;
-                case 'company':
-                    userData.company = value;
-                    showConfirmation();
-                    break;
-                case 'confirm':
-                    if (upperValue === 'YES') {
-                        showDepartments();
-                    } else if (upperValue === 'NO') {
-                        currentStep = 'name';
-                        setTimeout(() => {
-                            showTyping();
-                            setTimeout(() => {
-                                removeTyping();
-                                addMessage('No problem! Please provide your <strong>correct name</strong> again.');
-                                enableInput('Type your correct full name...');
-                            }, 800);
-                        }, 300);
-                    } else {
-                        addMessage('Please type <strong>YES</strong> to confirm or <strong>NO</strong> to edit name.');
-                    }
-                    break;
-            }
-        }
-       // Toggle button text and trigger reveal animations
-  document.getElementById('viewMoreBtn').addEventListener('click', function() {
-    const isExpanded = this.getAttribute('aria-expanded') === 'true';
-    const viewMoreText = this.querySelector('.view-more-text');
-    const viewLessText = this.querySelector('.view-less-text');
-    
-    // Toggle text
-    if (isExpanded) {
-      viewMoreText.classList.add('d-none');
-      viewLessText.classList.remove('d-none');
-      
-      // Trigger reveal animations for newly shown elements
-      setTimeout(() => {
-        const hiddenSection = document.getElementById('hiddenIndustries');
-        const revealElements = hiddenSection.querySelectorAll('.reveal');
-        revealElements.forEach((el, index) => {
-          setTimeout(() => {
-            el.classList.add('active');
-          }, index * 100);
-        });
-      }, 100);
-    } else {
-      viewMoreText.classList.remove('d-none');
-      viewLessText.classList.add('d-none');
     }
-  });
+});
 
-  // Optional: Smooth scroll to button when collapsing
-  document.getElementById('hiddenIndustries').addEventListener('hidden.bs.collapse', function () {
-    document.getElementById('viewMoreBtn').scrollIntoView({ 
-      behavior: 'smooth', 
-      block: 'nearest' 
-    });
-  });
-    </script>
+function processUserInput(value) {
+    switch(currentStep) {
+        case 'firstName':
+            chatData.firstName = value;
+            askForEmail();
+            break;
+        case 'email':
+            if (value.includes('@') && value.includes('.')) {
+                chatData.email = value;
+                askForNumber();
+            } else {
+                addMessage('❌ Please enter a valid email address.');
+                enableInput('Enter valid email...');
+            }
+            break;
+        case 'number':
+            chatData.phone = value;
+            askForCompany();
+            break;
+        case 'company':
+            chatData.company = value;
+            showFinalConfirmation();
+            break;
+    }
+}
+
+// Add spinner animation style (Dynamically added to ensure it exists)
+const style = document.createElement('style');
+style.textContent = `
+    .spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #ffffff;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+`;
+document.head.appendChild(style);
+  
+  </script>
   </body>
 </html>
