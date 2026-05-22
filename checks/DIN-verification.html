@@ -3195,6 +3195,49 @@
       <i class="bi bi-whatsapp"></i>
       <span class="float-tooltip">How can we help?</span>
    </a>-->
+   
+  <button class="chat-icon-btn" onclick="toggleChat()" id="chatIcon">
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+  </svg>
+</button>
+
+<!-- Chat Container -->
+<div class="chat-container" id="chatContainer">
+  <div class="chat-header">
+      <div class="header-left">
+          <div class="avatar">V</div>
+          <div class="header-info">
+              <h3>Verifitech Assistant</h3>
+              <span><span class="online-dot"></span> Online</span>
+          </div>
+      </div>
+      <button class="close-btn" onclick="toggleChat()">✕</button>
+  </div>
+
+  <div class="chat-body" id="chatBody">
+      <!-- Welcome Message -->
+      <div class="message" id="welcomeMessage">
+          <div class="message-avatar">V</div>
+          <div class="message-content">
+              <div class="message-text">
+                  👋 Hi there! I'm <strong>Veri</strong>, your AI assistant from Verifitech.
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+        <div class="input-form" id="inputForm">
+            <input type="text" class="input-field" id="messageInput" placeholder="Type a message..." disabled>
+            <button class="send-btn" id="sendBtn" onclick="handleSend()" disabled>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
 
    <!-- Scripts -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
